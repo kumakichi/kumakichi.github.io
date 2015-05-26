@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>build blog with orgmode and github pages</title>
+<!-- 2015-05-27 Wed 14:58 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="sanye" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel='stylesheet' type='text/css' href='css/main.css'/>
+		 <link rel='shortcut icon' href='img/favicon.ico'/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div id='header'>
+		<div class='inner'>
+			<h1 id='site-title'><a href='/'>San's notebook</a></h1>
+			<div>
+				<a href='###' id='site-nav-btn'>MenuBar</a>
+				<ul id='site-nav' class='vertical-nav mobi-hid'>
+					<li class='current-page'><a href='/'>Home</a></li>
+					<li><a href='/about.html'>About</a></li>
+				</ul>
+
+				<form id='site-search' method='get' action='https://www.google.com/search'>
+				<input type='hidden' name='q' value='site:kumakichi.github.io'>
+				<input type='text' name='q' placeholder='Search...'>
+				<button class='btn-search' type='submit'>Search</button>
+				</form>
+
+				<div style='clear:both;'> </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="content">
+<h1 class="title">build blog with orgmode and github pages</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Create a repository</a></li>
+<li><a href="#sec-2">configurations</a>
+<ul>
+<li><a href="#sec-2-1">prepare disqus</a></li>
+<li><a href="#sec-2-2">emacs configuration</a></li>
+<li><a href="#sec-2-3">if you use older version</a></li>
+<li><a href="#sec-2-4">Referenced</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">use it</a></li>
+<li><a href="#sec-4">cache files</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Create a repository</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Head over to GitHub and create a new repository named username.github.io, where username is your username (or organization name) on GitHub.
+</p>
+
+<p>
+If the first part of the repository doesn’t exactly match your username, it won’t work, so make sure to get it right.
+</p>
+
+
+<div class="figure">
+<p><img src="./img/user-repo.png" alt="user-repo.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">configurations</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">prepare disqus</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+for comments, use <a href="https://disqus.com/">disqus</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">emacs configuration</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+
+<pre class="src src-lisp">(<span style="color: #66D9EF;">require</span> '<span style="color: #AE81FF;">org-publish</span>)
+(setq org-publish-project-alist
+      '(
+        (<span style="color: #E6DB74;">"blog-notes"</span>
+         <span style="color: #A6E22E;">:base-directory</span> <span style="color: #E6DB74;">"/var/virtual/home-bak/org/blog"</span>
+         <span style="color: #A6E22E;">:base-extension</span> <span style="color: #E6DB74;">"org"</span>
+         <span style="color: #A6E22E;">:publishing-directory</span> <span style="color: #E6DB74;">"/var/virtual/home-bak/org/kumakichi.github.io/"</span>
+         <span style="color: #A6E22E;">:recursive</span> t
+         <span style="color: #A6E22E;">:publishing-function</span> org-html-publish-to-html
+         <span style="color: #A6E22E;">:headline-levels</span> 4
+         <span style="color: #A6E22E;">:section-numbers</span> nil
+         <span style="color: #A6E22E;">:auto-preamble</span> t
+         <span style="color: #A6E22E;">:auto-sitemap</span> t                <span style="color: #465457; font-style: italic;">; Generate sitemap.org automagically...</span>
+         <span style="color: #A6E22E;">:sitemap-filename</span> <span style="color: #E6DB74;">"index.org"</span>  <span style="color: #465457; font-style: italic;">; ... call it sitemap.org (it's the default)...</span>
+         <span style="color: #A6E22E;">:sitemap-title</span> <span style="color: #E6DB74;">"San's notebook"</span>         <span style="color: #465457; font-style: italic;">; ... with title 'Sitemap'.</span>
+         <span style="color: #A6E22E;">:html-link-home</span> <span style="color: #E6DB74;">"index.html"</span>
+         <span style="color: #A6E22E;">:author</span> <span style="color: #E6DB74;">"kumakichi"</span>
+         <span style="color: #A6E22E;">:email</span> <span style="color: #E6DB74;">"$(dc -e 40964654306938118710083764053554616036618P)"</span>
+         <span style="color: #A6E22E;">:html-head</span> <span style="color: #E6DB74;">"&lt;link rel='stylesheet' type='text/css' href='css/main.css'/&gt;"</span>
+         <span style="color: #A6E22E;">:html-postamble</span> <span style="color: #E6DB74;">"&lt;div id='disqus_thread'&gt;&lt;/div&gt;</span>
+<span style="color: #E6DB74;">            &lt;script type='text/javascript'&gt;</span>
+<span style="color: #E6DB74;">                /* * * CONFIGURATION VARIABLES * * */</span>
+<span style="color: #E6DB74;">                var disqus_shortname = 'callmesanye';</span>
+
+<span style="color: #E6DB74;">                /* * * DON'T EDIT BELOW THIS LINE * * */</span>
+<span style="color: #E6DB74;">                (function() {</span>
+<span style="color: #E6DB74;">                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;</span>
+<span style="color: #E6DB74;">                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';</span>
+<span style="color: #E6DB74;">                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);</span>
+<span style="color: #E6DB74;">                })();</span>
+<span style="color: #E6DB74;">            &lt;/script&gt;</span>
+<span style="color: #E6DB74;">            &lt;noscript&gt;Please enable JavaScript to view the &lt;a href='https://disqus.com/?ref_noscript' rel='nofollow'&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</span>
+<span style="color: #E6DB74;">            &lt;p class='author'&gt;Author: %a (%e)&lt;/p&gt;&lt;p&gt;Exported At %T. Created by %c &lt;/p&gt;</span>
+<span style="color: #E6DB74;">            &lt;a href='#' class='back-to-top' id='fixed-back-to-top' style='display: inline;'&gt;&lt;/a&gt;"</span>
+        )
+        (<span style="color: #E6DB74;">"blog-static"</span>
+         <span style="color: #A6E22E;">:base-directory</span> <span style="color: #E6DB74;">"/var/virtual/home-bak/org/blog/"</span>
+         <span style="color: #A6E22E;">:base-extension</span> <span style="color: #E6DB74;">"css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"</span>
+         <span style="color: #A6E22E;">:publishing-directory</span> <span style="color: #E6DB74;">"/var/virtual/home-bak/org/kumakichi.github.io/"</span>
+         <span style="color: #A6E22E;">:recursive</span> t
+         <span style="color: #A6E22E;">:publishing-function</span> org-publish-attachment
+         )
+        (<span style="color: #E6DB74;">"blog"</span> <span style="color: #A6E22E;">:components</span> (<span style="color: #E6DB74;">"blog-notes"</span> <span style="color: #E6DB74;">"blog-static"</span>))
+        <span style="color: #465457; font-style: italic;">;;</span>
+        ))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">if you use older version</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+if you come across this error:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-lisp">Symbol's function definition is void: org-html-publish-to-html
+</pre>
+</div>
+
+<p>
+set <b>:publishing-function</b> of <b>blog-notes</b> as :
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-lisp"><span style="color: #A6E22E;">:publishing-function</span> org-publish-org-to-html
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">Referenced</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+<a href="http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">Publishing Org-mode files to HTML</a>
+</p>
+
+<p>
+<a href="http://orgmode.org/manual/Publishing-options.html">Options for the exporters</a>
+</p>
+
+<p>
+<a href="http://orgmode.org/manual/Easy-Templates.html">Easy Templates</a>
+</p>
+
+<p>
+<a href="http://orgmode.org/manual/Export-settings.html">Export settings</a>
+</p>
+
+<p>
+<a href="http://stackoverflow.com/questions/9742836/how-do-i-format-the-postamble-in-html-export-with-org-mode">How do I format the postamble in HTML-export with Org-mode</a>
+</p>
+
+<p>
+<a href="http://yuyang.farbox.com/articles/org-mode-dropbox-blog.html">使用org-mode与dropbox搭建静态博客</a>
+</p>
+
+<p>
+<a href="http://dayigu.github.io/WhyUseOrgModeToWriteBlog.html">为什么用 org-mode 写 blog</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">use it</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+edit <b>.org</b> files under <b>/var/virtual/home-bak/org/blog</b>
+</p>
+
+<p>
+then, M-x, org-publish-project, RET, blog, RET
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #465457; font-style: italic;"># </span><span style="color: #465457; font-style: italic;">add files under kumakichi.github.io</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">cache files</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+located at 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">~/.org-timestamps
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id='disqus_thread'></div>
+			<script type='text/javascript'>
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'callmesanye';
+			    
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href='https://disqus.com/?ref_noscript' rel='nofollow'>comments powered by Disqus.</a></noscript>
+			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2015-05-27 Wed 14:58. Created by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
+			<a href='#' class='back-to-top' id='fixed-back-to-top' style='display: inline;'></a>
+</div>
+</body>
+</html>
