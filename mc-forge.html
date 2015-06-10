@@ -3,8 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Sitemap</title>
-<!-- 2015-06-10 Wed 15:40 -->
+<title>build minecraft forge development environment with IDEA</title>
+<!-- 2015-06-10 Wed 15:39 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="sanye" />
@@ -161,13 +161,153 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a>
-</li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a>
-</li>
+<h1 class="title">build minecraft forge development environment with IDEA</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">build IDEA environment</a>
+<ul>
+<li><a href="#sec-1-1">prepare forge source</a>
+<ul>
+<li><a href="#sec-1-1-1">download src zip file</a></li>
+<li><a href="#sec-1-1-2">project structure</a></li>
 </ul>
+</li>
+<li><a href="#sec-1-2">prepare gradle</a></li>
+<li><a href="#sec-1-3">import</a></li>
+<li><a href="#sec-1-4">done</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">new Mod settings</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">build IDEA environment</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Referenced:
+</p>
+
+<p>
+<a href="http://www.minecraftforge.net/wiki/Installation/Source">forge install from source</a>
+</p>
+
+<p>
+<a href="http://www.devinprogress.org/2014/12/setup-forge-workspace-with-idea/">IDEA下建立Forge开发环境的正确姿势</a>
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">prepare forge source</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1">download src zip file</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+download from <a href="http://files.minecraftforge.net/">MinecraftForge</a>, i download forge-1.8-11.14.1.1411-src.zip
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2">project structure</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+make a directory, eg. <b>~/project/forge-1.8</b>
+</p>
+
+<p>
+then, unzip forge-1.8-11.14.1.1411-src.zip to <b>~/project/forge-1.8</b>
+</p>
+
+<p>
+now, directory structure like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">forge-1.8
+ &#9500;&#9472;&#9472; build.gradle
+ &#9500;&#9472;&#9472; CREDITS-fml.txt
+ &#9500;&#9472;&#9472; eclipse
+...
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">prepare gradle</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+
+<pre class="src src-sh">./gradlew setupDecompWorkspace  <span style="color: #465457; font-style: italic;"># </span><span style="color: #465457; font-style: italic;">this step will take a long time</span>
+./gradlew ideaModule
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">import</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Open IDEA Select 'import project' Navigate to your workspace and click on the build.gradle.
+</p>
+
+<p>
+Once IDEA finishes importing the project, close IDEA.
+</p>
+
+<p>
+In your command window, run: 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">./gradlew genIntellijruns
+</pre>
+</div>
+
+<p>
+For a full tasks list, type:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">./gradlew tasks
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">done</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+The final step is the easiest: open your IDE.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">new Mod settings</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+eg. create a mod named <b>TestMod</b>
+</p>
+
+<p>
+File-&gt;New-&gt;Module-&gt;Java
+</p>
+
+<p>
+File-&gt;ProjectStructure-&gt;Modules-&gt;TestMod-&gt;Dependencies-&gt;Add-&gt;Module Dependency-&gt;forge-1.8
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
@@ -183,7 +323,7 @@ for the JavaScript code in this tag.
 			    })();
 			</script>
 			<noscript>Please enable JavaScript to view the <a href='https://disqus.com/?ref_noscript' rel='nofollow'>comments powered by Disqus.</a></noscript>
-			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2015-06-10 Wed 15:40. Created by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
+			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2015-06-10 Wed 15:39. Created by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
 			<a href='#' class='back-to-top' id='fixed-back-to-top' style='display: inline;'></a>
 </div>
 </body>
