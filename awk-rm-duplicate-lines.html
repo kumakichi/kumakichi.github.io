@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Sitemap</title>
+<title>remove duplicate lines in file using awk</title>
 <!-- 2015-06-19 Fri 16:30 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
@@ -161,15 +161,16 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a>
-</li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a>
-</li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a>
-</li>
-</ul>
+<h1 class="title">remove duplicate lines in file using awk</h1>
+<p>
+Code snippet comes from <a href="http://www.linuxsir.org/bbs/thread132848.html">linuxsir</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">awk <span style="color: #E6DB74;">'!a[$0]++'</span> target-file
+</pre>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
