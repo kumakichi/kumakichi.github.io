@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Sitemap</title>
+<title>develop golang with IntelliJ IDEA</title>
 <!-- 2015-06-24 三 10:55 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
@@ -161,17 +161,148 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
+<h1 class="title">develop golang with IntelliJ IDEA</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Download</a>
+<ul>
+<li><a href="#sec-1-1">download idea community version</a></li>
+<li><a href="#sec-1-2">download go-lang-idea-plugin</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">build</a>
+<ul>
+<li><a href="#sec-2-1">SDKs</a></li>
+<li><a href="#sec-2-2">Modules</a></li>
+<li><a href="#sec-2-3">Project</a></li>
+<li><a href="#sec-2-4">generate jar</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">install</a></li>
+</ul>
+</div>
+</div>
+<p>
+normally, I write small go projects with <a href="http://www.gnu.org/software/emacs/">emacs</a> and <a href="https://github.com/nsf/gocode">gocode</a>
+</p>
+
+<p>
+but idea is also a good choice
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Download</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">download idea community version</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+download idea from <a href="https://github.com/go-lang-plugin-org/go-lang-idea-plugin">IntelliJ official website</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">download go-lang-idea-plugin</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+download from <a href="https://github.com/go-lang-plugin-org/go-lang-idea-plugin">github</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">build</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+open <b>go-lang-idea-plugin</b> with <b>idea</b>
+</p>
+
+<p>
+File -&gt; Project Structure
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">SDKs</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Platform Settings -&gt; SDKs
+</p>
+
+<p>
+set the following environment variables sequently:
+</p>
 <ul class="org-ul">
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a>
+<li>JDK
 </li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a>
+<li>Go SDK
 </li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a>
-</li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a>
+<li>IntelliJ Platform Plugin SDK
 </li>
 </ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Modules</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Project Settings -&gt; Modules -&gt; intellij-go
+</p>
+
+<p>
+set <b>Module SDK</b> as <b>IntelliJ IDEA IU-xxxx</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">Project</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Project Settings -&gt; Project
+</p>
+
+<p>
+set <b>Project SDK</b> as <b>IntelliJ IDEA IU-xxxx</b>   
+</p>
+
+<p>
+press apply -&gt; ok to save configurations
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">generate jar</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+from menubar
+</p>
+
+<p>
+Build -&gt; Prepare Plugin Module 'intellij-go' for Deployment
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">install</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+File -&gt; Settings -&gt; Plugins -&gt; Install plugin from disk
+</p>
+
+<p>
+enjoy it.
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
