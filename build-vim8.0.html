@@ -6,7 +6,7 @@
 <!-- 2016-09-19 Mon 16:57 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>build vim 8.0 on ubuntu 14.04 x86_64</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="sanye" />
 <style type="text/css">
@@ -167,15 +167,40 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a></li>
-<li><a href="build-gcc-5.1.html">build gcc 5.1 on ubuntu 14.04 x86_64</a></li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a></li>
-<li><a href="build-vim8.0.html">build vim 8.0 on ubuntu 14.04 x86_64</a></li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a></li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a></li>
+<h1 class="title">build vim 8.0 on ubuntu 14.04 x86_64</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">Download</a></li>
+<li><a href="#orgheadline2">build</a></li>
 </ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Download</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+download source archive from <a href="ftp://ftp.vim.org/pub/vim/unix/vim-8.0.tar.bz2">www.vim.org</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2">build</h2>
+<div class="outline-text-2" id="text-orgheadline2">
+<div class="org-src-container">
+
+<pre class="src src-sh"># prepare
+sudo apt-get build-dep vim-gtk
+./configure --enable-gui=auto
+make -j4
+sudo make install
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
