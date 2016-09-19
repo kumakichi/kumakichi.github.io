@@ -6,7 +6,7 @@
 <!-- 2016-09-19 Mon 17:48 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>Emacs 25.1 build and and troubleshooting</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="sanye" />
 <style type="text/css">
@@ -167,16 +167,175 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="build-emacs25.1.html">Emacs 25.1 build and and troubleshooting</a></li>
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a></li>
-<li><a href="build-gcc-5.1.html">build gcc 5.1 on ubuntu 14.04 x86_64</a></li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a></li>
-<li><a href="build-vim8.0.html">build vim 8.0 on ubuntu 14.04 x86_64</a></li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a></li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a></li>
+<h1 class="title">Emacs 25.1 build and and troubleshooting</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">Download archive</a></li>
+<li><a href="#orgheadline2">compile</a></li>
+<li><a href="#orgheadline5">troubleshooting</a>
+<ul>
+<li><a href="#orgheadline3">Symbol's function definition is void: eieio-make-class-predicate</a></li>
+<li><a href="#orgheadline4">Warning (bytecomp): reference to free variable ‘helm-alive-p’</a></li>
 </ul>
+</li>
+<li><a href="#orgheadline9">elpa</a>
+<ul>
+<li><a href="#orgheadline6">operations</a></li>
+<li><a href="#orgheadline7">configure</a></li>
+<li><a href="#orgheadline8">some packages</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Download archive</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+download source archive from <a href="http://ftp.gnu.org/gnu/emacs/emacs-25.1.tar.xz">GNU FTP</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2">compile</h2>
+<div class="outline-text-2" id="text-orgheadline2">
+<div class="org-src-container">
+
+<pre class="src src-sh"># prepare
+sudo apt-get build-dep emacs
+./configure --prefix=/usr --with-modules --host=x86_64-pc-linux-gnu --with-x-toolkit=lucid
+make -j4
+sudo make install
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5">troubleshooting</h2>
+<div class="outline-text-2" id="text-orgheadline5">
+</div><div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">Symbol's function definition is void: eieio-make-class-predicate</h3>
+<div class="outline-text-3" id="text-orgheadline3">
+<p>
+remove all <b>.elc</b> files under <b>~/.emacs.d</b>
+</p>
+
+<p>
+if the problem still exists, try:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">emacs --debug-init
+</pre>
+</div>
+
+<p>
+then comment ralated package in <b>init.el</b>
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4">Warning (bytecomp): reference to free variable ‘helm-alive-p’</h3>
+<div class="outline-text-3" id="text-orgheadline4">
+<div class="org-src-container">
+
+<pre class="src src-sh">grep 'helm-alive-p' * -R -n
+</pre>
+</div>
+
+<p>
+the result shows: 
+</p>
+<blockquote>
+<p>
+elpa/sr-speedbar-20150804.951/sr-speedbar.el:633:         (not helm-alive-p)
+</p>
+</blockquote>
+<p>
+so i just comment sr-speedbar in init.el
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9">elpa</h2>
+<div class="outline-text-2" id="text-orgheadline9">
+</div><div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">operations</h3>
+<div class="outline-text-3" id="text-orgheadline6">
+<p>
+Emacs Lisp Package Archive
+</p>
+
+<p>
+M-x list-packages 
+</p>
+
+<p>
+operation keys:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">op</td>
+</tr>
+
+<tr>
+<td class="org-left">i</td>
+<td class="org-left">Instatll</td>
+</tr>
+
+<tr>
+<td class="org-left">u</td>
+<td class="org-left">Upgrade</td>
+</tr>
+
+<tr>
+<td class="org-left">x</td>
+<td class="org-left">Execute</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7">configure</h3>
+<div class="outline-text-3" id="text-orgheadline7">
+<div class="org-src-container">
+
+<pre class="src src-elisp">(package-initialize)
+
+(setq package-archives '(("gnu"   . "http://elpa.gnu.org/packages/")
+                         ("org-mode" . "http://orgmode.org/elpa/")))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8">some packages</h3>
+<div class="outline-text-3" id="text-orgheadline8">
+<blockquote>
+<p>
+go-mode lua-mode quickrun slime go-autocomplete google-c-style highlight-parentheses sr-speedbar linum-relative smex molokai-theme org
+</p>
+</blockquote>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
