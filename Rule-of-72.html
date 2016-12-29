@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-12-29 Thu 11:23 -->
+<!-- 2016-12-29 Thu 11:36 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>Rule of 72</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="sanye" />
 <style type="text/css">
@@ -142,6 +142,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -167,17 +189,30 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="build-emacs25.1.html">Emacs 25.1 build and and troubleshooting</a></li>
-<li><a href="Rule-of-72.html">Rule of 72</a></li>
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a></li>
-<li><a href="build-gcc-5.1.html">build gcc 5.1 on ubuntu 14.04 x86_64</a></li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a></li>
-<li><a href="build-vim8.0.html">build vim 8.0 on ubuntu 14.04 x86_64</a></li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a></li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a></li>
-</ul>
+<h1 class="title">Rule of 72</h1>
+<p>
+\[(1+k\%)^{x}=2\]
+</p>
+
+<p>
+\[x=\log_{1+k\%} 2=\frac{\ln2}{\ln(1+k\%)}\]
+</p>
+
+<p>
+using L'Hospital's Rule:
+</p>
+
+<p>
+\[\lim _{x\to c}{\frac {f(x)}{g(x)}}=\lim _{x\to c}{\frac {f'(x)}{g'(x)}}\]
+</p>
+
+<p>
+so, \[\lim _{x\to 0}{\frac {x} {\ln{1+x}}}=\lim _{x\to 0}{\frac {1}{\frac{1}{1+x}}}=\lim _{x\to0}{1+x}=1\]
+</p>
+
+<p>
+so, \[\frac{\ln2}{\ln(1+k\%)}\approx\frac{\ln2}{k\%}=\frac{100\times\ln2}{k}\approx\frac{69.3}{k}\]
+</p>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
@@ -193,7 +228,7 @@ for the JavaScript code in this tag.
 			    })();
 			</script>
 			<noscript>Please enable JavaScript to view the <a href='https://disqus.com/?ref_noscript' rel='nofollow'>comments powered by Disqus.</a></noscript>
-			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2016-12-29 Thu 11:23. Created by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 8.3.6) </p>
+			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2016-12-29 Thu 11:36. Created by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 8.3.6) </p>
 			<a href='#' class='back-to-top' id='fixed-back-to-top' style='display: inline;'></a>
 </div>
 </body>
