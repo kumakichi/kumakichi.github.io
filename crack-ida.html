@@ -6,7 +6,7 @@
 <!-- 2017-01-17 Tue 15:46 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>Remove IDA Evaluation Version Time Limitation</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="sanye" />
 <style type="text/css">
@@ -167,18 +167,162 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="build-emacs25.1.html">Emacs 25.1 build and and troubleshooting</a></li>
-<li><a href="crack-ida.html">Remove IDA Evaluation Version Time Limitation</a></li>
-<li><a href="Rule-of-72.html">Rule of 72</a></li>
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a></li>
-<li><a href="build-gcc-5.1.html">build gcc 5.1 on ubuntu 14.04 x86_64</a></li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a></li>
-<li><a href="build-vim8.0.html">build vim 8.0 on ubuntu 14.04 x86_64</a></li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a></li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a></li>
+<h1 class="title">Remove IDA Evaluation Version Time Limitation</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">first try</a></li>
+<li><a href="#orgheadline2">decompile and patch</a></li>
 </ul>
+</div>
+</div>
+<p>
+<b>IDA Version</b>: 6.8.150413 (32-bit)
+</p>
+
+<p>
+<b>OS</b>: Ubuntu 14.04.5 x86_64
+</p>
+
+
+<div class="figure">
+<p><img src="./img/ida-expired.png" alt="ida-expired.png" />
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">first try</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+first, i wanna use <b>LD_PRELOAD</b> to solve this problem.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c">#include &lt;sys/time.h&gt;
+
+int gettimeofday(struct timeval *tv, struct timezone *tz)
+{
+    tv-&gt;tv_sec = 1429980388; // Sun Apr 26 00:46:28 CST 2015
+    tv-&gt;tv_usec = 0;
+}
+</pre>
+</div>
+
+<p>
+then, build it and start ida again
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">gcc -shared -o inject.so inject.c
+export ./inject.so
+./idaq
+</pre>
+</div>
+
+<p>
+still alert
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2">decompile and patch</h2>
+<div class="outline-text-2" id="text-orgheadline2">
+<p>
+so, we need to decompile it, analyse and patch
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">objdump -sFD idaq &gt; tmp
+</pre>
+</div>
+
+<p>
+open tmp file, search <b>expired</b>, found 1 result:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c">82da860 732e0a50 6c656173 65207365 6e642025  s..Please send %
+82da870 7320746f 203c7375 70706f72 74406865  s to &lt;support@he
+82da880 782d7261 79732e63 6f6d3e00 49434f4e  x-rays.com&gt;.ICON
+82da890 20455252 4f520a41 55544f48 49444520   ERROR.AUTOHIDE 
+82da8a0 4e4f4e45 0a536f72 72792c20 74686520  NONE.Sorry, the 
+82da8b0 6576616c 75617469 6f6e2076 65727369  evaluation versi
+82da8c0 6f6e2068 61732065 78706972 65642e00  on has expired..
+</pre>
+</div>
+
+<p>
+as we can see, the string,  'Sorry, &#x2026;' starts at <b>0x82da8a5</b>
+</p>
+
+<p>
+search <b>82da8a5</b>, found nothing
+</p>
+
+<p>
+this is because target string is not 'Sorry, &#x2026;', it is 'ICON ERROR&#x2026;'
+</p>
+
+<p>
+search <b>82da88c</b>,found:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c">8093852:   c7 04 24 8c a8 2d 08    movl   $0x82da88c,(%esp)
+8093859:   e8 92 ca ff ff          call   80902f0 &lt;_ZN2QT6qDebugEv+0xfef0&gt; (File Offset: 0x482f0)
+809385e:   a1 9c 49 3f 08          mov    0x83f499c,%eax
+</pre>
+</div>
+
+<p>
+then, search which line jmps to this address <b>8093852</b>
+</p>
+
+<p>
+so, search <b>8093852</b>, found only 1 result:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c">80936dd:   84 c0                   test   %al,%al
+80936df:   0f 85 6d 01 00 00       jne    8093852 &lt;_ZN2QT6qDebugEv+0x13452&gt; (File Offset: 0x4b852)
+</pre>
+</div>
+
+<p>
+the simplest way is <b>nop</b> all the 6 bytes in line <b>80936df</b>
+</p>
+
+<p>
+file offset:
+</p>
+
+<p>
+<b>80936df</b>:    0f 85 6d 01 00 00        jne    <b>8093852</b> &lt;_ZN2QT6qDebugEv+0x13452&gt; (File Offset: <b>0x4b852</b>)
+</p>
+
+<p>
+0x80936df - 0x8093852 + 0x4b852 = 0x4b6df
+</p>
+
+
+<div class="figure">
+<p><img src="./img/ida-bless.png" alt="ida-bless.png" />
+</p>
+</div>
+
+<p>
+change all the 6 bytes(start at 0x4b6df) to <b>90</b> (nop), save file, test again, ok
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
