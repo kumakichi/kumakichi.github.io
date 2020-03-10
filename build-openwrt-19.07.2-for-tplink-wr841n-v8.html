@@ -6,7 +6,7 @@
 <!-- 2020-03-11 Wed 01:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>build openwrt 19.07.2 for tplink wr841n-v8 under macOS using docker</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="sanye" />
 <style type="text/css">
@@ -253,19 +253,148 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="build-emacs25.1.html">Emacs 25.1 build and and troubleshooting</a></li>
-<li><a href="crack-ida.html">Remove IDA Evaluation Version Time Limitation</a></li>
-<li><a href="Rule-of-72.html">Rule of 72</a></li>
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a></li>
-<li><a href="build-gcc-5.1.html">build gcc 5.1 on ubuntu 14.04 x86_64</a></li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a></li>
-<li><a href="build-openwrt-19.07.2-for-tplink-wr841n-v8.html">build openwrt 19.07.2 for tplink wr841n-v8 under macOS using docker</a></li>
-<li><a href="build-vim8.0.html">build vim 8.0 on ubuntu 14.04 x86_64</a></li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a></li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a></li>
+<h1 class="title">build openwrt 19.07.2 for tplink wr841n-v8 under macOS using docker</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf68553d">Download source</a></li>
+<li><a href="#orged65ab1">build in docker</a></li>
+<li><a href="#org92c465b">Troubleshooting</a>
+<ul>
+<li><a href="#org0e429dd">opkg_install_cmd: Cannot install package urandom-seed</a></li>
+<li><a href="#orgf82a426">[mktplinkfw] <b>*</b> error: images are too big by 210462 bytes</a></li>
 </ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf68553d" class="outline-2">
+<h2 id="orgf68553d">Download source</h2>
+<div class="outline-text-2" id="text-orgf68553d">
+<p>
+download openwrt 19.07.2 <a href="https://github.com/openwrt/openwrt/releases/tag/v19.07.2">source code</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orged65ab1" class="outline-2">
+<h2 id="orged65ab1">build in docker</h2>
+<div class="outline-text-2" id="text-orged65ab1">
+<p>
+docker image: ubuntu 18.04
+</p>
+
+<p>
+building in docker using volume may encounter problem like:
+</p>
+<blockquote>
+<p>
+OpenWrt can only be built on a case-sensitive filesystem
+</p>
+</blockquote>
+
+<p>
+so, just build in some inner directory in docker
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #b22222;"># </span><span style="color: #b22222;">prepare build env</span>
+apt-get install build-essential subversion git-core libncurses5-dev zlib1g-dev gawk flex quilt libssl-dev xsltproc libxml-parser-perl mercurial unzip wget
+
+<span style="color: #b22222;"># </span><span style="color: #b22222;">prepare source</span>
+<span style="color: #483d8b;">cd</span> /root
+tar xf openwrt-19.07.2.tar.gz
+<span style="color: #483d8b;">cd</span> openwrt-19.07.2
+
+./scripts/feeds update -a
+./scripts/feeds install -a
+</pre>
+</div>
+
+
+<blockquote>
+<p>
+Target System  &#x2013;&gt; Atheros AR71xxx/AR9xxx
+</p>
+
+<p>
+Subtarget &#x2013;&gt; Devices with small flash
+</p>
+
+<p>
+Target Profile &#x2013;&gt; TP-LINK TL-WR841N/ND v8
+</p>
+
+<p>
+Base system &#x2013;&gt; unselect urandom-seed
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org92c465b" class="outline-2">
+<h2 id="org92c465b">Troubleshooting</h2>
+<div class="outline-text-2" id="text-org92c465b">
+</div>
+<div id="outline-container-org0e429dd" class="outline-3">
+<h3 id="org0e429dd">opkg_install_cmd: Cannot install package urandom-seed</h3>
+<div class="outline-text-3" id="text-org0e429dd">
+<p>
+ar71xx/etc/._init.d But that file is already provided by package * base-files
+</p>
+
+<p>
+<b>Solution</b>: just unselect urandom-seed in Base system
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf82a426" class="outline-3">
+<h3 id="orgf82a426">[mktplinkfw] <b>*</b> error: images are too big by 210462 bytes</h3>
+<div class="outline-text-3" id="text-orgf82a426">
+<blockquote>
+<p>
+/root/openwrt-19.07.2/staging_dir/host/bin/mktplinkfw -H 0x08410008 -W 0x1 -F 4Mlzma -N OpenWrt -V r10947-65030d81f3 -m 1 -k /root/openwrt-19.07.2/build_dir/target-mips_24kc_musl/linux-ar71xx_tiny/tl-wr841-v8-kernel.bin -r /root/openwrt-19.07.2/build_dir/target-mips_24kc_musl/linux-ar71xx_tiny/tmp/openwrt-ar71xx-tiny-tl-wr841-v8-squashfs-sysupgrade.bin -o /root/openwrt-19.07.2/build_dir/target-mips_24kc_musl/linux-ar71xx_tiny/tmp/openwrt-ar71xx-tiny-tl-wr841-v8-squashfs-sysupgrade.bin.new -j -X 0x40000 -a 0x4  -s &amp;&amp; mv /root/openwrt-19.07.2/build_dir/target-mips_24kc_musl/linux-ar71xx_tiny/tmp/openwrt-ar71xx-tiny-tl-wr841-v8-squashfs-sysupgrade.bin.new /root/openwrt-19.07.2/build_dir/target-mips_24kc_musl/linux-ar71xx_tiny/tmp/openwrt-ar71xx-tiny-tl-wr841-v8-squashfs-sysupgrade.bin || rm -f /root/openwrt-19.07.2/build_dir/target-mips_24kc_musl/linux-ar71xx_tiny/tmp/openwrt-ar71xx-tiny-tl-wr841-v8-squashfs-sysupgrade.bin
+</p>
+
+<p>
+[mktplinkfw] rootfs offset aligned to 0x1335176
+</p>
+
+<p>
+[mktplinkfw] <b>*</b> error: images are too big by 210462 bytes
+</p>
+
+<p>
+cp /root/openwrt-19.07.2/build_dir/target-mips_24kc_musl/linux-ar71xx_tiny/tmp/openwrt-ar71xx-tiny-tl-wr841-v8-squashfs-sysupgrade.bin /root/openwrt-19.07.2/bin/targets/ar71xx/tiny/openwrt-ar71xx-tiny-tl-wr841-v8-squashfs-sysupgrade.bin
+</p>
+
+<p>
+cp: cannot stat '/root/openwrt-19.07.2/build_dir/target-mips_24kc_musl/linux-ar71xx_tiny/tmp/openwrt-ar71xx-tiny-tl-wr841-v8-squashfs-sysupgrade.bin': No such file or directory
+</p>
+</blockquote>
+
+<p>
+<b>Solution</b>: edit target/linux/ar71xx/image/tiny-tp-link.mk
+</p>
+
+<div class="org-src-container">
+<pre class="src src-makefile">define Device/tl-wr841-v8
+  $(<span style="color: #a0522d;">Device</span>/tplink-4mlzma)
+  <span style="color: #a0522d;">DEVICE_TITLE</span> := TP-LINK TL-WR841N/ND v8
+  <span style="color: #a0522d;">BOARDNAME</span> := TL-WR841N-v8
+  <span style="color: #a0522d;">DEVICE_PROFILE</span> := TLWR841
+  <span style="color: #a0522d;">TPLINK_HWID</span> := 0x08410008
+endef
+<span style="color: #a0522d;">TARGET_DEVICES</span> += tl-wr841-v8
+</pre>
+</div>
+
+<p>
+change <b>tplink-4mlzma</b> into <b>tplink-8mlzma</b>
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
