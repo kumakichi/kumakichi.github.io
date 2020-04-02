@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-06 Mon 10:57 -->
+<!-- 2020-04-02 Thu 20:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>build gcc 9.3 on ubuntu 18.04 x86_64</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="sanye" />
 <style type="text/css">
@@ -253,20 +253,98 @@ for the JavaScript code in this tag.
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="build-gcc-9.3.0.html">build gcc 9.3 on ubuntu 18.04 x86_64</a></li>
-<li><a href="build-openwrt-19.07.2-for-tplink-wr841n-v8.html">build openwrt 19.07.2 for tplink wr841n-v8 under macOS using docker</a></li>
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a></li>
-<li><a href="crack-ida.html">Remove IDA Evaluation Version Time Limitation</a></li>
-<li><a href="Rule-of-72.html">Rule of 72</a></li>
-<li><a href="build-emacs25.1.html">Emacs 25.1 build and and troubleshooting</a></li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a></li>
-<li><a href="build-gcc-5.1.html">build gcc 5.1 on ubuntu 14.04 x86_64</a></li>
-<li><a href="build-vim8.0.html">build vim 8.0 on ubuntu 14.04 x86_64</a></li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a></li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a></li>
+<h1 class="title">build gcc 9.3 on ubuntu 18.04 x86_64</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org38c5667">build</a></li>
+<li><a href="#org1c18d6b">troubleshooting</a>
+<ul>
+<li><a href="#org425d1b5">asm/errno.h: No such file or directory</a>
+<ul>
+<li><a href="#org83fdc22">check linux-libc-dev</a></li>
+<li><a href="#org35e4f3b">check /usr/include/asm</a></li>
 </ul>
+</li>
+<li><a href="#org9406ec7">/libstdc++-v3/include/fenv.h  ‘::fexcept_t’ has not been declared</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org38c5667" class="outline-2">
+<h2 id="org38c5667">build</h2>
+<div class="outline-text-2" id="text-org38c5667">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #465457; font-style: italic;"># </span><span style="color: #465457; font-style: italic;">prepare source</span>
+tar xf gcc-9.3.0.tar.xz
+<span style="color: #A6E22E;">cd</span> gcc-9.3.0/contrib/
+./download_prerequisites
+
+<span style="color: #465457; font-style: italic;"># </span><span style="color: #465457; font-style: italic;">move dependency packages to source root directory</span>
+mv isl-0.18 ../isl
+mv mpfr-3.1.4 ../mpfr
+mv mpc-1.0.3 ../mpc
+mv gmp-6.1.0 ../gmp
+
+<span style="color: #465457; font-style: italic;"># </span><span style="color: #465457; font-style: italic;">do not build in source directory</span>
+<span style="color: #A6E22E;">cd</span> ../..
+mkdir build-gcc
+<span style="color: #A6E22E;">cd</span> build-gcc
+../gcc-9.3.0/configure -v --with-pkgversion=<span style="color: #E6DB74;">'Ubuntu-18.04.4'</span> --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,c++ --program-suffix=-9.2 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-gtk-cairo --with-arch-directory=amd64 --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --disable-libstdcxx-pch
+make -j12
+sudo make install
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1c18d6b" class="outline-2">
+<h2 id="org1c18d6b">troubleshooting</h2>
+<div class="outline-text-2" id="text-org1c18d6b">
+</div>
+<div id="outline-container-org425d1b5" class="outline-3">
+<h3 id="org425d1b5">asm/errno.h: No such file or directory</h3>
+<div class="outline-text-3" id="text-org425d1b5">
+</div>
+<div id="outline-container-org83fdc22" class="outline-4">
+<h4 id="org83fdc22">check linux-libc-dev</h4>
+<div class="outline-text-4" id="text-org83fdc22">
+<p>
+check whether package <b>linux-libc-dev</b> is installed, if not, install it first
+</p>
+</div>
+</div>
+<div id="outline-container-org35e4f3b" class="outline-4">
+<h4 id="org35e4f3b">check /usr/include/asm</h4>
+<div class="outline-text-4" id="text-org35e4f3b">
+<p>
+<b>DO NOT</b> link /usr/include/asm-generic to /usr/include/asm
+</p>
+
+<p>
+link <b>/usr/include/x86_64-linux-gnu/asm</b>:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">ln -s /usr/include/x86_64-linux-gnu/asm /usr/include/asm
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org9406ec7" class="outline-3">
+<h3 id="org9406ec7">/libstdc++-v3/include/fenv.h  ‘::fexcept_t’ has not been declared</h3>
+<div class="outline-text-3" id="text-org9406ec7">
+<p>
+or something just like this, simply disable libstdcxx-pch when configure
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">--disable-libstdcxx-pch
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
@@ -282,7 +360,7 @@ for the JavaScript code in this tag.
 			    })();
 			</script>
 			<noscript>Please enable JavaScript to view the <a href='https://disqus.com/?ref_noscript' rel='nofollow'>comments powered by Disqus.</a></noscript>
-			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2020-04-06 Mon 10:57. Created by <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.1.9) </p>
+			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2020-04-02 Thu 20:55. Created by <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.1.9) </p>
 			<a href='#' class='back-to-top' id='fixed-back-to-top' style='display: inline;'></a>
 </div>
 </body>
