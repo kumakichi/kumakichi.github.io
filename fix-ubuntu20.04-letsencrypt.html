@@ -6,7 +6,7 @@
 <!-- 2020-11-04 Wed 12:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>Fix Package 'python-virtualenv' has no installation candidate on Ubuntu 20.04</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="sanye" />
 <style type="text/css">
@@ -242,21 +242,59 @@
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="fix-ubuntu20.04-letsencrypt.html">Fix Package 'python-virtualenv' has no installation candidate on Ubuntu 20.04</a></li>
-<li><a href="build-gcc-9.3.0.html">build gcc 9.3 on ubuntu 18.04 x86_64</a></li>
-<li><a href="build-openwrt-19.07.2-for-tplink-wr841n-v8.html">build openwrt 19.07.2 for tplink wr841n-v8 under macOS using docker</a></li>
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a></li>
-<li><a href="crack-ida.html">Remove IDA Evaluation Version Time Limitation</a></li>
-<li><a href="Rule-of-72.html">Rule of 72</a></li>
-<li><a href="build-emacs25.1.html">Emacs 25.1 build and and troubleshooting</a></li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a></li>
-<li><a href="build-gcc-5.1.html">build gcc 5.1 on ubuntu 14.04 x86_64</a></li>
-<li><a href="build-vim8.0.html">build vim 8.0 on ubuntu 14.04 x86_64</a></li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a></li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a></li>
+<h1 class="title">Fix Package 'python-virtualenv' has no installation candidate on Ubuntu 20.04</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org3818174">Install python2</a></li>
+<li><a href="#org703fcee">Install pip2</a></li>
+<li><a href="#org3d5b702">Install virtualenv</a></li>
+<li><a href="#orgeca89f7">Run</a></li>
 </ul>
+</div>
+</div>
+
+<div id="outline-container-org3818174" class="outline-2">
+<h2 id="org3818174">Install python2</h2>
+<div class="outline-text-2" id="text-org3818174">
+<div class="org-src-container">
+<pre class="src src-sh">apt update
+apt install python2
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org703fcee" class="outline-2">
+<h2 id="org703fcee">Install pip2</h2>
+<div class="outline-text-2" id="text-org703fcee">
+<div class="org-src-container">
+<pre class="src src-sh">curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3d5b702" class="outline-2">
+<h2 id="org3d5b702">Install virtualenv</h2>
+<div class="outline-text-2" id="text-org3d5b702">
+<div class="org-src-container">
+<pre class="src src-sh">pip2 install virtualenv
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeca89f7" class="outline-2">
+<h2 id="orgeca89f7">Run</h2>
+<div class="outline-text-2" id="text-orgeca89f7">
+<div class="org-src-container">
+<pre class="src src-sh">letsencrypt-auto --no-bootstrap certonly --nginx --email someEmailAddress -d someDomain
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
