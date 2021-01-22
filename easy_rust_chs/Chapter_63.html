@@ -221,7 +221,7 @@ Nicosia
 </code></pre></pre>
 <p>这将打印出 <code>u{ccad} u{cd98} u{c608} u{cc2c}</code>。</p>
 <p>你可以使用 <code>From</code> trait从 <code>u8</code> 中得到一个字符，但对于 <code>u32</code>，你使用 <code>TryFrom</code>，因为它可能无法工作。<code>u32</code>中的数字比Unicode中的字符多很多。我们可以通过一个简单的演示来了解。</p>
-<pre><pre class="playground"><code class="language-rust">use std::convert::TryFrom; // You need to brig TryFrom in to use it
+<pre><pre class="playground"><code class="language-rust">use std::convert::TryFrom; // You need to bring TryFrom in to use it
 use rand::prelude::*;      // We will use random numbers too
 
 fn main() {

@@ -565,7 +565,7 @@ Ok(&quot;Doug Suttles&quot;)
 Err(&quot;No CEO found for The Red-Headed League&quot;)
 Err(&quot;No CEO found for Stark Enterprises&quot;)
 </code></pre>
-<p><code>.and_then()</code>是一个有用的消息，它接收一个<code>Option</code>，然后让你对它的值做一些事情，并把它传递出去。所以它的输入是一个 <code>Option</code>，输出也是一个 <code>Option</code>。这有点像一个安全的 &quot;解包，然后做一些事情，然后再包&quot;。</p>
+<p><code>.and_then()</code>是一个有用的方法，它接收一个<code>Option</code>，然后让你对它的值做一些事情，并把它传递出去。所以它的输入是一个 <code>Option</code>，输出也是一个 <code>Option</code>。这有点像一个安全的 &quot;解包，然后做一些事情，然后再包&quot;。</p>
 <p>一个简单的例子是，我们使用 <code>.get()</code> 从一个 vec 中得到一个数字，因为它返回一个 <code>Option</code>。现在我们可以把它传给 <code>and_then()</code>，如果它是 <code>Some</code>，我们可以对它做一些数学运算。如果是<code>None</code>，那么<code>None</code>就会被传递过去。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let new_vec = vec![8, 9, 0]; // just a vec with numbers
@@ -880,7 +880,7 @@ Found a town: Taber with 8428 people
 Found a hamlet: Markerville with 45 people
 Found a town: Cardston with 3585 people
 </code></pre>
-<p>最后，这里有一个例子，我们也使用<code>.matches_indices()</code>。在这个例子中，我们根据<code>&amp;str</code>中的空格数，将名字放入<code>struct</code>中。</p>
+<p>最后，这里有一个例子，我们也使用<code>.match_indices()</code>。在这个例子中，我们根据<code>&amp;str</code>中的空格数，将名字放入<code>struct</code>中。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct Names {
     one_word: Vec&lt;String&gt;,
