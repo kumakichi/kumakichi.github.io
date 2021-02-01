@@ -199,7 +199,7 @@
 }
 </code></pre></pre>
 <p>这打印出的是<code>It's a positive odd number</code>，因为当你把它除以2时，你有一个1的余数，它大于0。</p>
-<p>你可以看到，过多的<code>if</code>、<code>else</code>和<code>else if</code>会很难读。在这种情况下，你可以使用<code>match</code>来代替，它看起来更干净。但是您必须为每一个可能的结果进行匹配。例如，这将无法工作。</p>
+<p>你可以看到，过多的<code>if</code>、<code>else</code>和<code>else if</code>会很难读。在这种情况下，你可以使用<code>match</code>来代替，它看起来更干净。但是您必须为每一个可能的结果进行匹配。例如，这将无法工作:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_number: u8 = 5;
     match my_number {

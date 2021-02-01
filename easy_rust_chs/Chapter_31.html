@@ -198,7 +198,7 @@ fn main() {
     println!(&quot;{:?}, {:?}&quot;, take_fifth(new_vec), take_fifth(bigger_vec));
 }
 </code></pre></pre>
-<p>这个打印的是<code>None, Some(5)</code>。这下好了，因为现在我们再也不慌了。但是我们如何得到5的值呢？</p>
+<p>这个打印的是<code>None, Some(5)</code>。这下好了，因为现在我们再也不崩溃了。但是我们如何得到5的值呢？</p>
 <p>我们可以用 <code>.unwrap()</code> 在一个选项中获取值，但要小心 <code>.unwrap()</code>。这就像拆礼物一样:也许里面有好东西，也许里面有一条愤怒的蛇。只有在你确定的情况下，你才会想要<code>.unwrap()</code>。如果你拆开一个<code>None</code>的值，程序就会崩溃。</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {

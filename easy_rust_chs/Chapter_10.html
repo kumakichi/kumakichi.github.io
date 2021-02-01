@@ -183,7 +183,7 @@
   = note: required by `std::fmt::Display::fmt`
   = note: this error originates in a macro (in Nightly builds, run with -Z macro-backtrace for more info)
 </code></pre>
-<p>这是一个很大的信息。但重要的部分是 <code>you may be able to use {:?} (or {:#?} for pretty-print) instead</code>. 这意味着你可以试试<code>{:?}</code>，也可以试试<code>{:#?}</code> <code>{:#?}</code>叫做 &quot;漂亮打印&quot;。它和<code>{:?}</code>一样，但是在更多的行上打印出不同的格式。</p>
+<p>信息比较多，但重要的部分是 <code>you may be able to use {:?} (or {:#?} for pretty-print) instead</code>. 这意味着你可以试试<code>{:?}</code>，也可以试试<code>{:#?}</code> <code>{:#?}</code>叫做 &quot;漂亮打印&quot;。它和<code>{:?}</code>一样，但是在更多的行上打印出不同的格式。</p>
 <p>所以Display就是用<code>{}</code>打印，Debug就是用<code>{:?}</code>打印。</p>
 <p>还有一点:如果你不想要新的一行，你也可以使用<code>print!</code>而不用<code>ln</code>。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -208,7 +208,7 @@
 
 }
 </code></pre></pre>
-<p>这将打印出来。</p>
+<p>将会打印:</p>
 <pre><code class="language-text">The smallest i8 is -128 and the biggest i8 is 127.
 The smallest u8 is 0 and the biggest u8 is 255.
 The smallest i16 is -32768 and the biggest i16 is 32767.

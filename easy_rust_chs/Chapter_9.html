@@ -205,10 +205,10 @@ fn main() {
 </code></pre></pre>
 <p>这也会打印出 <code>Hello, world number 8!</code>。当Rust查看<code>number()</code>时，它看到一个函数。这个函数:</p>
 <ul>
-<li>什么都不取(因为它有<code>()</code>)</li>
+<li>没有参数(因为它有<code>()</code>)</li>
 <li>返回一个<code>i32</code>。<code>-&gt;</code>(称为 &quot;瘦箭&quot;)显示了函数返回的内容</li>
 </ul>
-<p>函数内部只有<code>8</code>。因为没有<code>;</code>，所以这就是它返回的值。如果它有一个<code>;</code>，它将不会返回任何东西(它会返回一个<code>()</code>)。如果它有 <code>;</code>，Rust 不会编译这个，因为返回的是 <code>i32</code>，而 <code>;</code> 返回 <code>()</code>，而不是 <code>i32</code>。</p>
+<p>函数内部只有<code>8</code>。因为没有<code>;</code>，所以这就是它返回的值。如果它有一个<code>;</code>，它将不会返回任何东西(它会返回一个<code>()</code>)。如果它有 <code>;</code>，Rust 不会编译通过，因为需要返回的是 <code>i32</code>，而 <code>;</code> 返回 <code>()</code>，不是 <code>i32</code>。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;Hello, world number {}&quot;, number());
 }

@@ -187,7 +187,7 @@
 </code></pre></pre>
 <p>使用最多的字符的数字小于256，它们可以装进<code>u8</code>。记住，<code>u8</code>是0加上255以内的所有数字，总共256个。这意味着 Rust 可以使用 <code>as</code> 将 <code>u8</code> 安全地 <strong>cast</strong>成 <code>char</code>。(&quot;把 <code>u8</code> cast成 <code>char</code> &quot;意味着 &quot;把 <code>u8</code> 假装成 <code>char</code>&quot;)</p>
 <p>用 <code>as</code> cast是有用的，因为 Rust 是非常严格的。它总是需要知道类型。
-而不会让你同时使用两种不同的类型，即使它们都是整数。例如，这将无法工作。</p>
+而不会让你同时使用两种不同的类型，即使它们都是整数。例如，这将无法工作:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() { // main() is where Rust programs start to run. Code goes inside {} (curly brackets)
 
     let my_number = 100; // We didn't write a type of integer,
@@ -205,13 +205,13 @@
 3 |     println!(&quot;{}&quot;, my_number as char);
   |                    ^^^^^^^^^^^^^^^^^
 </code></pre>
-<p>幸运的是，我们可以用<code>as</code>轻松解决这个问题。我们不能把<code>i32</code>投成<code>char</code>，但我们可以把<code>i32</code>投成<code>u8</code>。然后我们可以从<code>u8</code>到<code>char</code>做同样的事情。所以在一行中，我们使用 <code>as</code> 将 my_number 变为 <code>u8</code>，再将其变为 <code>char</code>。现在可以编译了。</p>
+<p>幸运的是，我们可以用<code>as</code>轻松解决这个问题。我们不能把<code>i32</code>转成<code>char</code>，但我们可以把<code>i32</code>转成<code>u8</code>，然后把<code>u8</code>转换成<code>char</code>。所以在一行中，我们使用 <code>as</code> 将 my_number 变为 <code>u8</code>，再将其变为 <code>char</code>。现在可以编译了。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_number = 100;
     println!(&quot;{}&quot;, my_number as u8 as char);
 }
 </code></pre></pre>
-<p>它打印的是<code>d</code>，因为那是100位的<code>char</code>。</p>
+<p>它打印的是<code>d</code>，因为那是100对应的<code>char</code>。</p>
 <p>然而，更简单的方法是告诉 Rust <code>my_number</code> 是 <code>u8</code>。下面是你的做法。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_number: u8 = 100; //  change my_number to my_number: u8
@@ -226,7 +226,7 @@
 </ul>
 <p>所以Rust使用了<code>usize</code>，这样你的计算机就可以得到它能读到的最大的数字进行索引。</p>
 <p>我们再来了解一下<code>char</code>。你看到<code>char</code>总是一个字符，并且使用<code>''</code>而不是<code>&quot;&quot;</code>。</p>
-<p>所有的字符都是4个字节。它们是4个字节，因为一个字符串中的一些字符是超过一个字节的。计算机上的基本字母一直是1个字节，后来的字符是2个字节，其他的是3和4。<code>char</code>需要4个字节，这样才能容纳任何一种字符。</p>
+<p>所有的字符都是4个字节。它们是4个字节，因为一个字符串中的一些字符是超过一个字节的。计算机上的基本字母一直是1个字节，后来的字符是2个字节，其他的是3个字节和4个字节。<code>char</code>需要4个字节，这样才能容纳任何一种字符。</p>
 <p>我们可以用<code>.len()</code>来看一下。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;{}&quot;, &quot;a&quot;.len()); // .len() gives the size in bytes

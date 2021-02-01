@@ -293,7 +293,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这个打印<code>Some(&quot;L\'Allemagne Moderne&quot;)</code>是因为已经有了key为<code>1</code>的，所以我们没有插入<code>Le Petit Prince</code>。</p>
-<p><code>HashMap</code>有一个非常有趣的方法，叫做<code>.entry()</code>，你一定要试试。有了它，你可以在没有键的情况下，用如<code>.or_insert()</code>这类方法来插入值。有趣的是，它还给出了一个可变引用，所以如果你想的话，你可以改变它。首先是一个例子，我们只是在每次插入<code>true</code>的书名时插入<code>HashMap</code>。</p>
+<p><code>HashMap</code>有一个非常有趣的方法，叫做<code>.entry()</code>，你一定要试试。有了它，你可以在没有键的情况下，用如<code>.or_insert()</code>这类方法来插入值。有趣的是，它还给出了一个可变引用，所以如果你想的话，你可以改变它。首先是一个例子，我们只是在每次插入书名到<code>HashMap</code>时插入一个<code>true</code>。</p>
 <p>让我们假设我们有一个图书馆，并希望跟踪我们的书籍。</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
 
@@ -315,7 +315,7 @@ fn main() {
 Do we have Le Petit Prince? true
 Do we have L'Allemagne Moderne? true
 </code></pre>
-<p>但这并不是我们想要的。也许最好是数一下书的数量，这样我们就知道<em>世界之眼</em> 有两本。首先让我们看看<code>.entry()</code>做了什么，以及<code>.or_insert()</code>做了什么。<code>.entry()</code>其实是返回一个叫<code>enum</code>的东西，叫<code>Entry</code>。</p>
+<p>但这并不是我们想要的。也许最好是数一下书的数量，这样我们就知道<em>世界之眼</em> 有两本。首先让我们看看<code>.entry()</code>做了什么，以及<code>.or_insert()</code>做了什么。<code>.entry()</code>其实是返回了一个名为<code>Entry</code>的<code>enum</code>。</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
