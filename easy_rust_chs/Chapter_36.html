@@ -192,9 +192,9 @@
 </code></pre>
 <p>前两个我们用了一个叫<code>.map()</code>的方法。这个方法可以让你对每一个元素做一些事情，然后把它传递下去。最后我们用的是一个叫<code>.for_each()</code>的方法。这个方法只是让你对每一个元素做一些事情。<code>.iter_mut()</code>加上<code>for_each()</code>基本上就是一个<code>for</code>的循环。在每一个方法里面，我们可以给每一个元素起一个名字(我们刚才叫它 <code>x</code>)，然后用它来改变它。这些被称为闭包，我们将在下一节学习它们。</p>
 <p>让我们再来看看它们，一次一个。</p>
-<p>首先我们用<code>.iter()</code>对<code>vector1</code>进行引用。我们给每个都加了1个，并使其成为一个新的Vec。<code>vector1</code>还活着，因为我们只用了引用:我们没有按值取。现在我们有 <code>vector1</code>，还有一个新的 Vec 叫 <code>vector1_a</code>。因为<code>.map()</code>只是传递了它，所以我们需要使用<code>.collect()</code>把它变成一个<code>Vec</code>。</p>
+<p>首先我们用<code>.iter()</code>对<code>vector1</code>进行引用。我们给每个元素都加了1，并使其成为一个新的Vec。<code>vector1</code>还活着，因为我们只用了引用:我们没有按值取。现在我们有 <code>vector1</code>，还有一个新的 Vec 叫 <code>vector1_a</code>。因为<code>.map()</code>只是传递了它，所以我们需要使用<code>.collect()</code>把它变成一个<code>Vec</code>。</p>
 <p>然后我们用<code>into_iter</code>从<code>vector1</code>中按值得到一个迭代器。这样就破坏了<code>vector1</code>，因为这就是<code>into_iter()</code>的作用。所以我们做了<code>vector1_b</code>之后，就不能再使用<code>vector1</code>了。</p>
-<p>最后我们用<code>.iter_mut()</code>来做<code>vector2</code>。它是可变的，所以我们不需要使用<code>.collect()</code>来创建一个新的Vec。相反，我们用可变引用改变同一Vec中的值。所以<code>vector2</code>仍然存在。因为我们不需要一个新的Vec，我们使用<code>for_each</code>:它就像一个<code>for</code>循环。</p>
+<p>最后我们在<code>vector2</code>上使用<code>.iter_mut()</code>。它是可变的，所以我们不需要使用<code>.collect()</code>来创建一个新的Vec。相反，我们用可变引用改变同一Vec中的值。所以<code>vector2</code>仍然存在。因为我们不需要一个新的Vec，我们使用<code>for_each</code>:它就像一个<code>for</code>循环。</p>
 <h3><a class="header" href="#迭代器如何工作" id="迭代器如何工作">迭代器如何工作</a></h3>
 <p>迭代器的工作原理是使用一个叫做 <code>.next()</code> 的方法，它给出一个 <code>Option</code>。当你使用迭代器时，Rust会一遍又一遍地调用<code>next()</code>。如果得到 <code>Some</code>，它就会继续前进。如果得到 <code>None</code>，它就停止。</p>
 <p>你还记得 <code>assert_eq!</code> 宏吗？在文档中，你经常看到它。这里它展示了迭代器的工作原理。</p>

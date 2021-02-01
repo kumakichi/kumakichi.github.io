@@ -191,7 +191,7 @@ fn main() {
 <p>这样就可以打印出<code>RefCell { value: true }</code>。</p>
 <p><code>RefCell</code>的方法有很多。其中两种是<code>.borrow()</code>和<code>.borrow_mut()</code>。使用这些方法，你可以做与<code>&amp;</code>和<code>&amp;mut</code>相同的事情。规则都是一样的:</p>
 <ul>
-<li>多个借用可以</li>
+<li>多个不可变借用可以</li>
 <li>一个可变的借用可以</li>
 <li>但mutable和immutable借用在一起是不行的</li>
 </ul>

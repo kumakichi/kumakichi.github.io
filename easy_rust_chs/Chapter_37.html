@@ -398,7 +398,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这个打印<code>[&quot;June&quot;, &quot;July&quot;]</code>。</p>
-<p><code>.filter_map()</code>. 这个叫做<code>filter_map()</code>，因为它做了<code>.filter()</code>和<code>.map()</code>。闭包必须返回一个 <code>Option&lt;T&gt;</code>，然后 <code>filter_map()</code> 如果是 <code>Some</code>，则从每个 <code>Option</code> 中取出值。所以比如说如果你是<code>.filter_map()</code>一个<code>vec![Some(2), None, Some(3)]</code>，它就会返回<code>[2, 3]</code>。</p>
+<p><code>.filter_map()</code>. 这个叫做<code>filter_map()</code>，因为它做了<code>.filter()</code>和<code>.map()</code>。闭包必须返回一个 <code>Option&lt;T&gt;</code>，然后对每个<code>Option</code>, 如果是 <code>Some</code>, <code>filter_map()</code>将取出它的值。所以比如说你<code>.filter_map()</code>一个<code>vec![Some(2), None, Some(3)]</code>，它就会返回<code>[2, 3]</code>。</p>
 <p>我们将用一个<code>Company</code>结构体来写一个例子。每个公司都有一个<code>name</code>，所以这个字段是<code>String</code>，但是CEO可能最近已经辞职了。所以<code>ceo</code>字段是<code>Option&lt;String&gt;</code>。我们会<code>.filter_map()</code>过一些公司，只保留CEO名字。</p>
 <pre><pre class="playground"><code class="language-rust">struct Company {
     name: String,
@@ -452,7 +452,7 @@ fn main() {
     println!(&quot;{:?}&quot;, actual_numbers);
 }
 </code></pre></pre>
-<p>这印有<code>[8.9, 8.0, 7.6]</code>。</p>
+<p>将打印: <code>[8.9, 8.0, 7.6]</code>。</p>
 <p>与<code>.ok()</code>相对的是<code>.ok_or()</code>和<code>ok_or_else()</code>。这样就把<code>Option</code>变成了<code>Result</code>。之所以叫<code>.ok_or()</code>，是因为<code>Result</code>给出了一个<code>Ok</code><strong>或</strong><code>Err</code>，所以你必须让它知道<code>Err</code>的值是多少。这是因为<code>None</code>中的<code>Option</code>没有任何信息。另外，你现在可以看到，这些方法名称中的<em>else</em>部分意味着它有一个闭包。</p>
 <p>我们可以把我们的<code>Option</code>从<code>Company</code>结构中取出来，然后这样把它变成一个<code>Result</code>。对于长期的错误处理，最好是创建自己的错误类型。
 但是现在我们只是给它一个错误信息，所以它就变成了<code>Result&lt;String, &amp;str&gt;</code>。</p>
@@ -785,7 +785,7 @@ None
 <p><code>.chunks()</code>和<code>.windows()</code>是将矢量切割成你想要的尺寸的两种方法。你把你想要的尺寸放在括号里。比如说你有一个有10个元素的矢量，你想要一个3的尺寸，它的工作原理是这样的。</p>
 <ul>
 <li>
-<p><code>.chunks()</code>会给你4个切片: [0, 1, 2], 然后是[3, 4, 5], 然后是[6, 7, 8], 最后是[9]. 所以它会尝试用三个元素创建一个切片，但如果它没有三个元素，那么它就不会慌张。它只会给你剩下的东西。</p>
+<p><code>.chunks()</code>会给你4个切片: [0, 1, 2], 然后是[3, 4, 5], 然后是[6, 7, 8], 最后是[9]. 所以它会尝试用三个元素创建一个切片，但如果它没有三个元素，那么它就不会崩溃。它只会给你剩下的东西。</p>
 </li>
 <li>
 <p><code>.windows()</code>会先给你一个[0, 1, 2]的切片。然后它将移过一片，给你[1, 2, 3]。它将一直这样做，直到最后到达3的最后一片，然后停止。</p>

@@ -567,7 +567,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>现在速度快了很多，在playground上，它在一秒内完成，而不是放弃。</p>
-<p>在接下来的这个例子中，我们在一个<code>Vec</code>上做一些事。我们创建一个<code>VecDeque</code>，用<code>.push_front()</code>把它们放在前面，所以我们添加的第一个元素会在右边。但是我们推送的每一个元素都是一个<code>(&amp;str, bool)</code>。<code>&amp;str</code>是描述 <code>false</code>表示还没有完成。我们用我们的<code>done()</code>函数从后面弹出一个元素，但是我们不想删除它。相反，我们把<code>false</code>改成<code>true</code>，然后把它推到前面，这样我们就可以保留它。</p>
+<p>在接下来的这个例子中，我们在一个<code>Vec</code>上做一些事。我们创建一个<code>VecDeque</code>，用<code>.push_front()</code>把它们放在前面，所以我们添加的第一个元素会在右边。但是我们推送的每一个元素都是一个<code>(&amp;str, bool)</code>:<code>&amp;str</code>是描述, <code>false</code>表示还没有完成。我们用<code>done()</code>函数从后面弹出一个元素，但是我们不想删除它。相反，我们把<code>false</code>改成<code>true</code>，然后把它推到前面，这样我们就可以保留它。</p>
 <p>它看起来是这样的:</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::VecDeque;
 

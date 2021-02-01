@@ -210,7 +210,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这是因为我们返回了一个 <code>&amp;str</code>，生命期为 <code>static</code>。同时，<code>my_string</code>只能以<code>String</code>的形式返回:我们不能返回对它的引用，因为它将在下一行死亡。</p>
-<p>所以现在<code>fn returns_str() -&gt; &amp;'static str</code>告诉Rust， &quot;别担心，我们只会返回一个字符串字面意义&quot;. 字符串的字面意义在整个程序中都是有效的，所以Rust很高兴。你会注意到，这与泛型类似。当我们告诉编译器类似 <code>&lt;T: Display&gt;</code> 的东西时，我们承诺我们将只使用 <code>Display</code> 的输入。生命期也类似:我们并没有改变任何变量的生命期。我们只是告诉编译器输入的生命期是多少。</p>
+<p>所以现在<code>fn returns_str() -&gt; &amp;'static str</code>告诉Rust， &quot;别担心，我们只会返回一个字符串字面量&quot;. 字符串字面量在整个程序中都是有效的，所以Rust很高兴。你会注意到，这与泛型类似。当我们告诉编译器类似 <code>&lt;T: Display&gt;</code> 的东西时，我们承诺我们将只使用实现了 <code>Display</code> 的输入。生命期也类似:我们并没有改变任何变量的生命期。我们只是告诉编译器输入的生命期是多少。</p>
 <p>但是<code>'static</code>并不是唯一的生命期。实际上，每个变量都有一个生命期，但通常我们不必写出来。编译器很聪明，一般都能自己算出来。只有在编译器不知道的时候，我们才需要写出生命期。</p>
 <p>下面是另一个生命期的例子。想象一下，我们想创建一个<code>City</code>结构，并给它一个<code>&amp;str</code>的名字。我们可能想这样做，因为这样做的性能比用<code>String</code>快。所以我们这样写，但还不能用。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
@@ -256,7 +256,7 @@ fn main() {
     println!(&quot;{} was founded in {}&quot;, my_city.name, my_city.date_founded);
 }
 </code></pre></pre>
-<p>好的，这就可以了。也许这就是你想要的结构。但是，请注意，我们只能接受 &quot;字符串字面&quot;，所以不能接受对其他东西的引用。所以这将无法工作。</p>
+<p>好的，这就可以了。也许这就是你想要的结构。但是，请注意，我们只能接受 &quot;字符串字面量&quot;，所以不能接受对其他东西的引用。所以这将无法工作。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct City {
     name: &amp;'static str, // must live for the whole program
@@ -288,7 +288,7 @@ fn main() {
    | - `city_names` dropped here while still borrowed
 </code></pre>
 <p>这一点很重要，因为我们给它的引用其实已经够长寿了。但是我们承诺只给它一个<code>&amp;'static str</code>，这就是问题所在。</p>
-<p>所以现在我们就试试之前编译器的建议。它说尝试写<code>struct City&lt;'a&gt;</code>和<code>name: &amp;'a str</code>。这就意味着，只有当<code>name</code>活到<code>City</code>的时候，它才会接受<code>name</code>的引用。</p>
+<p>所以现在我们就试试之前编译器的建议。它说尝试写<code>struct City&lt;'a&gt;</code>和<code>name: &amp;'a str</code>。这就意味着，只有当<code>name</code>活到<code>City</code>一样寿命的情况下，它才会接受<code>name</code>的引用。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct City&lt;'a&gt; { // City has lifetime 'a
     name: &amp;'a str, // and name also has lifetime 'a.
@@ -418,7 +418,7 @@ help: consider introducing a named lifetime parameter
 2 |     name: &amp;'a str,
   |
 </code></pre>
-<p>它建议怎么做:<code>&lt;'a&gt;</code>后冒险者，<code>&amp;'a str</code>。所以我们就这么做。</p>
+<p>它建议怎么做:在Adventurer后面加上<code>&lt;'a&gt;</code>，以及<code>&amp;'a str</code>。所以我们就这么做。</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 struct Adventurer&lt;'a&gt; {
     name: &amp;'a str,

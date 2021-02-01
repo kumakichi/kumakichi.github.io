@@ -167,7 +167,8 @@
                     <main>
                         <h2><a class="header" href="#更新" id="更新">更新</a></h2>
 <p><img src="https://github.com/kumakichi/easy_rust_chs/workflows/github%20pages/badge.svg" alt="example workflow name" /></p>
-<p>2021年1月4日: 支持在线查看 <a href="https://kumakichi.github.io/easy_rust_chs">点击阅读</a></p>
+<p>2021年2月1日: <a href="https://www.youtube.com/playlist?list=PLfllocyHVgsRwLkTAhG0E-2QxCf-ozBkk">Youtube视频</a>
+2021年1月4日: 支持在线查看 <a href="https://kumakichi.github.io/easy_rust_chs">点击阅读</a></p>
 <h2><a class="header" href="#介绍" id="介绍">介绍</a></h2>
 <p>Rust是一种新的语言，已经有了很好的教科书。但是有时候它的教材很难，因为它的教材是给以英语为母语的人看的。现在很多公司和人学习Rust，如果有一本英语简单的书，他们可以学得更快。这本教材就是给这些公司和人用简单的英语来学习Rust的。</p>
 <p>Rust是一门很新的语言，但已经非常流行。它之所以受欢迎，是因为它给你提供了C或C++的速度和控制力，但也给你提供了Python等其他较新语言的内存安全。它用一些新的想法来实现这一点，这些想法有时与其他语言不同。这意味着有一些新的东西需要学习，你不能只是 &quot;边走边想&quot;。Rust是一门语言，你必须思考一段时间才能理解。但如果你懂其他语言的话，它看起来还是很熟悉的，它是为了帮助你写好代码而生的。</p>
@@ -263,7 +264,7 @@
 <li><a href="Chapter_3.html#trait">trait</a>
 <ul>
 <li><a href="Chapter_3.html#from-trait">From trait</a></li>
-<li><a href="Chapter_3.html#%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E5%8F%96%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E4%B8%80%E4%B8%AAstr">在函数中取一个字符串和一个&amp;str</a></li>
+<li><a href="Chapter_3.html#%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C&amp;str">在函数中使用字符串和&amp;str</a></li>
 </ul>
 </li>
 <li><a href="Chapter_3.html#%E9%93%BE%E5%BC%8F%E6%96%B9%E6%B3%95">链式方法</a></li>
@@ -3586,7 +3587,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>现在速度快了很多，在playground上，它在一秒内完成，而不是放弃。</p>
-<p>在接下来的这个例子中，我们在一个<code>Vec</code>上做一些事。我们创建一个<code>VecDeque</code>，用<code>.push_front()</code>把它们放在前面，所以我们添加的第一个元素会在右边。但是我们推送的每一个元素都是一个<code>(&amp;str, bool)</code>。<code>&amp;str</code>是描述 <code>false</code>表示还没有完成。我们用我们的<code>done()</code>函数从后面弹出一个元素，但是我们不想删除它。相反，我们把<code>false</code>改成<code>true</code>，然后把它推到前面，这样我们就可以保留它。</p>
+<p>在接下来的这个例子中，我们在一个<code>Vec</code>上做一些事。我们创建一个<code>VecDeque</code>，用<code>.push_front()</code>把它们放在前面，所以我们添加的第一个元素会在右边。但是我们推送的每一个元素都是一个<code>(&amp;str, bool)</code>:<code>&amp;str</code>是描述, <code>false</code>表示还没有完成。我们用<code>done()</code>函数从后面弹出一个元素，但是我们不想删除它。相反，我们把<code>false</code>改成<code>true</code>，然后把它推到前面，这样我们就可以保留它。</p>
 <p>它看起来是这样的:</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::VecDeque;
 
@@ -3627,7 +3628,7 @@ fn main() {
 (&quot;add new product to list&quot;, true) (&quot;send email to customer&quot;, true) (&quot;phone Loki back&quot;, false)
 </code></pre>
 <h2><a class="header" href="#操作符" id="操作符">?操作符</a></h2>
-<p>有一种比<code>Result</code>(和<code>Option</code>)更短的处理方法，比<code>match</code>更短，比<code>if let</code>更短。它叫做 &quot;问号运算符&quot;，就是<code>?</code>。在返回结果的函数后，可以加上<code>?</code>。这样就会。</p>
+<p>有一种更短的方法来处理<code>Result</code>(和<code>Option</code>)，它比<code>match</code>和<code>if let</code>更短。它叫做 &quot;问号运算符&quot;，就是<code>?</code>。在返回结果的函数后，可以加上<code>?</code>。这样就会:</p>
 <ul>
 <li>返回<code>Result</code>里面的内容，如果是<code>Ok</code>。</li>
 <li>如果是<code>Err</code>，则将错误传回。</li>
@@ -3643,7 +3644,7 @@ fn parse_str(input: &amp;str) -&gt; Result&lt;i32, ParseIntError&gt; {
 
 fn main() {}
 </code></pre></pre>
-<p>这个函数接收一个 <code>&amp;str</code>。如果是 <code>Ok</code>，则给出一个 <code>i32</code>，包裹在 <code>Ok</code> 中。如果是 <code>Err</code>，则返回 <code>ParseIntError</code>。然后我们尝试解析这个数字，并加上<code>?</code>。也就是 &quot;检查是否错误，如果没问题就给出Result里面的内容&quot;。如果没问题，就会返回错误并结束。但如果没问题，就会进入下一行。下一行是<code>Ok()</code>里面的数字。我们需要用<code>Ok</code>来包装，因为返回的是<code>Result&lt;i32, ParseIntError&gt;</code>，而不是<code>i32</code>。</p>
+<p>这个函数接收一个 <code>&amp;str</code>。如果是 <code>Ok</code>，则给出一个 <code>i32</code>，包裹在 <code>Ok</code> 中。如果是 <code>Err</code>，则返回 <code>ParseIntError</code>。然后我们尝试解析这个数字，并加上<code>?</code>。也就是 &quot;检查是否错误，如果没问题就给出Result里面的内容&quot;。如果有问题，就会返回错误并结束。但如果没问题，就会进入下一行。下一行是<code>Ok()</code>里面的数字。我们需要用<code>Ok</code>来包装，因为返回的是<code>Result&lt;i32, ParseIntError&gt;</code>，而不是<code>i32</code>。</p>
 <p>现在，我们可以试试我们的函数。让我们看看它对<code>&amp;str</code>的vec有什么作用。</p>
 <pre><pre class="playground"><code class="language-rust">fn parse_str(input: &amp;str) -&gt; Result&lt;i32, std::num::ParseIntError&gt; {
     let parsed_number = input.parse::&lt;i32&gt;()?;
@@ -3717,7 +3718,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>它打印出<code>8, 9, 10</code>，一切正常。</p>
-<p>但试想一下，后来我们写的代码越来越多，忘记了<code>my_vec</code>只能是三个东西。现在<code>my_vec</code>在这部分有六个东西。</p>
+<p>但试想一下，后来我们写的代码越来越多，忘记了<code>my_vec</code>只能有三个元素。现在<code>my_vec</code>在这部分有六个元素。</p>
 <pre><pre class="playground"><code class="language-rust">fn prints_three_things(vector: Vec&lt;i32&gt;) {
   println!(&quot;{}, {}, {}&quot;, vector[0], vector[1], vector[2]);
 }
@@ -3727,7 +3728,7 @@ fn main() {
   prints_three_things(my_vec);
 }
 </code></pre></pre>
-<p>不会发生错误，因为[0]和[1]和[2]都在这个较长的<code>Vec</code>里面。但如果真的很重要，只有三样东西呢？我们就不会知道有问题了，因为程序不会崩溃。我们应该这样做，而不是。</p>
+<p>不会发生错误，因为[0]和[1]和[2]都在这个较长的<code>Vec</code>里面。但如果只能有三个元素呢？我们就不会知道有问题了，因为程序不会崩溃。我们应该这样做:</p>
 <pre><pre class="playground"><code class="language-rust">fn prints_three_things(vector: Vec&lt;i32&gt;) {
     if vector.len() != 3 {
         panic!(&quot;my_vec must always have three items&quot;) // will panic if the length is not 3
@@ -3772,7 +3773,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这不会有任何作用，因为三个断言宏都没有问题。(这就是我们想要的)</p>
-<p>如果你愿意，还可以加个留言。</p>
+<p>如果你愿意，还可以加个提示信息。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_name = &quot;Loki Laufeyson&quot;;
 
@@ -3804,15 +3805,15 @@ fn main() {
     );
 }
 </code></pre></pre>
-<p>它将显示。</p>
+<p>它将显示:</p>
 <pre><code class="language-text">thread 'main' panicked at 'assertion failed: `(left != right)`
   left: `&quot;Mithridates&quot;`,
  right: `&quot;Mithridates&quot;`: You entered Mithridates. Input must not equal Mithridates', src\main.rs:4:5
 </code></pre>
 <p>所以它说 &quot;你说左！=右，但左==右&quot;。而且它显示我们的信息说<code>You entered Mithridates. Input must not equal Mithridates</code>。</p>
-<p><code>unwrap</code>也是好的，当你在写程序的时候，你想让它在出现问题的时候崩溃。后来，当你的代码写完后，把<code>unwrap</code>改成其他不会崩溃的东西就好了。</p>
-<p>你也可以用<code>expect</code>，它和<code>unwrap</code>一样，但是更好一些，因为你给它自己的信息。教科书通常会给出这样的建议。&quot;如果你经常使用<code>.unwrap()</code>, 至少也要用<code>.expect()</code>来获得更好的错误信息.&quot;</p>
-<p>这样会崩溃的。</p>
+<p>当你在写程序的时候，想让它在出现问题的时候崩溃，<code>unwrap</code>是个好注意。后面，当你的代码写完后，把<code>unwrap</code>改成其他不会崩溃的东西就好了。</p>
+<p>你也可以用<code>expect</code>，它和<code>unwrap</code>一样，但是更好一些，因为它支持用户自定义信息。教科书通常会给出这样的建议:&quot;如果你经常使用<code>.unwrap()</code>, 至少也要用<code>.expect()</code>来获得更好的错误信息.&quot;</p>
+<p>这样会崩溃的:</p>
 <pre><pre class="playground"><code class="language-rust">   // ⚠️
 fn get_fourth(input: &amp;Vec&lt;i32&gt;) -&gt; i32 {
     let fourth = input.get(3).unwrap();
@@ -3848,7 +3849,7 @@ fn main() {
     try_two_unwraps(vector);
 }
 </code></pre></pre>
-<p>消息是:<code>thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:2:32</code>。我们不查行，就不知道是第一个<code>.unwrap()</code>还是第二个<code>.unwrap()</code>。最好是检查长度，也不要解包。不过有了<code>.expect()</code>至少会好<em>一点</em>。下面是<code>.expect()</code>的情况。</p>
+<p>消息是:<code>thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:2:32</code>。我们不检查行号，就不知道是第一个<code>.unwrap()</code>还是第二个<code>.unwrap()</code>。最好是检查长度，也不要解包。不过有了<code>.expect()</code>至少会好<em>一点</em>。下面是<code>.expect()</code>的情况。</p>
 <pre><pre class="playground"><code class="language-rust">fn try_two_unwraps(input: Vec&lt;Option&lt;i32&gt;&gt;) {
     println!(&quot;Index 0 is: {}&quot;, input[0].expect(&quot;The first unwrap had a None!&quot;));
     println!(&quot;Index 1 is: {}&quot;, input[1].expect(&quot;The second unwrap had a None!&quot;));
@@ -3860,9 +3861,9 @@ fn main() {
 }
 </code></pre></pre>
 <p>所以，这是好一点的。<code>thread 'main' panicked at 'The first unwrap had a None!', src\main.rs:2:32</code>. 我们也有行号，所以我们可以找到它。</p>
-<p>如果你想一直有一个你想选择的值，也可以用<code>unwrap_or</code>。如果你这样做，它永远不会慌。就是这样的。</p>
+<p>如果你想一直有一个你想选择的值，也可以用<code>unwrap_or</code>。如果你这样做，它永远不会崩溃。就是这样的。</p>
 <ul>
-<li>1)好，因为你的程序不会慌，但</li>
+<li>1)好，因为你的程序不会崩溃，但</li>
 <li>2)如果你想让程序在出现问题时崩溃，也许不好。</li>
 </ul>
 <p>但通常我们都不希望自己的程序崩溃，所以<code>unwrap_or</code>是个不错的方法。</p>
@@ -3912,7 +3913,7 @@ let result = self.second_thing as u32 + self.first_thing
 <span class="boring">}
 </span></code></pre></pre>
 <p>或者我们想把<code>self.first_thing</code>放在<code>self.second_thing</code>旁边，说我们要这样加。所以如果我们把55加到33.4，我们要看到的是5533.4，而不是88.4。</p>
-<p>所以首先我们看一下如何创建一个trait。关于<code>trait</code>，要记住的重要一点是，它们是关于行为的。要创建一个trait，写<code>trait</code>，然后创建一些函数。</p>
+<p>所以首先我们看一下如何创建一个trait。关于<code>trait</code>，要记住的重要一点是，它们是关于行为的。要创建一个trait，写下单词<code>trait</code>，然后创建一些函数。</p>
 <pre><pre class="playground"><code class="language-rust">struct Animal { // A simple struct - an Animal only has a name
     name: String,
 }
@@ -4471,8 +4472,8 @@ fn main() {
 Odd numbers: [7, -1, 3, 9787, -47, 77, 55, 7]
 </code></pre>
 <p>像 <code>EvenOddVec</code> 这样的类型可能最好是通用 <code>T</code>，这样我们就可以使用许多数字类型。如果你想练习的话，你可以试着把这个例子做成通用的。</p>
-<h3><a class="header" href="#在函数中取一个字符串和一个str" id="在函数中取一个字符串和一个str">在函数中取一个字符串和一个&amp;str。</a></h3>
-<p>有时你想让一个函数可以同时接受 <code>String</code> 和 <code>&amp;str</code>。你可以通过属类和 <code>AsRef</code> 特性来实现这一点。<code>AsRef</code> 用于从一个类型向另一个类型提供引用。如果你看看 <code>String</code> 的文档，你可以看到它对许多类型都有 <code>AsRef</code>。</p>
+<h3><a class="header" href="#在函数中使用字符串和str" id="在函数中使用字符串和str">在函数中使用字符串和&amp;str</a></h3>
+<p>有时你想让一个函数可以同时接受 <code>String</code> 和 <code>&amp;str</code>。你可以通过泛型和 <code>AsRef</code> 特性来实现这一点。<code>AsRef</code> 用于从一个类型向另一个类型提供引用。如果你看看 <code>String</code> 的文档，你可以看到它对许多类型都有 <code>AsRef</code>。</p>
 <p><a href="https://doc.rust-lang.org/std/string/struct.String.html">https://doc.rust-lang.org/std/string/struct.String.html</a></p>
 <p>下面是它们的一些函数签名。</p>
 <p><code>AsRef&lt;str&gt;</code>:</p>
@@ -4526,8 +4527,8 @@ fn main() {
     print_it(&quot;Please print me&quot;);
 }
 </code></pre></pre>
-<p>现在可以用了，打印出<code>Please print me</code>。这是好的，但T的东西还是会太多。
-可以是<code>i8</code>，也可以是<code>f32</code>，其他的只要<code>Display</code>。所以我们加上<code>AsRef&lt;str&gt;</code>，现在T需要<code>AsRef&lt;str&gt;</code>和<code>Display</code>。</p>
+<p>现在可以用了，打印出<code>Please print me</code>。这是好的，但T仍然可以是多种类型。
+可以是<code>i8</code>，也可以是<code>f32</code>，或者其他任何实现了<code>Display</code>的类型。我们加上<code>AsRef&lt;str&gt;</code>，现在T需要<code>AsRef&lt;str&gt;</code>和<code>Display</code>。</p>
 <pre><pre class="playground"><code class="language-rust">use std::fmt::Display;
 
 fn print_it&lt;T: AsRef&lt;str&gt; + Display&gt;(input: T) {
@@ -4632,9 +4633,9 @@ fn main() {
 </code></pre>
 <p>前两个我们用了一个叫<code>.map()</code>的方法。这个方法可以让你对每一个元素做一些事情，然后把它传递下去。最后我们用的是一个叫<code>.for_each()</code>的方法。这个方法只是让你对每一个元素做一些事情。<code>.iter_mut()</code>加上<code>for_each()</code>基本上就是一个<code>for</code>的循环。在每一个方法里面，我们可以给每一个元素起一个名字(我们刚才叫它 <code>x</code>)，然后用它来改变它。这些被称为闭包，我们将在下一节学习它们。</p>
 <p>让我们再来看看它们，一次一个。</p>
-<p>首先我们用<code>.iter()</code>对<code>vector1</code>进行引用。我们给每个都加了1个，并使其成为一个新的Vec。<code>vector1</code>还活着，因为我们只用了引用:我们没有按值取。现在我们有 <code>vector1</code>，还有一个新的 Vec 叫 <code>vector1_a</code>。因为<code>.map()</code>只是传递了它，所以我们需要使用<code>.collect()</code>把它变成一个<code>Vec</code>。</p>
+<p>首先我们用<code>.iter()</code>对<code>vector1</code>进行引用。我们给每个元素都加了1，并使其成为一个新的Vec。<code>vector1</code>还活着，因为我们只用了引用:我们没有按值取。现在我们有 <code>vector1</code>，还有一个新的 Vec 叫 <code>vector1_a</code>。因为<code>.map()</code>只是传递了它，所以我们需要使用<code>.collect()</code>把它变成一个<code>Vec</code>。</p>
 <p>然后我们用<code>into_iter</code>从<code>vector1</code>中按值得到一个迭代器。这样就破坏了<code>vector1</code>，因为这就是<code>into_iter()</code>的作用。所以我们做了<code>vector1_b</code>之后，就不能再使用<code>vector1</code>了。</p>
-<p>最后我们用<code>.iter_mut()</code>来做<code>vector2</code>。它是可变的，所以我们不需要使用<code>.collect()</code>来创建一个新的Vec。相反，我们用可变引用改变同一Vec中的值。所以<code>vector2</code>仍然存在。因为我们不需要一个新的Vec，我们使用<code>for_each</code>:它就像一个<code>for</code>循环。</p>
+<p>最后我们在<code>vector2</code>上使用<code>.iter_mut()</code>。它是可变的，所以我们不需要使用<code>.collect()</code>来创建一个新的Vec。相反，我们用可变引用改变同一Vec中的值。所以<code>vector2</code>仍然存在。因为我们不需要一个新的Vec，我们使用<code>for_each</code>:它就像一个<code>for</code>循环。</p>
 <h3><a class="header" href="#迭代器如何工作" id="迭代器如何工作">迭代器如何工作</a></h3>
 <p>迭代器的工作原理是使用一个叫做 <code>.next()</code> 的方法，它给出一个 <code>Option</code>。当你使用迭代器时，Rust会一遍又一遍地调用<code>next()</code>。如果得到 <code>Some</code>，它就会继续前进。如果得到 <code>None</code>，它就停止。</p>
 <p>你还记得 <code>assert_eq!</code> 宏吗？在文档中，你经常看到它。这里它展示了迭代器的工作原理。</p>
@@ -5026,7 +5027,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这个打印<code>[&quot;June&quot;, &quot;July&quot;]</code>。</p>
-<p><code>.filter_map()</code>. 这个叫做<code>filter_map()</code>，因为它做了<code>.filter()</code>和<code>.map()</code>。闭包必须返回一个 <code>Option&lt;T&gt;</code>，然后 <code>filter_map()</code> 如果是 <code>Some</code>，则从每个 <code>Option</code> 中取出值。所以比如说如果你是<code>.filter_map()</code>一个<code>vec![Some(2), None, Some(3)]</code>，它就会返回<code>[2, 3]</code>。</p>
+<p><code>.filter_map()</code>. 这个叫做<code>filter_map()</code>，因为它做了<code>.filter()</code>和<code>.map()</code>。闭包必须返回一个 <code>Option&lt;T&gt;</code>，然后对每个<code>Option</code>, 如果是 <code>Some</code>, <code>filter_map()</code>将取出它的值。所以比如说你<code>.filter_map()</code>一个<code>vec![Some(2), None, Some(3)]</code>，它就会返回<code>[2, 3]</code>。</p>
 <p>我们将用一个<code>Company</code>结构体来写一个例子。每个公司都有一个<code>name</code>，所以这个字段是<code>String</code>，但是CEO可能最近已经辞职了。所以<code>ceo</code>字段是<code>Option&lt;String&gt;</code>。我们会<code>.filter_map()</code>过一些公司，只保留CEO名字。</p>
 <pre><pre class="playground"><code class="language-rust">struct Company {
     name: String,
@@ -5080,7 +5081,7 @@ fn main() {
     println!(&quot;{:?}&quot;, actual_numbers);
 }
 </code></pre></pre>
-<p>这印有<code>[8.9, 8.0, 7.6]</code>。</p>
+<p>将打印: <code>[8.9, 8.0, 7.6]</code>。</p>
 <p>与<code>.ok()</code>相对的是<code>.ok_or()</code>和<code>ok_or_else()</code>。这样就把<code>Option</code>变成了<code>Result</code>。之所以叫<code>.ok_or()</code>，是因为<code>Result</code>给出了一个<code>Ok</code><strong>或</strong><code>Err</code>，所以你必须让它知道<code>Err</code>的值是多少。这是因为<code>None</code>中的<code>Option</code>没有任何信息。另外，你现在可以看到，这些方法名称中的<em>else</em>部分意味着它有一个闭包。</p>
 <p>我们可以把我们的<code>Option</code>从<code>Company</code>结构中取出来，然后这样把它变成一个<code>Result</code>。对于长期的错误处理，最好是创建自己的错误类型。
 但是现在我们只是给它一个错误信息，所以它就变成了<code>Result&lt;String, &amp;str&gt;</code>。</p>
@@ -5413,7 +5414,7 @@ None
 <p><code>.chunks()</code>和<code>.windows()</code>是将矢量切割成你想要的尺寸的两种方法。你把你想要的尺寸放在括号里。比如说你有一个有10个元素的矢量，你想要一个3的尺寸，它的工作原理是这样的。</p>
 <ul>
 <li>
-<p><code>.chunks()</code>会给你4个切片: [0, 1, 2], 然后是[3, 4, 5], 然后是[6, 7, 8], 最后是[9]. 所以它会尝试用三个元素创建一个切片，但如果它没有三个元素，那么它就不会慌张。它只会给你剩下的东西。</p>
+<p><code>.chunks()</code>会给你4个切片: [0, 1, 2], 然后是[3, 4, 5], 然后是[6, 7, 8], 最后是[9]. 所以它会尝试用三个元素创建一个切片，但如果它没有三个元素，那么它就不会崩溃。它只会给你剩下的东西。</p>
 </li>
 <li>
 <p><code>.windows()</code>会先给你一个[0, 1, 2]的切片。然后它将移过一片，给你[1, 2, 3]。它将一直这样做，直到最后到达3的最后一片，然后停止。</p>
@@ -5732,7 +5733,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这是因为我们返回了一个 <code>&amp;str</code>，生命期为 <code>static</code>。同时，<code>my_string</code>只能以<code>String</code>的形式返回:我们不能返回对它的引用，因为它将在下一行死亡。</p>
-<p>所以现在<code>fn returns_str() -&gt; &amp;'static str</code>告诉Rust， &quot;别担心，我们只会返回一个字符串字面意义&quot;. 字符串的字面意义在整个程序中都是有效的，所以Rust很高兴。你会注意到，这与泛型类似。当我们告诉编译器类似 <code>&lt;T: Display&gt;</code> 的东西时，我们承诺我们将只使用 <code>Display</code> 的输入。生命期也类似:我们并没有改变任何变量的生命期。我们只是告诉编译器输入的生命期是多少。</p>
+<p>所以现在<code>fn returns_str() -&gt; &amp;'static str</code>告诉Rust， &quot;别担心，我们只会返回一个字符串字面量&quot;. 字符串字面量在整个程序中都是有效的，所以Rust很高兴。你会注意到，这与泛型类似。当我们告诉编译器类似 <code>&lt;T: Display&gt;</code> 的东西时，我们承诺我们将只使用实现了 <code>Display</code> 的输入。生命期也类似:我们并没有改变任何变量的生命期。我们只是告诉编译器输入的生命期是多少。</p>
 <p>但是<code>'static</code>并不是唯一的生命期。实际上，每个变量都有一个生命期，但通常我们不必写出来。编译器很聪明，一般都能自己算出来。只有在编译器不知道的时候，我们才需要写出生命期。</p>
 <p>下面是另一个生命期的例子。想象一下，我们想创建一个<code>City</code>结构，并给它一个<code>&amp;str</code>的名字。我们可能想这样做，因为这样做的性能比用<code>String</code>快。所以我们这样写，但还不能用。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
@@ -5778,7 +5779,7 @@ fn main() {
     println!(&quot;{} was founded in {}&quot;, my_city.name, my_city.date_founded);
 }
 </code></pre></pre>
-<p>好的，这就可以了。也许这就是你想要的结构。但是，请注意，我们只能接受 &quot;字符串字面&quot;，所以不能接受对其他东西的引用。所以这将无法工作。</p>
+<p>好的，这就可以了。也许这就是你想要的结构。但是，请注意，我们只能接受 &quot;字符串字面量&quot;，所以不能接受对其他东西的引用。所以这将无法工作。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct City {
     name: &amp;'static str, // must live for the whole program
@@ -5810,7 +5811,7 @@ fn main() {
    | - `city_names` dropped here while still borrowed
 </code></pre>
 <p>这一点很重要，因为我们给它的引用其实已经够长寿了。但是我们承诺只给它一个<code>&amp;'static str</code>，这就是问题所在。</p>
-<p>所以现在我们就试试之前编译器的建议。它说尝试写<code>struct City&lt;'a&gt;</code>和<code>name: &amp;'a str</code>。这就意味着，只有当<code>name</code>活到<code>City</code>的时候，它才会接受<code>name</code>的引用。</p>
+<p>所以现在我们就试试之前编译器的建议。它说尝试写<code>struct City&lt;'a&gt;</code>和<code>name: &amp;'a str</code>。这就意味着，只有当<code>name</code>活到<code>City</code>一样寿命的情况下，它才会接受<code>name</code>的引用。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct City&lt;'a&gt; { // City has lifetime 'a
     name: &amp;'a str, // and name also has lifetime 'a.
@@ -5940,7 +5941,7 @@ help: consider introducing a named lifetime parameter
 2 |     name: &amp;'a str,
   |
 </code></pre>
-<p>它建议怎么做:<code>&lt;'a&gt;</code>后冒险者，<code>&amp;'a str</code>。所以我们就这么做。</p>
+<p>它建议怎么做:在Adventurer后面加上<code>&lt;'a&gt;</code>，以及<code>&amp;'a str</code>。所以我们就这么做。</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 struct Adventurer&lt;'a&gt; {
     name: &amp;'a str,
@@ -6094,7 +6095,7 @@ fn main() {
 <p>这样就可以打印出<code>RefCell { value: true }</code>。</p>
 <p><code>RefCell</code>的方法有很多。其中两种是<code>.borrow()</code>和<code>.borrow_mut()</code>。使用这些方法，你可以做与<code>&amp;</code>和<code>&amp;mut</code>相同的事情。规则都是一样的:</p>
 <ul>
-<li>多个借用可以</li>
+<li>多个不可变借用可以</li>
 <li>一个可变的借用可以</li>
 <li>但mutable和immutable借用在一起是不行的</li>
 </ul>
@@ -6329,7 +6330,7 @@ fn main() {}
 <p>接下来是<code>enum</code>的变种。它们是 <code>Borrowed</code> 和 <code>Owned</code>。</p>
 <p>想象一下，你有一个返回 <code>Cow&lt;'static, str&gt;</code> 的函数。如果你告诉函数返回<code>&quot;My message&quot;.into()</code>，它就会查看类型:&quot;My message&quot;是<code>str</code>. 这是一个<code>Borrowed</code>的类型，所以它选择<code>Borrowed(&amp;'a B)</code>。所以它就变成了<code>Cow::Borrowed(&amp;'static str)</code>。</p>
 <p>而如果你给它一个<code>format!(&quot;{}&quot;, &quot;My message&quot;).into()</code>，那么它就会查看类型。这次是一个<code>String</code>，因为<code>format!</code>创建了<code>String</code>。所以这次会选择 &quot;Owned&quot;。</p>
-<p>下面是一个测试<code>Cow</code>的例子。我们将把一个数字放入一个函数中，返回一个<code>Cow&lt;'static, str&gt;</code>。根据这个数字，它会创建一个<code>&amp;str</code>或<code>String</code>。然后它使用<code>.into()</code>将其变成<code>Cow</code>。这样做的时候，它就会选择<code>Cow:::Borrowed</code>或者<code>Cow::Owned</code>。那我们就匹配一下，看看它选的是哪一个。</p>
+<p>下面是一个测试<code>Cow</code>的例子。我们将把一个数字放入一个函数中，返回一个<code>Cow&lt;'static, str&gt;</code>。根据这个数字，它会创建一个<code>&amp;str</code>或<code>String</code>。然后它使用<code>.into()</code>将其变成<code>Cow</code>。这样做的时候，它就会选择<code>Cow::Borrowed</code>或者<code>Cow::Owned</code>。那我们就匹配一下，看看它选的是哪一个。</p>
 <pre><pre class="playground"><code class="language-rust">use std::borrow::Cow;
 
 fn modulo_3(input: u8) -&gt; Cow&lt;'static, str&gt; {

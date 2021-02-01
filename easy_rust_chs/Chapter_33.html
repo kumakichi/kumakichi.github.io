@@ -164,7 +164,7 @@
                 <div id="content" class="content">
                     <main>
                         <h2><a class="header" href="#操作符" id="操作符">?操作符</a></h2>
-<p>有一种比<code>Result</code>(和<code>Option</code>)更短的处理方法，比<code>match</code>更短，比<code>if let</code>更短。它叫做 &quot;问号运算符&quot;，就是<code>?</code>。在返回结果的函数后，可以加上<code>?</code>。这样就会。</p>
+<p>有一种更短的方法来处理<code>Result</code>(和<code>Option</code>)，它比<code>match</code>和<code>if let</code>更短。它叫做 &quot;问号运算符&quot;，就是<code>?</code>。在返回结果的函数后，可以加上<code>?</code>。这样就会:</p>
 <ul>
 <li>返回<code>Result</code>里面的内容，如果是<code>Ok</code>。</li>
 <li>如果是<code>Err</code>，则将错误传回。</li>
@@ -180,7 +180,7 @@ fn parse_str(input: &amp;str) -&gt; Result&lt;i32, ParseIntError&gt; {
 
 fn main() {}
 </code></pre></pre>
-<p>这个函数接收一个 <code>&amp;str</code>。如果是 <code>Ok</code>，则给出一个 <code>i32</code>，包裹在 <code>Ok</code> 中。如果是 <code>Err</code>，则返回 <code>ParseIntError</code>。然后我们尝试解析这个数字，并加上<code>?</code>。也就是 &quot;检查是否错误，如果没问题就给出Result里面的内容&quot;。如果没问题，就会返回错误并结束。但如果没问题，就会进入下一行。下一行是<code>Ok()</code>里面的数字。我们需要用<code>Ok</code>来包装，因为返回的是<code>Result&lt;i32, ParseIntError&gt;</code>，而不是<code>i32</code>。</p>
+<p>这个函数接收一个 <code>&amp;str</code>。如果是 <code>Ok</code>，则给出一个 <code>i32</code>，包裹在 <code>Ok</code> 中。如果是 <code>Err</code>，则返回 <code>ParseIntError</code>。然后我们尝试解析这个数字，并加上<code>?</code>。也就是 &quot;检查是否错误，如果没问题就给出Result里面的内容&quot;。如果有问题，就会返回错误并结束。但如果没问题，就会进入下一行。下一行是<code>Ok()</code>里面的数字。我们需要用<code>Ok</code>来包装，因为返回的是<code>Result&lt;i32, ParseIntError&gt;</code>，而不是<code>i32</code>。</p>
 <p>现在，我们可以试试我们的函数。让我们看看它对<code>&amp;str</code>的vec有什么作用。</p>
 <pre><pre class="playground"><code class="language-rust">fn parse_str(input: &amp;str) -&gt; Result&lt;i32, std::num::ParseIntError&gt; {
     let parsed_number = input.parse::&lt;i32&gt;()?;
@@ -254,7 +254,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>它打印出<code>8, 9, 10</code>，一切正常。</p>
-<p>但试想一下，后来我们写的代码越来越多，忘记了<code>my_vec</code>只能是三个东西。现在<code>my_vec</code>在这部分有六个东西。</p>
+<p>但试想一下，后来我们写的代码越来越多，忘记了<code>my_vec</code>只能有三个元素。现在<code>my_vec</code>在这部分有六个元素。</p>
 <pre><pre class="playground"><code class="language-rust">fn prints_three_things(vector: Vec&lt;i32&gt;) {
   println!(&quot;{}, {}, {}&quot;, vector[0], vector[1], vector[2]);
 }
@@ -264,7 +264,7 @@ fn main() {
   prints_three_things(my_vec);
 }
 </code></pre></pre>
-<p>不会发生错误，因为[0]和[1]和[2]都在这个较长的<code>Vec</code>里面。但如果真的很重要，只有三样东西呢？我们就不会知道有问题了，因为程序不会崩溃。我们应该这样做，而不是。</p>
+<p>不会发生错误，因为[0]和[1]和[2]都在这个较长的<code>Vec</code>里面。但如果只能有三个元素呢？我们就不会知道有问题了，因为程序不会崩溃。我们应该这样做:</p>
 <pre><pre class="playground"><code class="language-rust">fn prints_three_things(vector: Vec&lt;i32&gt;) {
     if vector.len() != 3 {
         panic!(&quot;my_vec must always have three items&quot;) // will panic if the length is not 3
@@ -309,7 +309,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这不会有任何作用，因为三个断言宏都没有问题。(这就是我们想要的)</p>
-<p>如果你愿意，还可以加个留言。</p>
+<p>如果你愿意，还可以加个提示信息。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_name = &quot;Loki Laufeyson&quot;;
 
@@ -341,15 +341,15 @@ fn main() {
     );
 }
 </code></pre></pre>
-<p>它将显示。</p>
+<p>它将显示:</p>
 <pre><code class="language-text">thread 'main' panicked at 'assertion failed: `(left != right)`
   left: `&quot;Mithridates&quot;`,
  right: `&quot;Mithridates&quot;`: You entered Mithridates. Input must not equal Mithridates', src\main.rs:4:5
 </code></pre>
 <p>所以它说 &quot;你说左！=右，但左==右&quot;。而且它显示我们的信息说<code>You entered Mithridates. Input must not equal Mithridates</code>。</p>
-<p><code>unwrap</code>也是好的，当你在写程序的时候，你想让它在出现问题的时候崩溃。后来，当你的代码写完后，把<code>unwrap</code>改成其他不会崩溃的东西就好了。</p>
-<p>你也可以用<code>expect</code>，它和<code>unwrap</code>一样，但是更好一些，因为你给它自己的信息。教科书通常会给出这样的建议。&quot;如果你经常使用<code>.unwrap()</code>, 至少也要用<code>.expect()</code>来获得更好的错误信息.&quot;</p>
-<p>这样会崩溃的。</p>
+<p>当你在写程序的时候，想让它在出现问题的时候崩溃，<code>unwrap</code>是个好注意。后面，当你的代码写完后，把<code>unwrap</code>改成其他不会崩溃的东西就好了。</p>
+<p>你也可以用<code>expect</code>，它和<code>unwrap</code>一样，但是更好一些，因为它支持用户自定义信息。教科书通常会给出这样的建议:&quot;如果你经常使用<code>.unwrap()</code>, 至少也要用<code>.expect()</code>来获得更好的错误信息.&quot;</p>
+<p>这样会崩溃的:</p>
 <pre><pre class="playground"><code class="language-rust">   // ⚠️
 fn get_fourth(input: &amp;Vec&lt;i32&gt;) -&gt; i32 {
     let fourth = input.get(3).unwrap();
@@ -385,7 +385,7 @@ fn main() {
     try_two_unwraps(vector);
 }
 </code></pre></pre>
-<p>消息是:<code>thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:2:32</code>。我们不查行，就不知道是第一个<code>.unwrap()</code>还是第二个<code>.unwrap()</code>。最好是检查长度，也不要解包。不过有了<code>.expect()</code>至少会好<em>一点</em>。下面是<code>.expect()</code>的情况。</p>
+<p>消息是:<code>thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:2:32</code>。我们不检查行号，就不知道是第一个<code>.unwrap()</code>还是第二个<code>.unwrap()</code>。最好是检查长度，也不要解包。不过有了<code>.expect()</code>至少会好<em>一点</em>。下面是<code>.expect()</code>的情况。</p>
 <pre><pre class="playground"><code class="language-rust">fn try_two_unwraps(input: Vec&lt;Option&lt;i32&gt;&gt;) {
     println!(&quot;Index 0 is: {}&quot;, input[0].expect(&quot;The first unwrap had a None!&quot;));
     println!(&quot;Index 1 is: {}&quot;, input[1].expect(&quot;The second unwrap had a None!&quot;));
@@ -397,9 +397,9 @@ fn main() {
 }
 </code></pre></pre>
 <p>所以，这是好一点的。<code>thread 'main' panicked at 'The first unwrap had a None!', src\main.rs:2:32</code>. 我们也有行号，所以我们可以找到它。</p>
-<p>如果你想一直有一个你想选择的值，也可以用<code>unwrap_or</code>。如果你这样做，它永远不会慌。就是这样的。</p>
+<p>如果你想一直有一个你想选择的值，也可以用<code>unwrap_or</code>。如果你这样做，它永远不会崩溃。就是这样的。</p>
 <ul>
-<li>1)好，因为你的程序不会慌，但</li>
+<li>1)好，因为你的程序不会崩溃，但</li>
 <li>2)如果你想让程序在出现问题时崩溃，也许不好。</li>
 </ul>
 <p>但通常我们都不希望自己的程序崩溃，所以<code>unwrap_or</code>是个不错的方法。</p>

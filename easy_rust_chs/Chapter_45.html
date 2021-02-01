@@ -181,7 +181,7 @@ fn main() {}
 <p>接下来是<code>enum</code>的变种。它们是 <code>Borrowed</code> 和 <code>Owned</code>。</p>
 <p>想象一下，你有一个返回 <code>Cow&lt;'static, str&gt;</code> 的函数。如果你告诉函数返回<code>&quot;My message&quot;.into()</code>，它就会查看类型:&quot;My message&quot;是<code>str</code>. 这是一个<code>Borrowed</code>的类型，所以它选择<code>Borrowed(&amp;'a B)</code>。所以它就变成了<code>Cow::Borrowed(&amp;'static str)</code>。</p>
 <p>而如果你给它一个<code>format!(&quot;{}&quot;, &quot;My message&quot;).into()</code>，那么它就会查看类型。这次是一个<code>String</code>，因为<code>format!</code>创建了<code>String</code>。所以这次会选择 &quot;Owned&quot;。</p>
-<p>下面是一个测试<code>Cow</code>的例子。我们将把一个数字放入一个函数中，返回一个<code>Cow&lt;'static, str&gt;</code>。根据这个数字，它会创建一个<code>&amp;str</code>或<code>String</code>。然后它使用<code>.into()</code>将其变成<code>Cow</code>。这样做的时候，它就会选择<code>Cow:::Borrowed</code>或者<code>Cow::Owned</code>。那我们就匹配一下，看看它选的是哪一个。</p>
+<p>下面是一个测试<code>Cow</code>的例子。我们将把一个数字放入一个函数中，返回一个<code>Cow&lt;'static, str&gt;</code>。根据这个数字，它会创建一个<code>&amp;str</code>或<code>String</code>。然后它使用<code>.into()</code>将其变成<code>Cow</code>。这样做的时候，它就会选择<code>Cow::Borrowed</code>或者<code>Cow::Owned</code>。那我们就匹配一下，看看它选的是哪一个。</p>
 <pre><pre class="playground"><code class="language-rust">use std::borrow::Cow;
 
 fn modulo_3(input: u8) -&gt; Cow&lt;'static, str&gt; {
