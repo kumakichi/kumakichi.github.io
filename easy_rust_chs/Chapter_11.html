@@ -172,7 +172,7 @@
 }
 </code></pre></pre>
 <p>编译器说:<code>error[E0384]: cannot assign twice to immutable variable my_number</code>。这是因为如果你只写<code>let</code>，变量是不可变的。</p>
-<p>但有时你想改变你的变量。要做一个可以改变的变量，就在<code>let</code>后面加上<code>mut</code>。</p>
+<p>但有时你想改变你的变量。要创建一个可以改变的变量，就在<code>let</code>后面加上<code>mut</code>。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut my_number = 8;
     my_number = 10;

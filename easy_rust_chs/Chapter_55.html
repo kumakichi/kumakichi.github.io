@@ -248,7 +248,7 @@ fn main() {
     println!(&quot;{:?}&quot;, my_string);
 }
 </code></pre></pre>
-<p>另外，如果(也只有在)它的字段都是<code>Copy</code>的情况下，你可以做一个<code>Copy</code>结构。<code>HoldsAString</code>有<code>String</code>，它不是<code>Copy</code>，所以你不能对它使用<code>#[derive(Copy)]</code>。但是对于这个结构你可以:</p>
+<p>另外，如果(也只有在)它的字段都是<code>Copy</code>的情况下，你可以创建一个<code>Copy</code>结构。<code>HoldsAString</code>有<code>String</code>，它不是<code>Copy</code>，所以你不能对它使用<code>#[derive(Copy)]</code>。但是对于这个结构你可以:</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Clone, Copy)] // You also need Clone to use Copy
 struct NumberAndBool {
     number: i32, // i32 is Copy

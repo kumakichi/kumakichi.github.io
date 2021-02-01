@@ -181,7 +181,7 @@
 </code></pre>
 <p>所以我们把第5行改成<code>println!(&quot;{}&quot;, my_number == *reference);</code>，现在打印的是<code>true</code>，因为现在是<code>i32</code> == <code>i32</code>，而不是<code>i32</code> == <code>&amp;i32</code>。这就是所谓的解引用。</p>
 <p>但是当你使用一个方法时，Rust会为你解除引用。方法中的 <code>.</code> 被称为点运算符，它可以免费进行递归。</p>
-<p>首先，让我们做一个有一个 <code>u8</code> 字段的结构。然后，我们将对它进行引用，并尝试进行比较。它将无法工作。</p>
+<p>首先，让我们创建一个有一个 <code>u8</code> 字段的结构。然后，我们将对它进行引用，并尝试进行比较。它将无法工作。</p>
 <pre><pre class="playground"><code class="language-rust">struct Item {
     number: u8,
 }

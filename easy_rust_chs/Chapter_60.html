@@ -164,13 +164,13 @@
                 <div id="content" class="content">
                     <main>
                         <h2><a class="header" href="#crate和模块" id="crate和模块">Crate和模块</a></h2>
-<p>每次你在 Rust 中写代码时，你都是在 <code>crate</code> 中写的。<code>crate</code>是一个或多个文件，一起为你的代码服务。在你写的文件里面，你也可以做一个<code>mod</code>。<code>mod</code>是存放函数、结构等的空间。因为这些原因被使用:</p>
+<p>每次你在 Rust 中写代码时，你都是在 <code>crate</code> 中写的。<code>crate</code>是一个或多个文件，一起为你的代码服务。在你写的文件里面，你也可以创建一个<code>mod</code>。<code>mod</code>是存放函数、结构等的空间。因为这些原因被使用:</p>
 <ul>
 <li>构建你的代码:它可以帮助你思考代码的总体结构。当你的代码越来越大时，这一点可能很重要。</li>
 <li>阅读你的代码:人们可以更容易理解你的代码。例如，<code>std::collections::HashMap</code>这个名字告诉你，它在<code>std</code>的模块<code>collections</code>里面。这给了你一个提示，也许<code>collections</code>里面还有更多的集合类型，你可以尝试一下。</li>
 <li>私密性:所有的东西一开始都是私有的。这样可以让你不让用户直接使用函数。</li>
 </ul>
-<p>要做一个<code>mod</code>，只需要写<code>mod</code>，然后用<code>{}</code>开始一个代码块。我们将创建一个名为<code>print_things</code>的mod，它有一些打印相关的功能。</p>
+<p>要创建一个<code>mod</code>，只需要写<code>mod</code>，然后用<code>{}</code>开始一个代码块。我们将创建一个名为<code>print_things</code>的mod，它有一些打印相关的功能。</p>
 <pre><pre class="playground"><code class="language-rust">mod print_things {
     use std::fmt::Display;
 

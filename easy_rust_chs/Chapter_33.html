@@ -217,7 +217,7 @@ Ok(6060)
 </code></pre>
 <p>所以<code>std::result::Result&lt;i32, std::num::ParseIntError&gt;</code>就是我们需要的签名。</p>
 <p>我们不需要写 <code>std::result::Result</code>，因为 <code>Result</code> 总是 &quot;在范围内&quot;(在范围内 = 准备好使用)。Rust对我们经常使用的所有类型都是这样做的，所以我们不必写<code>std::result::Result</code>、<code>std::collections::Vec</code>等。</p>
-<p>我们现在还没有处理文件这样的东西，所以?操作符看起来还不是太有用。但这里有一个无用但快速的例子，说明你如何在单行上使用它。与其用 <code>.parse()</code> 做一个 <code>i32</code>，不如做更多。我们将做一个 <code>u16</code>，然后把它变成 <code>String</code>，再变成 <code>u32</code>，然后再变成 <code>String</code>，最后变成 <code>i32</code>。</p>
+<p>我们现在还没有处理文件这样的东西，所以?操作符看起来还不是太有用。但这里有一个无用但快速的例子，说明你如何在单行上使用它。与其用 <code>.parse()</code> 创建一个 <code>i32</code>，不如做更多。我们将创建一个 <code>u16</code>，然后把它变成 <code>String</code>，再变成 <code>u32</code>，然后再变成 <code>String</code>，最后变成 <code>i32</code>。</p>
 <pre><pre class="playground"><code class="language-rust">use std::num::ParseIntError;
 
 fn parse_str(input: &amp;str) -&gt; Result&lt;i32, ParseIntError&gt; {
@@ -243,7 +243,7 @@ fn main() {
 </code></pre></pre>
 <p>运行程序时，会显示信息<code>&quot;Time to panic!&quot;</code>。<code>thread 'main' panicked at 'Time to panic!', src\main.rs:2:3</code></p>
 <p>你会记得<code>src\main.rs</code>是目录和文件名，<code>2:3</code>是行名和列名。有了这些信息，你就可以找到代码并修复它。</p>
-<p><code>panic!</code>是一个很好用的宏，以确保你知道什么时候有变化。例如，这个叫做<code>prints_three_things</code>的函数总是从一个向量中打印出索引[0]、[1]和[2]。这没关系，因为我们总是给它一个有三个项目的向量。</p>
+<p><code>panic!</code>是一个很好用的宏，以确保你知道什么时候有变化。例如，这个叫做<code>prints_three_things</code>的函数总是从一个向量中打印出索引[0]、[1]和[2]。这没关系，因为我们总是给它一个有三个元素的向量。</p>
 <pre><pre class="playground"><code class="language-rust">fn prints_three_things(vector: Vec&lt;i32&gt;) {
     println!(&quot;{}, {}, {}&quot;, vector[0], vector[1], vector[2]);
 }
@@ -277,7 +277,7 @@ fn main() {
     prints_three_things(my_vec);
 }
 </code></pre></pre>
-<p>现在我们会知道，如果向量有6个项目，因为它应该崩溃。</p>
+<p>现在我们知道，如果向量有6个元素，它应该要崩溃:</p>
 <pre><pre class="playground"><code class="language-rust">    // ⚠️
 fn prints_three_things(vector: Vec&lt;i32&gt;) {
     if vector.len() != 3 {
@@ -291,13 +291,13 @@ fn main() {
     prints_three_things(my_vec);
 }
 </code></pre></pre>
-<p>这样我们就得到了<code>thread 'main' panicked at 'my_vec must always have three items', src\main.rs:8:9</code>。多亏了<code>panic!</code>，我们现在记得<code>my_vec</code>应该只有三个项目。所以<code>panic!</code>是一个很好的宏，可以在你的代码中创建提醒。</p>
+<p>这样我们就得到了<code>thread 'main' panicked at 'my_vec must always have three items', src\main.rs:8:9</code>。多亏了<code>panic!</code>，我们现在记得<code>my_vec</code>应该只有三个元素。所以<code>panic!</code>是一个很好的宏，可以在你的代码中创建提醒。</p>
 <p>还有三个与<code>panic!</code>类似的宏，你在测试中经常使用。它们分别是 <code>assert!</code>, <code>assert_eq!</code>, 和 <code>assert_ne!</code>.</p>
 <p>下面是它们的意思。</p>
 <ul>
 <li><code>assert!()</code>: 如果<code>()</code>里面的部分不是真的, 程序就会崩溃.</li>
-<li><code>assert_eq!()</code>:<code>()</code>里面的两个项目必须相等。</li>
-<li><code>assert_ne!()</code>:<code>()</code>里面的两个项目必须不相等。(<em>ne</em>表示不相等)</li>
+<li><code>assert_eq!()</code>:<code>()</code>里面的两个元素必须相等。</li>
+<li><code>assert_ne!()</code>:<code>()</code>里面的两个元素必须不相等。(<em>ne</em>表示不相等)</li>
 </ul>
 <p>一些例子。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {

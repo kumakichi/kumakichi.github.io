@@ -177,7 +177,7 @@
 
 fn main() {}
 </code></pre></pre>
-<p>但是元组可以容纳很多东西，也可以容纳不同的类型。元组里面的项目也是用数字0、1、2等来做索引的，但要访问它们，你要用<code>.</code>而不是<code>[]</code>。让我们把一大堆类型放到一个元组中。</p>
+<p>但是元组可以容纳很多东西，也可以容纳不同的类型。元组里面的元素也是用数字0、1、2等来做索引的，但要访问它们，你要用<code>.</code>而不是<code>[]</code>。让我们把一大堆类型放到一个元组中。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let random_tuple = (&quot;Here is a name&quot;, 8, vec!['a'], 'b', [8, 9, 10], 7.7);
     println!(
@@ -210,7 +210,7 @@ Sixth item: 7.7
     let str_vec = vec![&quot;one&quot;, &quot;two&quot;, &quot;three&quot;];
 }
 </code></pre></pre>
-<p><code>str_vec</code>里面有三个项目。如果我们想把它们拉出来呢？这时我们可以使用元组。</p>
+<p><code>str_vec</code>里面有三个元素。如果我们想把它们拉出来呢？这时我们可以使用元组。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let str_vec = vec![&quot;one&quot;, &quot;two&quot;, &quot;three&quot;];
 

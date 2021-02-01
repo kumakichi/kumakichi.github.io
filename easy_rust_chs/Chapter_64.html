@@ -279,7 +279,7 @@ vis: a possibly empty Visibility qualifier
 literal: matches -?LiteralExpression
 </code></pre>
 <p>有另一个很好的网站叫cheats.rs，解释了它们<a href="https://cheats.rs/#macros-attributes">这里</a>，并给出了每个例子。</p>
-<p>然而，对于大多数宏，你只会用到 <code>expr</code>、<code>ident</code> 和 <code>tt</code>。<code>ident</code> 表示标识符，用于变量或函数名称。<code>tt</code>表示token树，和任何类型的输入。让我们尝试用这两个词做一个简单的宏。</p>
+<p>然而，对于大多数宏，你只会用到 <code>expr</code>、<code>ident</code> 和 <code>tt</code>。<code>ident</code> 表示标识符，用于变量或函数名称。<code>tt</code>表示token树，和任何类型的输入。让我们尝试用这两个词创建一个简单的宏。</p>
 <pre><pre class="playground"><code class="language-rust">macro_rules! check {
     ($input1:ident, $input2:expr) =&gt; {
         println!(

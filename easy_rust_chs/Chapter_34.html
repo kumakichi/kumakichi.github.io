@@ -197,7 +197,7 @@ let result = self.second_thing as u32 + self.first_thing
 <span class="boring">}
 </span></code></pre></pre>
 <p>或者我们想把<code>self.first_thing</code>放在<code>self.second_thing</code>旁边，说我们要这样加。所以如果我们把55加到33.4，我们要看到的是5533.4，而不是88.4。</p>
-<p>所以首先我们看一下如何做一个trait。关于<code>trait</code>，要记住的重要一点是，它们是关于行为的。要创建一个trait，写<code>trait</code>，然后创建一些函数。</p>
+<p>所以首先我们看一下如何创建一个trait。关于<code>trait</code>，要记住的重要一点是，它们是关于行为的。要创建一个trait，写<code>trait</code>，然后创建一些函数。</p>
 <pre><pre class="playground"><code class="language-rust">struct Animal { // A simple struct - an Animal only has a name
     name: String,
 }
@@ -305,7 +305,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>所以，当你创建一个trait时，你必须思考:&quot;我应该写哪些功能？而用户应该写哪些函数？&quot; 如果你认为用户每次使用函数的方式应该是一样的，那么就把函数写出来。如果你认为用户会以不同的方式使用，那就写出函数签名即可。</p>
-<p>所以，让我们尝试为我们的struct实现Display特性。首先我们将做一个简单的结构体:</p>
+<p>所以，让我们尝试为我们的struct实现Display特性。首先我们将创建一个简单的结构体:</p>
 <pre><pre class="playground"><code class="language-rust">struct Cat {
     name: String,
     age: u8,
@@ -393,7 +393,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>成功了! 现在，当我们使用<code>{}</code>打印时，我们得到<code>Reggie Mantle is a cat who is 4 years old.</code>。这看起来好多了。</p>
-<p>顺便说一下，如果你实现了<code>Display</code>，那么你就可以免费得到<code>ToString</code>的特性。这是因为你使用<code>format!</code>宏来实现<code>.fmt()</code>函数，这让你可以用<code>.to_string()</code>来做一个<code>String</code>。所以我们可以做这样的事情，我们把<code>reggie_mantle</code>传给一个想要<code>String</code>的函数，或者其他任何东西。</p>
+<p>顺便说一下，如果你实现了<code>Display</code>，那么你就可以免费得到<code>ToString</code>的特性。这是因为你使用<code>format!</code>宏来实现<code>.fmt()</code>函数，这让你可以用<code>.to_string()</code>来创建一个<code>String</code>。所以我们可以做这样的事情，我们把<code>reggie_mantle</code>传给一个想要<code>String</code>的函数，或者其他任何东西。</p>
 <pre><pre class="playground"><code class="language-rust">use std::fmt;
 struct Cat {
     name: String,

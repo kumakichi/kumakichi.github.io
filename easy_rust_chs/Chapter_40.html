@@ -453,7 +453,7 @@ error[E0726]: implicit elided lifetime not allowed here
 12 | impl std::fmt::Display for Adventurer {
    |                            ^^^^^^^^^^- help: indicate the anonymous lifetime: `&lt;'_&gt;`
 </code></pre>
-<p>好了，我们将这些写进去......现在它工作了！现在我们可以做一个<code>Adventurer</code>，并对它做一些事情。现在我们可以创建一个<code>Adventurer</code>，然后用它做一些事情。</p>
+<p>好了，我们将这些写进去......现在它工作了！现在我们可以创建一个<code>Adventurer</code>，然后用它做一些事情:</p>
 <pre><pre class="playground"><code class="language-rust">struct Adventurer&lt;'a&gt; {
     name: &amp;'a str,
     hit_points: u32,

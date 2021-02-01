@@ -913,7 +913,7 @@ fn main() {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<p>因此，它需要一个<code>Instant</code>，并使用<code>.duration_since()</code>给出一个<code>Duration</code>。让我们试着打印一下。我们将创建两个相邻的 <code>Instant::now()</code>，然后让程序忙活一会儿，再创建一个 <code>Instant::now()</code>。然后我们再做一个<code>Instant::now()</code>. 最后，我们来看看用了多长时间。</p>
+<p>因此，它需要一个<code>Instant</code>，并使用<code>.duration_since()</code>给出一个<code>Duration</code>。让我们试着打印一下。我们将创建两个相邻的 <code>Instant::now()</code>，然后让程序忙活一会儿，再创建一个 <code>Instant::now()</code>。然后我们再创建一个<code>Instant::now()</code>. 最后，我们来看看用了多长时间。</p>
 <pre><pre class="playground"><code class="language-rust">use std::time::Instant;
 
 fn main() {
@@ -946,7 +946,7 @@ fn main() {
     println!(&quot;{}&quot;, time1);
 }
 </code></pre></pre>
-<p>这样就会打印出类似<code>Instant { tv_sec: 2740773, tv_nsec: 632821036 }</code>的东西。这是没有用的，但是如果我们使用 <code>.iter()</code> 和 <code>.rev()</code> 以及 <code>.skip(2)</code>，我们可以跳过最后的 <code>}</code> 和 <code> </code>。我们可以用它来做一个随机数发生器。</p>
+<p>这样就会打印出类似<code>Instant { tv_sec: 2740773, tv_nsec: 632821036 }</code>的东西。这是没有用的，但是如果我们使用 <code>.iter()</code> 和 <code>.rev()</code> 以及 <code>.skip(2)</code>，我们可以跳过最后的 <code>}</code> 和 <code> </code>。我们可以用它来创建一个随机数发生器。</p>
 <pre><pre class="playground"><code class="language-rust">use std::time::Instant;
 
 fn bad_random_number(digits: usize) {

@@ -231,7 +231,7 @@
 <p>那打印<code>It's some other number</code>。</p>
 <p>记住匹配的规则:</p>
 <ul>
-<li>你写下<code>match</code>，然后做一个<code>{}</code>的代码块。</li>
+<li>你写下<code>match</code>，然后创建一个<code>{}</code>的代码块。</li>
 <li>在左边写上<em>模式</em>，用<code>=&gt;</code>胖箭头说明匹配时该怎么做。</li>
 <li>每一行称为一个 &quot;arm&quot;。</li>
 <li>在arm之间放一个逗号(不是分号)。</li>
@@ -301,7 +301,7 @@ Each colour has at least 10
 Not much green
 </code></pre>
 <p>这也说明了<code>match</code>语句的作用，因为在第一个例子中，它只打印了<code>Not much blue</code>。但是<code>first</code>也没有多少绿色。<code>match</code>语句总是在找到一个匹配项时停止，而不检查其他的。这就是一个很好的例子，代码编译得很好，但不是你想要的代码。</p>
-<p>你可以做一个非常大的 <code>match</code> 语句来解决这个问题，但是使用 <code>for</code> 循环可能更好。我们将很快讨论循环。</p>
+<p>你可以创建一个非常大的 <code>match</code> 语句来解决这个问题，但是使用 <code>for</code> 循环可能更好。我们将很快讨论循环。</p>
 <p>匹配必须返回相同的类型。所以你不能这样做:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let my_number = 10;

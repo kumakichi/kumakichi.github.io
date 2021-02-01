@@ -246,7 +246,7 @@ fn main() {
     give_fifty(my_number);
 }
 </code></pre></pre>
-<p>下面是一个比较长的例子。让我们想象一下，在一个游戏中，你的角色面对的是晚上比较强的怪物。我们可以做一个叫<code>TimeOfDay</code>的枚举来记录一天的情况。你的角色叫西蒙，有一个叫<code>character_fear</code>的数字，也就是<code>f64</code>。它晚上上升，白天下降。我们将做一个<code>change_fear</code>函数，改变他的恐惧，但也做其他事情，如写消息。它大概是这样的:</p>
+<p>下面是一个比较长的例子。让我们想象一下，在一个游戏中，你的角色面对的是晚上比较强的怪物。我们可以创建一个叫<code>TimeOfDay</code>的枚举来记录一天的情况。你的角色叫西蒙，有一个叫<code>character_fear</code>的数字，也就是<code>f64</code>。它晚上上升，白天下降。我们将创建一个<code>change_fear</code>函数，改变他的恐惧，但也做其他事情，如写消息。它大概是这样的:</p>
 <pre><pre class="playground"><code class="language-rust">enum TimeOfDay { // just a simple enum
     Dawn,
     Day,

@@ -167,7 +167,7 @@
 <p>Rust还有很多集合类型。你可以在标准库中的 https://doc.rust-lang.org/beta/std/collections/ 看到它们。那个页面对为什么要使用一种类型有很好的解释，所以如果你不知道你想要什么类型，就去那里。这些集合都在标准库的<code>std::collections</code>里面。使用它们的最好方法是使用 <code>use</code> 语句。
 就像我们的<code>enums</code>一样。我们将从<code>HashMap</code>开始，这是很常见的。</p>
 <h3><a class="header" href="#hashmap和btreemap" id="hashmap和btreemap">HashMap和BTreeMap</a></h3>
-<p>HashMap是由<em>keys</em>和<em>values</em>组成的集合。你使用键来查找与键匹配的值。你可以只用<code>HashMap::new()</code>创建一个新的<code>HashMap</code>，并使用<code>.insert(key, value)</code>来插入项目。</p>
+<p>HashMap是由<em>keys</em>和<em>values</em>组成的集合。你使用键来查找与键匹配的值。你可以只用<code>HashMap::new()</code>创建一个新的<code>HashMap</code>，并使用<code>.insert(key, value)</code>来插入元素。</p>
 <p><code>HashMap</code>是没有顺序的，所以如果你把<code>HashMap</code>中的每一个键都打印在一起，可能会打印出不同的结果。我们可以在一个例子中看到这一点。</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::HashMap; // This is so we can just write HashMap instead of std::collections::HashMap every time
 
@@ -370,7 +370,7 @@ fn main() {
 Le Petit Prince, 1
 Eye of the World, 2
 </code></pre>
-<p>你也可以用<code>.or_insert()</code>做一些事情，比如插入一个vec，然后推入vec。让我们假设我们问街上的男人和女人他们对一个政治家的看法。他们给出的评分从0到10。然后我们要把这些数字放在一起，看看这个政治家是更受男人欢迎还是女人欢迎。它可以是这样的。</p>
+<p>你也可以用<code>.or_insert()</code>做一些事情，比如插入一个vec，然后推入数据。让我们假设我们问街上的男人和女人他们对一个政治家的看法。他们给出的评分从0到10。然后我们要把这些数字放在一起，看看这个政治家是更受男人欢迎还是女人欢迎。它可以是这样的。</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
 
 fn main() {
@@ -474,8 +474,8 @@ fn main() {
 </code></pre></pre>
 <p>现在会按顺序打印。<code>0 3 5 8 10 11 13 14 15 16 17 18 19 20 22 24 25 26 28 29 32 33 34 35 36 37 38 41 42 43 44 46 49 51 54 55 56 57 58 59 60 61 63 64 66 67 68 71 73 74 76 79 80 81 82 84 86 87 89 90 91 92 93 94 95 96</code>.</p>
 <h3><a class="header" href="#二叉堆" id="二叉堆">二叉堆</a></h3>
-<p><code>BinaryHeap</code>是一种有趣的集合类型，因为它大部分是无序的，但也有一点秩序。它把最大的项目放在前面，但其他项目是按任何顺序排列的。</p>
-<p>我们将用另一个项目列表来举例，但这次是较小的。</p>
+<p><code>BinaryHeap</code>是一种有趣的集合类型，因为它大部分是无序的，但也有一点秩序。它把最大的元素放在前面，但其他元素是按任何顺序排列的。</p>
+<p>我们将用另一个元素列表来举例，但这次数据少些。</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::BinaryHeap;
 
 fn show_remainder(input: &amp;BinaryHeap&lt;i32&gt;) -&gt; Vec&lt;i32&gt; { // This function shows the remainder in the BinaryHeap. Actually an iterator would be
@@ -556,7 +556,7 @@ You need to: Watch some YouTube
 }
 </code></pre></pre>
 <p>这是60万个零的<code>Vec</code>。每次你用<code>remove(0)</code>，它就会把每个零向左移动一个空格。然后它就会做60万次。</p>
-<p>用<code>VecDeque</code>就不用担心这个问题了。它通常比<code>Vec</code>慢一点，但如果你要在两端都做事情，那么它就快多了。你可以直接用<code>VecDeque::from</code>与<code>Vec</code>来做一个。那么我们上面的代码就是这样的。</p>
+<p>用<code>VecDeque</code>就不用担心这个问题了。它通常比<code>Vec</code>慢一点，但如果你要在两端都做事情，那么它就快多了。你可以直接用<code>VecDeque::from</code>与<code>Vec</code>来创建一个。那么我们上面的代码就是这样的。</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::VecDeque;
 
 fn main() {
@@ -567,7 +567,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>现在速度快了很多，在playground上，它在一秒内完成，而不是放弃。</p>
-<p>在接下来的这个例子中，我们有一个<code>Vec</code>的事情要做。然后我们做一个<code>VecDeque</code>，用<code>.push_front()</code>把它们放在前面，所以我们添加的第一个项目会在右边。但是我们推送的每一个项目都是一个<code>(&amp;str, bool)</code>。<code>&amp;str</code>是描述 <code>false</code>表示还没有完成。我们用我们的<code>done()</code>函数从后面弹出一个项目，但是我们不想删除它。相反，我们把<code>false</code>改成<code>true</code>，然后把它推到前面，这样我们就可以保留它。</p>
+<p>在接下来的这个例子中，我们在一个<code>Vec</code>上做一些事。我们创建一个<code>VecDeque</code>，用<code>.push_front()</code>把它们放在前面，所以我们添加的第一个元素会在右边。但是我们推送的每一个元素都是一个<code>(&amp;str, bool)</code>。<code>&amp;str</code>是描述 <code>false</code>表示还没有完成。我们用我们的<code>done()</code>函数从后面弹出一个元素，但是我们不想删除它。相反，我们把<code>false</code>改成<code>true</code>，然后把它推到前面，这样我们就可以保留它。</p>
 <p>它看起来是这样的:</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::VecDeque;
 

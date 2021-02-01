@@ -337,7 +337,7 @@ What about DeadStar? It's the number 1001.
 </code></pre>
 <p><code>DeadStar</code>本来是4号，但现在是1001。</p>
 <h3><a class="header" href="#使用多种类型的枚举" id="使用多种类型的枚举">使用多种类型的枚举</a></h3>
-<p>你知道<code>Vec</code>、数组等中的项目都需要相同的类型(只有tuple不同)。但其实你可以用一个枚举来放不同的类型。想象一下，我们想有一个<code>Vec</code>，有<code>u32</code>或<code>i32</code>。当然，你可以做一个<code>Vec&lt;(u32, i32)&gt;</code>(一个带有<code>(u32, i32)</code>元组的vec)，但是我们每次只想要一个。所以这里可以使用一个枚举。下面是一个简单的例子。</p>
+<p>你知道<code>Vec</code>、数组等中的元素都需要相同的类型(只有tuple不同)。但其实你可以用一个枚举来放不同的类型。想象一下，我们想有一个<code>Vec</code>，有<code>u32</code>或<code>i32</code>。当然，你可以创建一个<code>Vec&lt;(u32, i32)&gt;</code>(一个带有<code>(u32, i32)</code>元组的vec)，但是我们每次只想要一个。所以这里可以使用一个枚举。下面是一个简单的例子。</p>
 <pre><pre class="playground"><code class="language-rust">enum Number {
     U32(u32),
     I32(i32),

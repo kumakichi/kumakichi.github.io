@@ -251,7 +251,7 @@
     println!(&quot;{:?}&quot;, double_vec);
 }
 </code></pre></pre>
-<p>另一个很好的例子是在<code>.enumerate()</code>之后使用<code>.for_each()</code>。<code>.enumerate()</code>方法给出一个带有索引号和项目的迭代器。例如:<code>[10, 9, 8]</code>变成<code>(0, 10), (1, 9), (2, 8)</code>。这里每个项的类型是<code>(usize, i32)</code>。所以你可以这样做:</p>
+<p>另一个很好的例子是在<code>.enumerate()</code>之后使用<code>.for_each()</code>。<code>.enumerate()</code>方法给出一个带有索引号和元素的迭代器。例如:<code>[10, 9, 8]</code>变成<code>(0, 10), (1, 9), (2, 8)</code>。这里每个项的类型是<code>(usize, i32)</code>。所以你可以这样做:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let num_vec = vec![10, 9, 8];
 
@@ -617,8 +617,8 @@ Some(&quot;success!&quot;)
 None
 </code></pre>
 <p>第一个(索引0)是<code>None</code>，因为在<code>second_try</code>中有一个<code>None</code>为索引0。第二个是<code>None</code>，因为在<code>first_try</code>中有一个<code>None</code>。其次是<code>Some(&quot;success!&quot;)</code>，因为<code>first_try</code>、<code>second try</code>、<code>third_try</code>中没有<code>None</code>。</p>
-<p><code>.any()</code>和<code>.all()</code>在迭代器中非常容易使用。它们根据你的输入返回一个<code>bool</code>。在这个例子中，我们做了一个非常大的vec(大约20000个元素)，包含了从<code>'a'</code>到<code>'働'</code>的所有字符。然后我们做一个函数来检查是否有字符在其中。</p>
-<p>接下来我们做一个更小的vec，问它是否都是字母(用<code>.is_alphabetic()</code>方法)。然后我们问它是不是所有的字符都小于韩文字符<code>'행'</code>。</p>
+<p><code>.any()</code>和<code>.all()</code>在迭代器中非常容易使用。它们根据你的输入返回一个<code>bool</code>。在这个例子中，我们做了一个非常大的vec(大约20000个元素)，包含了从<code>'a'</code>到<code>'働'</code>的所有字符。然后我们创建一个函数来检查是否有字符在其中。</p>
+<p>接下来我们创建一个更小的vec，问它是否都是字母(用<code>.is_alphabetic()</code>方法)。然后我们问它是不是所有的字符都小于韩文字符<code>'행'</code>。</p>
 <p>还要注意放一个参照物，因为<code>.iter()</code>给了一个参照物，你需要一个<code>&amp;</code>和另一个<code>&amp;</code>进行比较。</p>
 <pre><pre class="playground"><code class="language-rust">fn in_char_vec(char_vec: &amp;Vec&lt;char&gt;, check: char) {
     println!(&quot;Is {} inside? {}&quot;, check, char_vec.iter().any(|&amp;char| char == check));
@@ -785,7 +785,7 @@ None
 <p><code>.chunks()</code>和<code>.windows()</code>是将矢量切割成你想要的尺寸的两种方法。你把你想要的尺寸放在括号里。比如说你有一个有10个元素的矢量，你想要一个3的尺寸，它的工作原理是这样的。</p>
 <ul>
 <li>
-<p><code>.chunks()</code>会给你4个切片: [0, 1, 2], 然后是[3, 4, 5], 然后是[6, 7, 8], 最后是[9]. 所以它会尝试用三个元素做一个切片，但如果它没有三个元素，那么它就不会慌张。它只会给你剩下的东西。</p>
+<p><code>.chunks()</code>会给你4个切片: [0, 1, 2], 然后是[3, 4, 5], 然后是[6, 7, 8], 最后是[9]. 所以它会尝试用三个元素创建一个切片，但如果它没有三个元素，那么它就不会慌张。它只会给你剩下的东西。</p>
 </li>
 <li>
 <p><code>.windows()</code>会先给你一个[0, 1, 2]的切片。然后它将移过一片，给你[1, 2, 3]。它将一直这样做，直到最后到达3的最后一片，然后停止。</p>

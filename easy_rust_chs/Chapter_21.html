@@ -180,7 +180,7 @@
 </code></pre></pre>
 <p>你可以看到<code>Vec</code>里面总是有其他东西，这就是<code>&lt;&gt;</code>(角括号)的作用。<code>Vec&lt;String&gt;</code>是一个有一个或多个<code>String</code>的向量。你还可以在里面有更多的类型。比如说</p>
 <ul>
-<li><code>Vec&lt;(i32, i32)&gt;</code> 这是一个 <code>Vec</code> 其中每个项目是一个元组。<code>(i32, i32)</code>.</li>
+<li><code>Vec&lt;(i32, i32)&gt;</code> 这是一个 <code>Vec</code> 其中每个元素是一个元组。<code>(i32, i32)</code>.</li>
 <li><code>Vec&lt;Vec&lt;String&gt;&gt;</code>这是一个<code>Vec</code>，其中有<code>Vec</code>的<code>Strings</code>。比如说你想把你喜欢的书保存为<code>Vec&lt;String&gt;</code>。然后你再用另一本书来做，就会得到另一个<code>Vec&lt;String&gt;</code>。为了保存这两本书，你会把它们放入另一个<code>Vec</code>中，这就是<code>Vec&lt;Vec&lt;String&gt;&gt;</code>。</li>
 </ul>
 <p>与其使用 <code>.push()</code> 让 Rust 决定类型，不如直接声明类型。</p>
@@ -189,7 +189,7 @@
                                               // so there is no error.
 }
 </code></pre></pre>
-<p>你可以看到，向量中的项目必须具有相同的类型。</p>
+<p>你可以看到，向量中的元素必须具有相同的类型。</p>
 <p>另一个创建向量的简单方法是使用 <code>vec!</code> 宏。它看起来像一个数组声明，但前面有 <code>vec!</code>。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut my_vec = vec![8, 10, 10];
@@ -211,7 +211,7 @@ end at five: {:?}
 everything: {:?}&quot;, three_to_five, start_at_two, end_at_five, everything);
 }
 </code></pre></pre>
-<p>因为Vector比数组慢，我们可以用一些方法让它更快。一个vec有一个<strong>容量</strong>，也就是给向量的空间。当你在向量上推送一个新的项目时，它会越来越接近容量。然后，如果你超过了容量，它将使其容量翻倍，并将元素复制到新的空间。这就是所谓的重新分配。我们将使用一种名为<code>.capacity()</code>的方法来查看向量的容量，在我们向它添加元素时。</p>
+<p>因为Vector比数组慢，我们可以用一些方法让它更快。一个vec有一个<strong>容量</strong>，也就是给向量的空间。当你在向量上推送一个新的元素时，它会越来越接近容量。然后，如果你超过了容量，它将使其容量翻倍，并将元素复制到新的空间。这就是所谓的重新分配。我们将使用一种名为<code>.capacity()</code>的方法来查看向量的容量，在我们向它添加元素时。</p>
 <p>例如，我们将使用名为<code>.capacity()</code>的方法来观察一个向量的容量。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut num_vec = Vec::new();

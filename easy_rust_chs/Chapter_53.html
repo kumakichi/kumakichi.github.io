@@ -236,7 +236,7 @@ fn main() {
     println!(&quot;{}&quot;, receiver.recv().unwrap());
 }
 </code></pre></pre>
-<p>两个线程开始发送，然后我们<code>println!</code>。它可能会说 <code>Send a &amp;str this time</code> 或 <code>And here is another &amp;str</code>，这取决于哪个线程先完成。让我们做一个join句柄来等待它们完成。</p>
+<p>两个线程开始发送，然后我们<code>println!</code>。它可能会说 <code>Send a &amp;str this time</code> 或 <code>And here is another &amp;str</code>，这取决于哪个线程先完成。让我们创建一个join句柄来等待它们完成。</p>
 <pre><pre class="playground"><code class="language-rust">use std::sync::mpsc::channel;
 
 fn main() {

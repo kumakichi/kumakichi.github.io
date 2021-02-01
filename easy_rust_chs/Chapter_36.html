@@ -211,7 +211,7 @@
     assert_eq!(my_vec_iter.next(), None);        // You can keep calling .next() but it will always be None
 }
 </code></pre></pre>
-<p>为自己的struct或enum实现<code>Iterator</code>并不难。首先我们做一个书库，想一想。</p>
+<p>为自己的struct或enum实现<code>Iterator</code>并不难。首先我们创建一个书库，想一想。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)] // we want to print it with {:?}
 struct Library {
     library_type: LibraryType, // this is our enum
@@ -295,7 +295,7 @@ fn main() {}
 </code></pre></pre>
 <p>你可以看到<code>impl Iterator for Alternate</code>下面写着<code>type Item = i32</code>。这就是关联类型。我们的迭代器将针对我们的书籍列表，这是一个<code>Vec&lt;String&gt;</code>。当我们调用next的时候。
 它将给我们一个<code>String</code>。所以我们就写<code>type Item = String;</code>。这就是关联项。</p>
-<p>为了实现 <code>Iterator</code>，你需要写 <code>fn next()</code> 函数。这是你决定迭代器应该做什么的地方。对于我们的 <code>Library</code>，我们首先希望它给我们最后一本书。所以我们将<code>match</code>与<code>.pop()</code>一起，如果是<code>Some</code>的话，就把最后一项去掉。我们还想为每个项目打印 &quot;is found!&quot;。现在它看起来像这样:</p>
+<p>为了实现 <code>Iterator</code>，你需要写 <code>fn next()</code> 函数。这是你决定迭代器应该做什么的地方。对于我们的 <code>Library</code>，我们首先希望它给我们最后一本书。所以我们将<code>match</code>与<code>.pop()</code>一起，如果是<code>Some</code>的话，就把最后一项去掉。我们还想为每个元素打印 &quot;is found!&quot;。现在它看起来像这样:</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug, Clone)]
 struct Library {
     library_type: LibraryType,
