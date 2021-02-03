@@ -164,7 +164,7 @@
                 <div id="content" class="content">
                     <main>
                         <h2><a class="header" href="#impl-trait" id="impl-trait">impl Trait</a></h2>
-<p><code>impl Trait</code>与generics类似。你还记得，泛型使用一个类型 <code>T</code>(或任何其他名称)，然后在程序编译时决定。首先我们来看一个具体的类型。</p>
+<p><code>impl Trait</code>与泛型类似。你还记得，泛型使用一个类型 <code>T</code>(或任何其他名称)，然后在程序编译时决定。首先我们来看一个具体的类型:</p>
 <pre><pre class="playground"><code class="language-rust">fn gives_higher_i32(one: i32, two: i32) {
     let higher = if one &gt; two { one } else { two };
     println!(&quot;{} is higher.&quot;, higher);
@@ -175,7 +175,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这个打印:<code>10 is higher.</code>.</p>
-<p>但是这个只接受<code>i32</code>，所以现在我们要把它做成通用的。我们需要比较，我们需要用<code>{}</code>打印，所以我们的类型T需要<code>PartialOrd</code>和<code>Display</code>。记住，这意味着 &quot;只接受已经有<code>PartialOrd</code>和<code>Display</code>的类型&quot;。</p>
+<p>但是这个只接受<code>i32</code>，所以现在我们要把它做成通用的。我们需要比较，我们需要用<code>{}</code>打印，所以我们的类型T需要<code>PartialOrd</code>和<code>Display</code>。记住，这意味着 &quot;只接受已经实现<code>PartialOrd</code>和<code>Display</code>的类型&quot;。</p>
 <pre><pre class="playground"><code class="language-rust">use std::fmt::Display;
 
 fn gives_higher_i32&lt;T: PartialOrd + Display&gt;(one: T, two: T) {

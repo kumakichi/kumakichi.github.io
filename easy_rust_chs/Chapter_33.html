@@ -202,7 +202,7 @@ Err(ParseIntError { kind: InvalidDigit })
 Err(ParseIntError { kind: InvalidDigit })
 Ok(6060)
 </code></pre>
-<p>我们是怎么找到<code>std::num::ParseIntError</code>的呢？一个简单的方法就是再 &quot;问 &quot;一下编译器。</p>
+<p>我们是怎么找到<code>std::num::ParseIntError</code>的呢？一个简单的方法就是再 &quot;问&quot;一下编译器。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let failure = &quot;Not a number&quot;.parse::&lt;i32&gt;();
     failure.rbrbrb(); // ⚠️ Compiler: &quot;What is rbrbrb()???&quot;

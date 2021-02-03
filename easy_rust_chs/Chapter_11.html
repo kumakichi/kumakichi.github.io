@@ -185,7 +185,7 @@
     my_variable = &quot;Hello, world!&quot;; // ⚠️
 }
 </code></pre></pre>
-<p>你会看到编译器发出的同样的 &quot;预期 &quot;信息。<code>expected integer, found &amp;str</code>. <code>&amp;str</code>是一个字符串类型，我们很快就会知道。</p>
+<p>你会看到编译器发出的同样的 &quot;预期&quot;信息。<code>expected integer, found &amp;str</code>. <code>&amp;str</code>是一个字符串类型，我们很快就会知道。</p>
 <h3><a class="header" href="#遮蔽" id="遮蔽">遮蔽</a></h3>
 <p>shadowing是指使用<code>let</code>声明一个与另一个变量同名的新变量。它看起来像可变性，但完全不同。shadowing看起来是这样的:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -195,7 +195,7 @@
     println!(&quot;{}&quot;, my_number) // Prints 9.2
 }
 </code></pre></pre>
-<p>这里我们说我们用一个新的 &quot;let绑定 &quot;对<code>my_number</code>进行了 &quot;shadowing&quot;。</p>
+<p>这里我们说我们用一个新的 &quot;let绑定&quot;对<code>my_number</code>进行了 &quot;shadowing&quot;。</p>
 <p>那么第一个<code>my_number</code>是否被销毁了呢？没有，但是当我们调用<code>my_number</code>时，我们现在得到<code>my_number</code>的<code>f64</code>。因为它们在同一个作用域块中(同一个 <code>{}</code>)，我们不能再看到第一个 <code>my_number</code>。</p>
 <p>但如果它们在不同的块中，我们可以同时看到两个。
 例如:</p>

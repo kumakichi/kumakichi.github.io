@@ -185,7 +185,7 @@ fn main() {
     println!(&quot;{:?}&quot;, an_integer);
 }
 </code></pre></pre>
-<p>这就是为什么Box被称为 &quot;智能指针 &quot;的原因，因为它就像<code>&amp;</code>的引用(指针的一种)，但可以做更多的事情。</p>
+<p>这就是为什么Box被称为 &quot;智能指针&quot;的原因，因为它就像<code>&amp;</code>的引用(指针的一种)，但可以做更多的事情。</p>
 <p>你也可以使用Box来创建里面有相同结构的结构体。这些结构被称为<em>递归</em>，这意味着在Struct A里面也许是另一个Struct A，有时你可以使用Box来创建链表，尽管这在Rust中并不十分流行。但如果你想创建一个递归结构，你可以使用<code>Box</code>。如果你试着不用 <code>Box</code> 会发生什么:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]

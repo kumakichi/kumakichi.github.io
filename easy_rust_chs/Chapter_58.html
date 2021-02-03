@@ -476,7 +476,7 @@ struct Character {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<p><code>!self.name.to_lowercase().contains(&quot;smurf&quot;)</code> 确保用户不会写出类似 &quot;SMURF &quot;或 &quot;IamSmurf &quot;的字样。它让整个 <code>String</code> 都变成小写(小字母)，并检查 <code>.contains()</code> 而不是 <code>==</code>。而前面的<code>!</code>表示 &quot;不是&quot;。</p>
+<p><code>!self.name.to_lowercase().contains(&quot;smurf&quot;)</code> 确保用户不会写出类似 &quot;SMURF&quot;或 &quot;IamSmurf&quot;的字样。它让整个 <code>String</code> 都变成小写(小字母)，并检查 <code>.contains()</code> 而不是 <code>==</code>。而前面的<code>!</code>表示 &quot;不是&quot;。</p>
 <p>如果一切正常，我们就把<code>can_use</code>设置为<code>true</code>，然后把<code>Ok</code>里面的字符给用户。</p>
 <p>现在我们的代码已经完成了，我们将创建三个不工作的角色，和一个工作的角色。最后的代码是这样的。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]

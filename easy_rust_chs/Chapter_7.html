@@ -185,7 +185,7 @@
     let cat_face = '😺'; // Emojis are chars too
 }
 </code></pre></pre>
-<p>使用最多的字符的数字小于256，它们可以装进<code>u8</code>。记住，<code>u8</code>是0加上255以内的所有数字，总共256个。这意味着 Rust 可以使用 <code>as</code> 将 <code>u8</code> 安全地 <strong>cast</strong>成 <code>char</code>。(&quot;把 <code>u8</code> cast成 <code>char</code> &quot;意味着 &quot;把 <code>u8</code> 假装成 <code>char</code>&quot;)</p>
+<p>使用最多的字符的数字小于256，它们可以装进<code>u8</code>。记住，<code>u8</code>是0加上255以内的所有数字，总共256个。这意味着 Rust 可以使用 <code>as</code> 将 <code>u8</code> 安全地 <strong>cast</strong>成 <code>char</code>。(&quot;把 <code>u8</code> cast成 <code>char</code>&quot;意味着 &quot;把 <code>u8</code> 假装成 <code>char</code>&quot;)</p>
 <p>用 <code>as</code> cast是有用的，因为 Rust 是非常严格的。它总是需要知道类型。
 而不会让你同时使用两种不同的类型，即使它们都是整数。例如，这将无法工作:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() { // main() is where Rust programs start to run. Code goes inside {} (curly brackets)
@@ -218,7 +218,7 @@
     println!(&quot;{}&quot;, my_number as char);
 }
 </code></pre></pre>
-<p>所以这就是Rust中所有不同数字类型的两个原因。这里还有一个原因:<code>usize</code>是Rust用于<em>索引</em>的大小。(索引的意思是 &quot;哪项是第一&quot;，&quot;哪项是第二 &quot;等等)<code>usize</code>是索引的最佳大小，因为:</p>
+<p>所以这就是Rust中所有不同数字类型的两个原因。这里还有一个原因:<code>usize</code>是Rust用于<em>索引</em>的大小。(索引的意思是 &quot;哪项是第一&quot;，&quot;哪项是第二&quot;等等)<code>usize</code>是索引的最佳大小，因为:</p>
 <ul>
 <li>索引不能是负数，所以它需要是一个带u的数字</li>
 <li>它应该是大的，因为有时你需要索引很多东西，但。</li>

@@ -187,7 +187,7 @@ fn main() {
     crate::print_things::prints_one_thing(6);
 }
 </code></pre></pre>
-<p><code>crate</code>的意思是 &quot;在这个项目里&quot;，但对于我们简单的例子来说，它和 &quot;在这个文件里面 &quot;是一样的。接着是<code>print_things</code>这个mod，最后是<code>prints_one_thing()</code>函数。你可以每次都写这个，也可以写<code>use</code>来导入。现在我们可以看到说它是私有的错误:</p>
+<p><code>crate</code>的意思是 &quot;在这个项目里&quot;，但对于我们简单的例子来说，它和 &quot;在这个文件里面&quot;是一样的。接着是<code>print_things</code>这个mod，最后是<code>prints_one_thing()</code>函数。你可以每次都写这个，也可以写<code>use</code>来导入。现在我们可以看到说它是私有的错误:</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 mod print_things {
     use std::fmt::Display;
@@ -240,7 +240,7 @@ Trying to print a string...
 </code></pre>
 <p><code>pub</code>对结构体、枚举、trait或模块有什么作用？<code>pub</code>对它们来说是这样的:</p>
 <ul>
-<li><code>pub</code>对于一个结构: 它使结构公开，但项不是公开的。要想让一个项公开，你也要为每个项写<code>pub</code>。</li>
+<li><code>pub</code>对于一个结构: 它使结构公开，但成员不是公开的。要想让一个成员公开，你也要为每个成员写<code>pub</code>。</li>
 <li><code>pub</code> 对于一个枚举或trait:所有的东西都变成了公共的。这是有意义的，因为traits是关于给某项赋予相同的行为。而枚举是关于元素之间的选择，你需要看到所有的元素才能选择它们。</li>
 <li><code>pub</code>对于一个模块来说:一个顶层的模块会是<code>pub</code>，因为如果它不是pub，那么根本没有人可以碰里面的任何东西。但是模块里面的模块需要使用<code>pub</code>才能成为公共的。</li>
 </ul>

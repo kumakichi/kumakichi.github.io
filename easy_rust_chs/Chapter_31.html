@@ -182,7 +182,7 @@ fn main() {
 <pre><code class="language-text">thread 'main' panicked at 'index out of bounds: the len is 2 but the index is 4', src\main.rs:34:5
 </code></pre>
 <p>崩溃的意思是，程序在问题发生之前就停止了。Rust看到函数想要做一些不可能的事情，就会停止。它 &quot;解开堆栈&quot;(从堆栈中取值)，并告诉你 &quot;对不起，我不能这样做&quot;。</p>
-<p>所以现在我们将返回类型从<code>i32</code>改为<code>Option&lt;i32&gt;</code>。这意味着 &quot;如果有的话给我一个<code>Some(i32)</code>，如果没有的话给我一个<code>None</code>&quot;。我们说<code>i32</code>是 &quot;包 &quot;在一个<code>Option</code>里面，也就是说它在一个<code>Option</code>里面。你必须做一些事情才能把这个值弄出来。</p>
+<p>所以现在我们将返回类型从<code>i32</code>改为<code>Option&lt;i32&gt;</code>。这意味着 &quot;如果有的话给我一个<code>Some(i32)</code>，如果没有的话给我一个<code>None</code>&quot;。我们说<code>i32</code>是 &quot;包&quot;在一个<code>Option</code>里面，也就是说它在一个<code>Option</code>里面。你必须做一些事情才能把这个值弄出来。</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
     if value.len() &lt; 5 { // .len() gives the length of the vec.
                          // It must be at least 5.

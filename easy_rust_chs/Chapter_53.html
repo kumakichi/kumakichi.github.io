@@ -218,7 +218,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这样就可以打印出<code>5</code>。</p>
-<p><code>channel</code>就像<code>Arc</code>一样，因为你可以克隆它，并将克隆的内容发送到其他线程中。让我们做两个线程，并将值发送到<code>receiver</code>。这段代码可以工作，但它并不完全是我们想要的。</p>
+<p><code>channel</code>就像<code>Arc</code>一样，因为你可以克隆它，并将克隆的内容发送到其他线程中。让我们创建两个线程，并将值发送到<code>receiver</code>。这段代码可以工作，但它并不完全是我们想要的。</p>
 <pre><pre class="playground"><code class="language-rust">use std::sync::mpsc::channel;
 
 fn main() {
@@ -236,7 +236,7 @@ fn main() {
     println!(&quot;{}&quot;, receiver.recv().unwrap());
 }
 </code></pre></pre>
-<p>两个线程开始发送，然后我们<code>println!</code>。它可能会说 <code>Send a &amp;str this time</code> 或 <code>And here is another &amp;str</code>，这取决于哪个线程先完成。让我们创建一个join句柄来等待它们完成。</p>
+<p>两个线程开始发送，然后我们<code>println!</code>。它可能会打印 <code>Send a &amp;str this time</code> 或 <code>And here is another &amp;str</code>，这取决于哪个线程先完成。让我们创建一个join句柄来等待它们完成。</p>
 <pre><pre class="playground"><code class="language-rust">use std::sync::mpsc::channel;
 
 fn main() {

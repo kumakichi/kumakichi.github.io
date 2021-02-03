@@ -310,7 +310,7 @@ Printing the same thing three times
 }
 </code></pre></pre>
 <p>这时打印出<code>56</code>。<code>break counter;</code>的意思是 &quot;中断并返回计数器的值&quot;。而且因为整个块以<code>let</code>开始，所以<code>my_number</code>得到值。</p>
-<p>现在我们知道了如何使用循环，这里有一个更好的解决方案来解决我们之前的颜色 &quot;匹配 &quot;问题。这是一个更好的解决方案，因为我们要比较所有的东西，而 &quot;for &quot;循环会查看每一项。</p>
+<p>现在我们知道了如何使用循环，这里有一个更好的解决方案来解决我们之前的颜色 &quot;匹配&quot;问题。这是一个更好的解决方案，因为我们要比较所有的东西，而 &quot;for&quot;循环会查看每一项。</p>
 <pre><pre class="playground"><code class="language-rust">fn match_colours(rbg: (i32, i32, i32)) {
     println!(&quot;Comparing a colour with {} red, {} blue, and {} green:&quot;, rbg.0, rbg.1, rbg.2);
     let new_vec = vec![(rbg.0, &quot;red&quot;), (rbg.1, &quot;blue&quot;), (rbg.2, &quot;green&quot;)]; // Put the colours in a vec. Inside are tuples with the colour names

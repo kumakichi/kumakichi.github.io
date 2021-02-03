@@ -178,7 +178,7 @@
     let array2 = [&quot;One&quot;, &quot;Two&quot;, &quot;Five&quot;]; // But this one is type [&amp;str; 3]. Different type!
 }
 </code></pre></pre>
-<p>这里有一个很好的提示:要想知道一个变量的类型，你可以通过给编译器下坏指令来 &quot;询问 &quot;它。比如说</p>
+<p>这里有一个很好的提示:要想知道一个变量的类型，你可以通过给编译器下坏指令来 &quot;询问&quot;它。比如说</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let seasons = [&quot;Spring&quot;, &quot;Summer&quot;, &quot;Autumn&quot;, &quot;Winter&quot;];
     let seasons2 = [&quot;Spring&quot;, &quot;Summer&quot;, &quot;Fall&quot;, &quot;Autumn&quot;, &quot;Winter&quot;];
@@ -232,7 +232,7 @@ error[E0599]: no method named `thd` found for array `[&amp;str; 5]` in the curre
 <li>索引号从0开始(不是1)</li>
 <li>指数范围是<strong>排他的</strong>(不包括最后一个数字)。</li>
 </ul>
-<p>所以<code>[0..2]</code>是指第一个指数和第二个指数(0和1)。或者你也可以称它为 &quot;零点和第一 &quot;指数。它没有第三项，也就是索引2。</p>
+<p>所以<code>[0..2]</code>是指第一个指数和第二个指数(0和1)。或者你也可以称它为 &quot;零点和第一&quot;指数。它没有第三项，也就是索引2。</p>
 <p>你也可以有一个<strong>包容的</strong>范围，这意味着它也包括最后一个数字。要做到这一点。
 添加<code>=</code>，写成<code>..=</code>，而不是<code>..</code>。所以，如果你想要第一项、第二项和第三项，可以写成<code>[0..=2]</code>，而不是<code>[0..2]</code>。</p>
 

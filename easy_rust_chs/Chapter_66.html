@@ -180,10 +180,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>下面是一个输出输出的样子。</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>Please type something, or x to escape:
+<pre><code class="language-text">Please type something, or x to escape:
 something
 You wrote something
 
@@ -198,13 +195,9 @@ You wrote x
 
 x
 You wrote x
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>它接受我们的输入，然后把它还给我们，它甚至知道我们输入了<code>x</code>。但它并没有退出程序。唯一的办法是关闭窗口，或者输入ctrl和c。让我们把<code>println!</code>中的<code>{}</code>改为<code>{:?}</code>，以获得更多的信息(如果你喜欢那个宏，也可以使用<code>dbg!(&amp;input_string)</code>)。现在它说</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>Please type something, or x to escape:
+<pre><code class="language-text">Please type something, or x to escape:
 something
 You wrote &quot;something\r\n&quot;
 Something else
@@ -213,8 +206,7 @@ x
 You wrote &quot;x\r\n&quot;
 x
 You wrote &quot;x\r\n&quot;
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 <p>这是因为键盘输入其实不只是<code>something</code>，而是<code>something</code>和<code>Enter</code>键。有一个简单的方法可以解决这个问题，叫做<code>.trim()</code>，它可以把所有的空白都去掉。顺便说一下，<a href="https://doc.rust-lang.org/reference/whitespace.html">这些字符</a>都是空白字符。</p>
 <pre><code class="language-text">U+0009 (horizontal tab, '\t')
 U+000A (line feed, '\n')
@@ -229,7 +221,7 @@ U+2028 (line separator)
 U+2029 (paragraph separator)
 </code></pre>
 <p>这样就可以把<code>x\r\n</code>变成只剩<code>x</code>了。现在它可以工作了:</p>
-<pre><code>use std::io;
+<pre><pre class="playground"><code class="language-rust">use std::io;
 
 fn main() {
     println!(&quot;Please type something, or x to escape:&quot;);
@@ -242,7 +234,7 @@ fn main() {
     }
     println!(&quot;See you later!&quot;);
 }
-</code></pre>
+</code></pre></pre>
 <p>现在可以打印了:</p>
 <pre><code class="language-text">Please type something, or x to escape:
 something
@@ -267,7 +259,7 @@ See you later!
 <p>让我们给它更多的输入，看看它的作用。我们输入 <code>cargo run but with some extra words</code> 。 它给我们:</p>
 <pre><code class="language-text">Args { inner: [&quot;target\\debug\\rust_book.exe&quot;, &quot;but&quot;, &quot;with&quot;, &quot;some&quot;, &quot;extra&quot;, &quot;words&quot;] }
 </code></pre>
-<p>有意思。而当我们查看<a href="https://doc.rust-lang.org/std/env/struct.Args.html">Args的页面</a>时，我们看到它实现了<code>IntoIterator</code>。这意味着我们可以.用所有我们知道的关于迭代器的事情来读取和改变它。让我们试试这个:</p>
+<p>有意思。而当我们查看<a href="https://doc.rust-lang.org/std/env/struct.Args.html">Args的页面</a>时，我们看到它实现了<code>IntoIterator</code>。这意味着我们可以.用所有我们知道的关于迭代器的方法来读取和改变它。让我们试试这个:</p>
 <pre><pre class="playground"><code class="language-rust">use std::env::args;
 
 fn main() {
@@ -327,7 +319,7 @@ fn main() {
 <p>输入: <code>cargo run please make capitals</code>:</p>
 <pre><code class="language-text">Please write either &quot;capital&quot; or &quot;lowercase&quot; and then some input.
 </code></pre>
-<p>输入:<code>cargo run capital</code>: <code>cargo run capital</code>:</p>
+<p>输入:<code>cargo run capital</code>:</p>
 <pre><code class="language-text">Please write either &quot;capital&quot; or &quot;lowercase&quot; and then some input.
 </code></pre>
 <p>输入:<code>cargo run capital I think I understand now</code>:</p>

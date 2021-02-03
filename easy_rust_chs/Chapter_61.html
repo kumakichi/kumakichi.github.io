@@ -270,7 +270,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
   14: playground::two_is_two::{{closure}}
              at src/lib.rs:2
 </code></pre>
-<p>所以我们再把回溯关闭，回到常规测试。现在我们要写一些其他函数，并使用测试函数来测试它们。这里有几个。</p>
+<p>所以我们再把backtrace关闭，回到常规测试。现在我们要写一些其他函数，并使用测试函数来测试它们。这里有几个。</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -326,7 +326,7 @@ fn return_six() -&gt; i8 {
 <span class="boring">}
 </span></code></pre></pre>
 <h3><a class="header" href="#测试驱动的开发" id="测试驱动的开发">测试驱动的开发</a></h3>
-<p>在阅读Rust或其他语言时，你可能会看到 &quot;测试驱动开发 &quot;这个词。这是编写程序的一种方式，有些人喜欢它，而有些人则喜欢其他的方式。&quot;测试驱动开发 &quot;的意思是 &quot;先写测试，再写代码&quot;。当你这样做的时候，你会有很多关于你想要你的代码做的所有事情测试代码。然后你开始写代码，并运行测试，看看你是否做对了。然后，当你添加和重写代码时，如果有什么地方出了问题，测试代码会一直在那里向你展示。这在Rust中是非常容易的，因为编译器给出了很多待修复内容的信息。让我们写一个测试驱动开发的小例子，看看它是什么样子的。</p>
+<p>在阅读Rust或其他语言时，你可能会看到 &quot;测试驱动开发&quot;这个词。这是编写程序的一种方式，有些人喜欢它，而有些人则喜欢其他的方式。&quot;测试驱动开发&quot;的意思是 &quot;先写测试，再写代码&quot;。当你这样做的时候，你会有很多关于你想要你的代码做的所有事情测试代码。然后你开始写代码，并运行测试，看看你是否做对了。然后，当你添加和重写代码时，如果有什么地方出了问题，测试代码会一直在那里向你展示。这在Rust中是非常容易的，因为编译器给出了很多待修复内容的信息。让我们写一个测试驱动开发的小例子，看看它是什么样子的。</p>
 <p>让我们想象一个接受用户输入的计算器。它可以加(+)，也可以减(-)。如果用户写 &quot;5+6&quot;，它应该返回11，如果用户写 &quot;5+6-7&quot;，它应该返回4，以此类推。所以我们先从测试函数开始。你也可以看到，测试中的函数名通常都相当长。这是因为你可能会运行很多测试，你想了解哪些测试失败了。</p>
 <p>我们想象一下，一个名为<code>math()</code>的函数就可以完成所有的工作。它将返回一个 <code>i32</code>(我们不会使用浮点数)。因为它需要返回一些东西，所以我们每次都只返回 <code>6</code>。然后我们将写三个测试函数。当然，它们都会失败。现在的代码是这样的。</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -420,11 +420,11 @@ test tests::one_plus_one_is_two ... FAILED
 <li>看到一个<code>+</code>，知道这个数字已经结束。它会把字符串推入vec中，然后清空字符串。</li>
 </ol>
 </li>
-<li>程序必须计算出<code>-</code>的数量。奇数(1，3，5...)表示减法，偶数(2，4，6...)表示加法。所以 &quot;1--9 &quot;应该是10，而不是-8。</li>
+<li>程序必须计算出<code>-</code>的数量。奇数(1，3，5...)表示减法，偶数(2，4，6...)表示加法。所以 &quot;1--9&quot;应该是10，而不是-8。</li>
 <li>程序应该删除最后一个数字后面的任何东西。<code>5+5+++++----</code>是由<code>OKAY_CHARACTERS</code>中的所有字符组成的，但它应该变成<code>5+5</code>。<code>.trim_end_matches()</code>就很简单了，你把<code>&amp;str</code>末尾符合的东西都去掉。</li>
 </ul>
 <p>顺便说一下，<code>.trim_end_matches()</code>和<code>.trim_start_matches()</code>曾经是<code>trim_right_matches()</code>和<code>trim_left_matches()</code>。但后来人们注意到有些语言是从右到左(波斯语、希伯来语等)，所以左右都是错的。你可能还能在一些代码中看到旧的名字，但它们是一样的)。)</p>
-<p>首先我们只想通过所有的测试。通过测试后，我们就可以 &quot;重构 &quot;了。重构的意思是让代码变得更好，通常是通过结构、枚举和方法等方式。下面是我们使测试通过的代码。</p>
+<p>首先我们只想通过所有的测试。通过测试后，我们就可以 &quot;重构&quot;了。重构的意思是让代码变得更好，通常是通过结构、枚举和方法等方式。下面是我们使测试通过的代码。</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -541,7 +541,7 @@ test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <li>当你写代码的时候，你会有其他测试的想法。</li>
 <li>你添加测试，你的测试随着你的发展而增长。你的测试越多，你的代码被检查的次数就越多。</li>
 </ul>
-<p>当然，测试并不能检查所有的东西，认为 &quot;通过所有测试=代码是完美的 &quot;是错误的。但是，测试对于你修改代码的时候是非常好的。如果你以后修改了代码，然后运行测试，如果其中一个测试不成功，你就会知道该怎么修复。</p>
+<p>当然，测试并不能检查所有的东西，认为 &quot;通过所有测试=代码是完美的&quot;是错误的。但是，测试对于你修改代码的时候是非常好的。如果你以后修改了代码，然后运行测试，如果其中一个测试不成功，你就会知道该怎么修复。</p>
 <p>现在我们可以重写(重构)一下代码。一个好的方法是用clippy开始。如果你安装了Rust，那么你可以输入<code>cargo clippy</code>，如果你使用的是Playground，那么点击<code>TOOLS</code>，选择Clippy。Clippy会查看你的代码，并给你提示，让你的代码更简单。我们的代码没有任何错误，但它可以更好。</p>
 <p>Clippy会告诉我们两件事。</p>
 <pre><code class="language-text">warning: this loop could be written as a `for` loop

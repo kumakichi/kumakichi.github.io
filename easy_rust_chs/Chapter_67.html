@@ -228,8 +228,7 @@ fn main() {
 10 | | }
    | |_- this function should return `Result` or `Option` to accept `?`
 </code></pre>
-<p>But actually <code>main()</code> can return a <code>Result</code>, just like any other function. If our function works, we don't want to return anything (main() isn't giving anything to anything else). And if it doesn't work, we will return the same error. So we can write it like this:
-但实际上<code>main()</code>可以返回一个<code>Result</code>，就像其他函数一样。如果我们的函数能工作，我们不想返回任何东西(main()并没有给其他任何东西)。而如果它不工作，我们将返回同样的错误。所以我们可以这样写:</p>
+<p>但实际上<code>main()</code>可以返回一个<code>Result</code>，就像其他函数一样。如果我们的函数能工作，我们不想返回任何东西(main()并没有给其他任何东西)。而如果它不工作，我们将错误返回。所以我们可以这样写:</p>
 <pre><pre class="playground"><code class="language-rust">use std::num::ParseIntError;
 
 fn give_number(input: &amp;str) -&gt; Result&lt;i32, ParseIntError&gt; {
@@ -246,7 +245,7 @@ fn main() -&gt; Result&lt;(), ParseIntError&gt; {
 <pre><code class="language-text">88
 5
 </code></pre>
-<p>只用<code>.parse()</code>的时候不是很有用，但是用文件就很有用。这是因为<code>?</code>也为我们改变了错误类型。下面是<a href="https://doc.rust-lang.org/std/macro.try.html">?运算符的页面</a>用简单的英语写的:</p>
+<p>只用<code>.parse()</code>的时候不是很有用，但是用文件就很有用。这是因为<code>?</code>也为我们改变了错误类型。下面是用简单英语写的<a href="https://doc.rust-lang.org/std/macro.try.html">?运算符页面</a>:</p>
 <pre><code class="language-text">If you get an `Err`, it will get the inner error. Then `?` does a conversion using `From`. With that it can change specialized errors to more general ones. The error it gets is then returned.
 </code></pre>
 <p>另外，Rust在使用<code>File</code>s和类似的东西时，有一个方便的<code>Result</code>类型。它叫做<code>std::io::Result</code>，当你在使用<code>?</code>对文件进行打开和操作时，通常在<code>main()</code>中看到的就是这个。这其实是一个类型别名。它的样子是这样的:</p>

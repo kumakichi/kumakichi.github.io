@@ -229,7 +229,7 @@ impl&lt;T, U&gt; TryInto&lt;U&gt; for T
 where
     U: TryFrom&lt;T&gt;,
 </code></pre>
-<p>这是因为Rust自动为每个类型做出的所有trait。</p>
+<p>这是因为Rust自动为每个类型实现的所有trait。</p>
 <p>那么如果我们添加一些文档注释，当你输入<code>cargo doc</code>的时候就可以看到。</p>
 <pre><pre class="playground"><code class="language-rust">/// This is a struct that does nothing
 struct DoesNothing {}

@@ -214,7 +214,7 @@ fn main() {
     six_or_print!();
 }
 </code></pre></pre>
-<p>这个就好办了，打印的是<code>You didn't give me 6.</code>。你也可以看到，这不是匹配arm，因为没有<code>_</code>行。我们只能给它<code>(6)</code>，或者<code>()</code>，其他的都会出错。而我们给它的<code>6</code>甚至不是<code>i32</code>，只是一个输入6。其实你可以设置任何东西作为宏的输入，因为它只是看输入，看得到什么。比如说:</p>
+<p>这个就好办了，打印的是<code>You didn't give me 6.</code>。你也可以看到，这不是匹配分支，因为没有<code>_</code>行。我们只能给它<code>(6)</code>，或者<code>()</code>，其他的都会出错。而我们给它的<code>6</code>甚至不是<code>i32</code>，只是一个输入6。其实你可以设置任何东西作为宏的输入，因为它只是看输入，看得到什么。比如说:</p>
 <pre><pre class="playground"><code class="language-rust">macro_rules! might_print {
     (THis is strange input 하하はは哈哈 but it still works) =&gt; {
         println!(&quot;You guessed the secret message!&quot;)
@@ -278,7 +278,7 @@ lifetime: a LIFETIME_TOKEN
 vis: a possibly empty Visibility qualifier
 literal: matches -?LiteralExpression
 </code></pre>
-<p>有另一个很好的网站叫cheats.rs，解释了它们<a href="https://cheats.rs/#macros-attributes">这里</a>，并给出了每个例子。</p>
+<p>另外有一个很好的网站叫cheats.rs，在<a href="https://cheats.rs/#macros-attributes">这里</a>解释了它们，并且每个都给出了例子。</p>
 <p>然而，对于大多数宏，你只会用到 <code>expr</code>、<code>ident</code> 和 <code>tt</code>。<code>ident</code> 表示标识符，用于变量或函数名称。<code>tt</code>表示token树，和任何类型的输入。让我们尝试用这两个词创建一个简单的宏。</p>
 <pre><pre class="playground"><code class="language-rust">macro_rules! check {
     ($input1:ident, $input2:expr) =&gt; {
@@ -323,7 +323,7 @@ fn main() {
 </code></pre>
 <p>但是如果我们给它一些带有空格、逗号等的东西，它就不会打印。它会认为我们给了它不止一个元素或额外的信息，所以它会感到困惑。</p>
 <p>这就是宏开始变得困难的地方。</p>
-<p>要一次给宏提供多个元素，我们必须使用不同的语法。而不是<code>$input</code>，而是<code>$($input1),+</code>。这意味着零或更多(这是*的意思)，用逗号分隔。如果你想要一个或多个，请使用 <code>+</code> 而不是 <code>*</code>。</p>
+<p>要一次给宏提供多个元素，我们必须使用不同的语法。不要用<code>$input</code>，而是<code>$($input1),*</code>。这意味着零或更多(这是 * 的意思)，用逗号分隔。如果你想要一个或多个，请使用 <code>+</code> 而不是 <code>*</code>。</p>
 <p>现在我们的宏看起来是这样的。</p>
 <pre><pre class="playground"><code class="language-rust">macro_rules! print_anything {
     ($($input1:tt),*) =&gt; {
@@ -465,13 +465,13 @@ fn main() {
     dbg!();
 }
 </code></pre></pre>
-<p>这与第一arm相匹配，所以它会用<code>file!</code>和<code>line!</code>宏打印文件名和行名。它打印的是<code>[src/main.rs:2]</code>。</p>
+<p>这与第一分支相匹配，所以它会用<code>file!</code>和<code>line!</code>宏打印文件名和行名。它打印的是<code>[src/main.rs:2]</code>。</p>
 <p>我们用这个来试试。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     dbg!(vec![8, 9, 10]);
 }
 </code></pre></pre>
-<p>这将匹配下一个arm，因为它是一个表达式。然后它将调用输入<code>tmp</code>并使用这个代码。<code> $crate::eprintln!(&quot;[{}:{}] {} = {:#?}&quot;, $crate::file!(), $crate::line!(), $crate::stringify!($val), &amp;tmp);</code>. 所以它会用<code>file!</code>和<code>line!</code>来打印，然后把<code>$val</code>做成<code>String</code>，用<code>{:#?}</code>来漂亮的打印<code>tmp</code>。所以对于我们的输入，它会这样写。</p>
+<p>这将匹配下一个分支，因为它是一个表达式。然后它将调用输入<code>tmp</code>并使用这个代码。<code> $crate::eprintln!(&quot;[{}:{}] {} = {:#?}&quot;, $crate::file!(), $crate::line!(), $crate::stringify!($val), &amp;tmp);</code>. 所以它会用<code>file!</code>和<code>line!</code>来打印，然后把<code>$val</code>做成<code>String</code>，用<code>{:#?}</code>来漂亮的打印<code>tmp</code>。所以对于我们的输入，它会这样写。</p>
 <pre><code class="language-text">[src/main.rs:2] vec![8, 9, 10] = [
     8,
     9,

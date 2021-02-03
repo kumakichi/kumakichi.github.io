@@ -256,7 +256,7 @@ fn main() {
 <p>另外，从2020年8月底开始，你现在可以从<code>char</code>中得到一个<code>String</code>。(<code>String</code>实现了<code>From&lt;char&gt;</code>)只要写<code>String::from()</code>，然后在里面放一个<code>char</code>。</p>
 <h3><a class="header" href="#整数" id="整数">整数</a></h3>
 <p>这些类型的数学方法有很多，另外还有一些其他的方法。下面是一些最有用的。</p>
-<p><code>.checked_add()</code>, <code>.checked_sub()</code>, <code>.checked_mul()</code>, <code>.checked_div()</code>. 如果你认为你可能会得到一个不适合类型的数字，这些都是不错的方法。它们会返回一个 <code>Option</code>，这样你就可以安全地检查你的数学是否正常，而不会让程序崩溃。</p>
+<p><code>.checked_add()</code>, <code>.checked_sub()</code>, <code>.checked_mul()</code>, <code>.checked_div()</code>. 如果你认为你可能会得到一个不适合类型的数字，这些都是不错的方法。它们会返回一个 <code>Option</code>，这样你就可以安全地检查你的数学计算是否正常，而不会让程序崩溃。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let some_number = 200_u8;
     let other_number = 200_u8;
@@ -358,12 +358,12 @@ In Nauru and Vanuatu and Micronesia are 422953 people and a GDP of $1347000000
 <p>以后在这段代码中，我们可以把<code>.fmt()</code>改成更容易阅读的数字显示。</p>
 <p>另外三个叫<code>Sub</code>、<code>Mul</code>和<code>Div</code>，实现起来基本一样。<code>+=</code>、<code>-=</code>、<code>*=</code>和<code>/=</code>，只要加上<code>Assign</code>:<code>AddAssign</code>、<code>SubAssign</code>、<code>MulAssign</code>和<code>DivAssign</code>即可。你可以看到完整的列表<a href="https://doc.rust-lang.org/std/ops/index.html#structs">这里</a>，因为还有很多。例如 <code>%</code> 被称为 <code>Rem</code>, <code>-</code> 被称为 <code>Neg</code>, 等等。</p>
 <h3><a class="header" href="#浮点数" id="浮点数">浮点数</a></h3>
-<p><code>f32</code>和<code>f64</code>有非常多的方法，你在做数学的时候会用到。我们不看这些，但这里有一些你可能会用到的方法。它们分别是 <code>.floor()</code>, <code>.ceil()</code>, <code>.round()</code>, 和 <code>.trunc()</code>. 所有这些方法都返回一个 <code>f32</code> 或 <code>f64</code>，就像一个整数，只有 <code>0</code> 在句号后面。它们是这样做的。</p>
+<p><code>f32</code>和<code>f64</code>有非常多的方法，你在做数学计算的时候会用到。我们不看这些，但这里有一些你可能会用到的方法。它们分别是 <code>.floor()</code>, <code>.ceil()</code>, <code>.round()</code>, 和 <code>.trunc()</code>. 所有这些方法都返回一个 <code>f32</code> 或 <code>f64</code>，它像一个整数，小数点后面是 <code>0</code>。它们是这样做的。</p>
 <ul>
 <li><code>.floor()</code>: 给你下一个最低的整数.</li>
 <li><code>.ceil()</code>: 给你下一个最高的整数。</li>
-<li><code>.round()</code>: 如果0.5或更多，给你一个更高的数字，如果小于0.5，则给你相同的数字。这就是所谓的四舍五入，因为它给你一个 &quot;圆 &quot;的数字(一个形式简短的数字)。</li>
-<li><code>.trunc()</code>:只是把句号后的部分截掉。Truncate是 &quot;截断 &quot;的意思。</li>
+<li><code>.round()</code>: 如果小数部分大于等于0.5，返回数值加1;如果小数部分小于0.5，返回相同数值。这就是所谓的四舍五入，因为它给你一个 &quot;舍入&quot;的数字(一个数字的简短形式)。</li>
+<li><code>.trunc()</code>:只是把小数点号后的部分截掉。Truncate是 &quot;截断&quot;的意思。</li>
 </ul>
 <p>这里有一个简单的函数来打印它们。</p>
 <pre><pre class="playground"><code class="language-rust">fn four_operations(input: f64) {
@@ -443,7 +443,7 @@ truncated: -19
     println!(&quot;{:?}&quot;, my_vec);
 }
 </code></pre></pre>
-<p>这样打印出来的是<code>[0, 0, 0, 0, 0, 80, 90, 100]</code>。但还有一种更有趣的排序方式叫<code>.sort_unstable()</code>，它通常更快。它之所以能更快，是因为它不在乎数字的顺序，如果它们是同一个数字。在常规的<code>.sort()</code>中，你知道最后的<code>0, 0, 0, 0, 0</code>会在<code>.sort()</code>之后的顺序相同。但是<code>.sort_unstable()</code>可能会把最后一个0移到指数0，然后把第三个最后的0移到指数2，等等。</p>
+<p>这样打印出来的是<code>[0, 0, 0, 0, 0, 80, 90, 100]</code>。但还有一种更有趣的排序方式叫<code>.sort_unstable()</code>，它通常更快。它之所以更快，是因为它不在乎排序前后相同数字的先后顺序。在常规的<code>.sort()</code>中，你知道最后的<code>0, 0, 0, 0, 0</code>会在<code>.sort()</code>之后的顺序相同。但是<code>.sort_unstable()</code>可能会把最后一个0移到索引0，然后把第三个最后的0移到索引2，等等。</p>
 <p><code>.dedup()</code>的意思是 &quot;去重复&quot;。它将删除一个向量中相同的元素，但只有当它们彼此相邻时才会删除。接下来这段代码不会只打印<code>&quot;sun&quot;, &quot;moon&quot;</code>。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut my_vec = vec![&quot;sun&quot;, &quot;sun&quot;, &quot;moon&quot;, &quot;moon&quot;, &quot;sun&quot;, &quot;moon&quot;, &quot;moon&quot;];
@@ -462,7 +462,7 @@ truncated: -19
 </code></pre></pre>
 <p>结果:<code>[&quot;moon&quot;, &quot;sun&quot;]</code>.</p>
 <h3><a class="header" href="#string" id="string">String</a></h3>
-<p>你会记得，<code>String</code>有点像<code>Vec</code>。它很像<code>Vec</code>，你可以做很多相同的方法。比如说，你可以用<code>String::with_capacity()</code>开始一个。如果你总是要用<code>.push()</code>推一个<code>char</code>，或者用<code>.push_str()</code>推一个<code>&amp;str</code>，你就要这样。下面是一个<code>String</code>的例子，它有太多的分配。</p>
+<p>你会记得，<code>String</code>有点像<code>Vec</code>。它很像<code>Vec</code>，你可以调用很多相同的方法。比如说，你可以用<code>String::with_capacity()</code>创建一个。如果你总是要用<code>.push()</code>推一个<code>char</code>，或者用<code>.push_str()</code>推一个<code>&amp;str</code>，你就要这样。下面是一个<code>String</code>的例子，它有太多的内存分配。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut push_string = String::new();
     let mut capacity_counter = 0; // capacity starts at 0
@@ -495,7 +495,7 @@ truncated: -19
 2293760
 4587520
 </code></pre>
-<p>我们不得不重新分配(把所有东西复制过来)18次。但现在我们知道了最终的容量。所以我们马上给它容量，我们不需要重新分配:只要一个<code>String</code>容量就够了。</p>
+<p>我们不得不重新分配(把所有东西复制过来)18次。但既然我们知道了最终的容量，我们可以马上设置容量，不需要重新分配:只设置一次<code>String</code>容量就够了。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut push_string = String::with_capacity(4587520); // We know the exact number. Some different big number could work too
     let mut capacity_counter = 0;
@@ -534,7 +534,7 @@ truncated: -19
 7000000
 3500001
 </code></pre>
-<p>所以首先我们的大小是<code>4587520</code>，但我们没有全部使用。我们用了<code>.shrink_to_fit()</code>，然后把大小降到了<code>3500000</code>。但是我们忘记了我们需要推上一个 <code>a</code>。当我们这样做的时候，Rust 看到我们需要更多的空间，给了我们双倍的空间:现在是 <code>7000000</code>。Whoops! 所以我们又做了<code>.shrink_to_fit()</code>，现在又回到了<code>3500001</code>。</p>
+<p>所以首先我们的大小是<code>4587520</code>，但我们没有全部使用。我们用了<code>.shrink_to_fit()</code>，然后把大小降到了<code>3500000</code>。但是我们忘记了我们需要推上一个 <code>a</code>。当我们这样做的时候，Rust 看到我们需要更多的空间，给了我们双倍的空间:现在是 <code>7000000</code>。Whoops! 所以我们又调用了<code>.shrink_to_fit()</code>，现在又回到了<code>3500001</code>。</p>
 <p><code>.pop()</code>对<code>String</code>有用，就像对<code>Vec</code>一样。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut my_string = String::from(&quot;.daer ot drah tib elttil a si gnirts sihT&quot;);
@@ -548,7 +548,7 @@ truncated: -19
 }
 </code></pre></pre>
 <p>这打印的是<code>This string is a little bit hard to read.</code>，因为它是从最后一个字符开始的。</p>
-<p><code>.retain()</code>是一个使用闭包的方法，这对<code>String</code>来说是罕见的。这就像<code>.filter()</code>的迭代器一样。</p>
+<p><code>.retain()</code>是一个使用闭包的方法，这对<code>String</code>来说是罕见的。就像在迭代器上的<code>.filter()</code>一样。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut my_string = String::from(&quot;Age: 20 Height: 194 Weight: 80&quot;);
     my_string.retain(|character| character.is_alphabetic() || character == ' '); // Keep if a letter or a space
@@ -560,13 +560,13 @@ truncated: -19
 </code></pre>
 <h3><a class="header" href="#osstring和cstring" id="osstring和cstring">OsString和CString</a></h3>
 <p><code>std::ffi</code>是<code>std</code>的一部分，它帮助你将Rust与其他语言或操作系统一起使用。它有<code>OsString</code>和<code>CString</code>这样的类型，它们就像操作系统的<code>String</code>或语言C的<code>String</code>一样，它们各自也有自己的<code>&amp;str</code>类型:<code>OsStr</code>和<code>CStr</code>。<code>ffi</code>的意思是 &quot;foreign function interface&quot;(外部函数接口)。</p>
-<p>当你必须与一个没有Unicode的操作系统一起工作时，你可以使用<code>OsString</code>。所有的Rust字符串都是unicode，但不是每个操作系统都有。下面是标准库中关于为什么我们有<code>OsString</code>的简单英文解释。</p>
+<p>当你必须与一个没有Unicode的操作系统一起工作时，你可以使用<code>OsString</code>。所有的Rust字符串都是unicode，但不是每个操作系统支持。下面是标准库中关于为什么我们有<code>OsString</code>的简单英文解释。</p>
 <ul>
 <li>Unix系统(Linux等)上的字符串可能是很多没有0的字节组合在一起。而且有时你会把它们读成Unicode UTF-8。</li>
 <li>Windows上的字符串可能是由随机的16位值组成的，没有0。有时你会把它们读成Unicode UTF-16。</li>
 <li>在Rust中，字符串总是有效的UTF-8，其中可能包含0。</li>
 </ul>
-<p>所以，<code>OsString</code>被设计为会被所有的人读取。</p>
+<p>所以，<code>OsString</code>被设计为支持它们读取。</p>
 <p>你可以用一个<code>OsString</code>做所有常规的事情，比如<code>OsString::from(&quot;Write something here&quot;)</code>。它还有一个有趣的方法，叫做 <code>.into_string()</code>，试图把它变成一个常规的 <code>String</code>。它返回一个 <code>Result</code>，但 <code>Err</code> 部分只是原来的 <code>OsString</code>。</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -619,7 +619,7 @@ fn main() {
 200
 </code></pre>
 <p>下面是<code>mem</code>中的一些其他方法。</p>
-<p><code>swap()</code>: 用这个方法你可以改变两个变量之间的值。你为每个变量使用一个可变引用来做。当你有两个东西想切换，而Rust因为借用规则不让你切换时，这很有帮助。或者只是当你想快速切换两个东西的时候。</p>
+<p><code>swap()</code>: 用这个方法你可以交换两个变量之间的值。你可以通过为每个变量创建一个可变引用来做。当你有两个东西想交换，而Rust因为借用规则不让你交换时，这很有帮助。或者只是当你想快速切换两个东西的时候。</p>
 <p>这里有一个例子。</p>
 <pre><pre class="playground"><code class="language-rust">use std::{mem, fmt};
 
@@ -819,7 +819,7 @@ There is $4900 in the back and $50 at the desk.
 </code></pre>
 <p>你可以看到桌子上总是有50美元。</p>
 <h3><a class="header" href="#prelude" id="prelude">Prelude</a></h3>
-<p>标准库也有一个prelude，这就是为什么你不用写<code>use std::vec::Vec</code>这样的东西来创建一个<code>Vec</code>。你可以看到所有的元素<a href="https://doc.rust-lang.org/std/prelude/index.html#prelude-contents">在这里</a>，并且会已经知道几乎所有的元素。</p>
+<p>标准库也有一个prelude，这就是为什么你不用写<code>use std::vec::Vec</code>这样的东西来创建一个<code>Vec</code>。你可以<a href="https://doc.rust-lang.org/std/prelude/index.html#prelude-contents">在这里</a>看到所有这些元素，并且大致了解:</p>
 <ul>
 <li><code>std::marker::{Copy, Send, Sized, Sync, Unpin}</code>. 你以前没有见过<code>Unpin</code>，因为几乎每一种类型都会用到它(比如<code>Sized</code>，也很常见)。&quot;Pin&quot;的意思是不让东西动。在这种情况下，<code>Pin</code>意味着它在内存中不能移动，但大多数元素都有<code>Unpin</code>，所以你可以移动。这就是为什么像<code>std::mem::replace</code>这样的函数能用，因为它们没有被钉住。</li>
 <li><code>std::ops::{Drop, Fn, FnMut, FnOnce}</code>.</li>
@@ -882,14 +882,14 @@ fn main() {
 }
 </code></pre></pre>
 <p>现在终于成功了，打印出<code>[8, 9, 10], This won't work</code>。所以你可以明白为什么Rust要用prelude了。但如果你愿意，你不需要使用它。而且你甚至可以使用<code>#![no_std]</code>(我们曾经看到过)，用于你连堆栈内存这种东西都用不上的时候。但大多数时候，你根本不用考虑不用prelude或<code>std</code>。</p>
-<p>那么为什么之前我们没有看到<code>extern</code>这个关键字呢？是因为你已经不那么需要它了。以前，当带入外部crate时，你必须使用它。所以以前要使用<code>rand</code>，你必须要写。</p>
+<p>那么为什么之前我们没有看到<code>extern</code>这个关键字呢？是因为你已经不需要它了。以前，当带入外部crate时，你必须使用它。所以以前要使用<code>rand</code>，你必须要写成:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>extern crate rand;
 <span class="boring">}
 </span></code></pre></pre>
-<p>然后用 <code>use</code> 语句来表示你想使用的修改、trait等。但现在Rust编译器已经不需要这些帮助了--你只需要使用<code>use</code>，它就知道在哪里可以找到它。所以你几乎再也不需要<code>extern crate</code>了，但在其他人的Rust代码中，你可能仍然会在顶部看到它。</p>
+<p>然后用 <code>use</code> 语句来表示你想使用的修改、trait等。但现在Rust编译器已经不需要这些帮助了--你只需要使用<code>use</code>，rust就知道在哪里可以找到它。所以你几乎再也不需要<code>extern crate</code>了，但在其他人的Rust代码中，你可能仍然会在顶部看到它。</p>
 <h3><a class="header" href="#time" id="time">Time</a></h3>
 <p><code>std::time</code>是你可以找到时间函数的地方。(如果你想要更多的功能，<code>chrono</code>这样的crate也可以。)最简单的功能就是用<code>Instant::now()</code>获取系统时间即可。</p>
 <pre><pre class="playground"><code class="language-rust">use std::time::Instant;
@@ -998,8 +998,8 @@ Did I miss anything?
 <h3><a class="header" href="#其他宏" id="其他宏">其他宏</a></h3>
 <p>我们再来看看其他一些宏。</p>
 <p><code>unreachable!()</code></p>
-<p>这个宏有点像<code>todo!()</code>，除了它是针对你永远不会用的代码。也许你在一个枚举中有一个<code>match</code>，你知道它永远不会选择其中的一个arm，所以代码永远无法达到那个分支。如果是这样，你可以写<code>unreachable!()</code>，这样编译器就知道可以忽略这部分。</p>
-<p>例如，假设你有一个程序，当你选择一个地方居住时，它会写一些东西。在乌克兰，除了切尔诺贝利，其他地方都不错。你的程序不让任何人选择切尔诺贝利，因为它现在不是一个好地方。但是这个枚举是很早以前在别人的代码里做的，你无法更改。所以在<code>match</code>的arm中，你可以用这个宏。它是这样的:</p>
+<p>这个宏有点像<code>todo!()</code>，除了它是针对你永远不会用的代码。也许你在一个枚举中有一个<code>match</code>，你知道它永远不会选择其中的一个分支，所以代码永远无法达到那个分支。如果是这样，你可以写<code>unreachable!()</code>，这样编译器就知道可以忽略这部分。</p>
+<p>例如，假设你有一个程序，当你选择一个地方居住时，它会写一些东西。在乌克兰，除了切尔诺贝利，其他地方都不错。你的程序不让任何人选择切尔诺贝利，因为它现在不是一个好地方。但是这个枚举是很早以前在别人的代码里做的，你无法更改。所以在<code>match</code>的分支中，你可以用这个宏。它是这样的:</p>
 <pre><pre class="playground"><code class="language-rust">enum UkrainePlaces {
     Kiev,
     Kharkiv,

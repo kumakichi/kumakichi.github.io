@@ -206,10 +206,10 @@
 }
 </code></pre></pre>
 <p>所以这就打印出了<code>16</code>。你不需要在 <code>||</code> 中放入任何东西，因为它可以直接取 <code>number_one</code> 和 <code>number_two</code> 并添加它们。</p>
-<p>顺便说一下，这就是<strong>closure</strong>这个名字的由来，因为它们会取变量并将它们 &quot;包围 &quot;在里面。如果你想很正确的说。</p>
+<p>顺便说一下，这就是<strong>closure</strong>这个名字的由来，因为它们会取变量并将它们 &quot;包围&quot;在里面。如果你想很正确的说。</p>
 <ul>
 <li>一个<code>||</code>如果不把变量从外面包围起来 那就是一个 &quot;匿名函数&quot;. 匿名的意思是 &quot;没有名字&quot;。它的工作原理更像一个普通函数。</li>
-<li><code>||</code> 从外部包围变量的函数是 &quot;closure&quot;。它把周围的变量 &quot;封闭 &quot;起来使用。</li>
+<li><code>||</code> 从外部包围变量的函数是 &quot;closure&quot;。它把周围的变量 &quot;封闭&quot;起来使用。</li>
 </ul>
 <p>但是人们经常会把所有的<code>||</code>函数都叫做闭包，所以你不用担心名字的问题。我们只对任何带有<code>||</code>的函数说 &quot;closure&quot;，但请记住，它可能意味着一个 &quot;匿名函数&quot;。</p>
 <p>为什么要知道这两者的区别呢？因为匿名函数其实和有名字的函数做的机器代码是一样的。它们给人的感觉是 &quot;高层抽象&quot;，所以有时候大家会觉得机器代码会很复杂。但是Rust用它做出来的机器码和普通函数一样快。</p>
@@ -312,7 +312,7 @@ Index number 2 has number 8
 <li>然后从迭代器中枚举出所有的<code>i32</code></li>
 <li>然后将所有列举的<code>i32</code>映射过来</li>
 </ul>
-<p>Rust 只想做一次计算，所以它创建结构并等待。然后，如果我们说<code>.collect::&lt;Vec&lt;i32&gt;&gt;()</code>，它知道该怎么做，并开始移动。这就是<code>iterators are lazy and do nothing unless consumed</code>的意思。迭代器在你 &quot;消耗 &quot;它们(用完它们)之前不会做任何事情。</p>
+<p>Rust 只想做一次计算，所以它创建结构并等待。然后，如果我们说<code>.collect::&lt;Vec&lt;i32&gt;&gt;()</code>，它知道该怎么做，并开始移动。这就是<code>iterators are lazy and do nothing unless consumed</code>的意思。迭代器在你 &quot;消耗&quot;它们(用完它们)之前不会做任何事情。</p>
 <p>你甚至可以用<code>.collect()</code>创建像<code>HashMap</code>这样复杂的东西，所以它非常强大。下面是一个如何将两个向量放入<code>HashMap</code>的例子。首先我们把两个向量做出来，然后我们会对它们使用<code>.into_iter()</code>来得到一个值的迭代器。然后我们使用<code>.zip()</code>方法。这个方法将两个迭代器连接在一起，就像拉链一样。最后，我们使用<code>.collect()</code>来创建<code>HashMap</code>。</p>
 <p>下面是代码。</p>
 <pre><pre class="playground"><code class="language-rust">use std::collections::HashMap;
@@ -829,7 +829,7 @@ None
 <p>这个打印:</p>
 <pre><code class="language-text">[(0, &quot;Rule&quot;), (28, &quot;Rule&quot;), (62, &quot;Rule&quot;)]
 </code></pre>
-<p><code>.peekable()</code> 让你创建一个迭代器，在那里你可以看到 (窥视) 下一个元素。它就像调用 <code>.next()</code> (它给出了一个 <code>Option</code>)，除了迭代器不会移动，所以你可以随意使用它。实际上，你可以把peekable看成是 &quot;可停止 &quot;的，因为你可以想停多久就停多久。下面是一个例子，我们对每个元素都使用<code>.peek()</code>三次。我们可以永远使用<code>.peek()</code>，直到我们使用<code>.next()</code>移动到下一个元素。</p>
+<p><code>.peekable()</code> 让你创建一个迭代器，在那里你可以看到 (窥视) 下一个元素。它就像调用 <code>.next()</code> (它给出了一个 <code>Option</code>)，除了迭代器不会移动，所以你可以随意使用它。实际上，你可以把peekable看成是 &quot;可停止&quot;的，因为你可以想停多久就停多久。下面是一个例子，我们对每个元素都使用<code>.peek()</code>三次。我们可以永远使用<code>.peek()</code>，直到我们使用<code>.next()</code>移动到下一个元素。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let just_numbers = vec![1, 5, 100];
     let mut number_iter = just_numbers.iter().peekable(); // This actually creates a type of iterator called Peekable

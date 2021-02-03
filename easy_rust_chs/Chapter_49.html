@@ -201,7 +201,7 @@ shutdown
     }
 }
 </code></pre></pre>
-<p>但这是一个让线程有时间完成的愚蠢方法。更好的方法是将线程绑定到一个变量上。如果你添加 <code>let</code>，那么你将创建一个 <code>JoinHandle</code>。你可以在<code>spawn</code>的签名中看到这一点。</p>
+<p>但这是一个让线程有时间完成的愚蠢方法。更好的方法是将线程绑定到一个变量上。如果你加上 <code>let</code>，你就能创建一个 <code>JoinHandle</code>。你可以在<code>spawn</code>的签名中看到这一点:</p>
 <pre><code class="language-text">pub fn spawn&lt;F, T&gt;(f: F) -&gt; JoinHandle&lt;T&gt;
 where
     F: FnOnce() -&gt; T,

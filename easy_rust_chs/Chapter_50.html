@@ -177,7 +177,7 @@
 </span></code></pre></pre>
 <p><code>fn all&lt;F&gt;</code>:这告诉你有一个通用类型<code>F</code>。一个闭包总是泛型，因为每次都是不同的类型。</p>
 <p><code>(&amp;mut self, f: F)</code>:<code>&amp;mut self</code>告诉你这是一个方法。<code>f: F</code>通常你看到的是一个闭包:这是变量名和类型。 当然，<code>f</code>和<code>F</code>并没有什么特别之处，它们可以是不同的名字。如果你愿意，你可以写<code>my_closure: Closure</code>--这并不重要。但在签名中，你几乎总是看到<code>f: F</code>。</p>
-<p>接下来是关于关闭的部分:<code>F: FnMut(Self::Item) -&gt; bool</code>。在这里，它决定了闭包是 <code>FnMut</code>，所以它可以改变值。它改变了<code>Self::Item</code>的值，这是它所取的迭代器。而且它必须返回 <code>true</code> 或 <code>false</code>。</p>
+<p>接下来是关于闭包的部分:<code>F: FnMut(Self::Item) -&gt; bool</code>。在这里，它决定了闭包是 <code>FnMut</code>，所以它可以改变值。它改变了<code>Self::Item</code>的值，这是它所取的迭代器。而且它必须返回 <code>true</code> 或 <code>false</code>。</p>
 <p>这里是一个更简单的签名，有一个闭包。</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]

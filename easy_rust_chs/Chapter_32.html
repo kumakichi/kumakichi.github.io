@@ -398,7 +398,7 @@ fn main() {
 <pre><code class="language-text">&quot;female&quot;, [5, 6, 5]
 &quot;male&quot;, [9, 0, 10]
 </code></pre>
-<p>重要的一行是:<code>survey_hash.entry(item.0).or_insert(Vec::new()).push(item.1);</code>，所以如果它看到 &quot;女&quot;，就会检查<code>HashMap</code>中是否已经有 &quot;女&quot;。如果没有，它就会插入一个<code>Vec::new()</code>，然后把数字推入。如果它看到 &quot;女性 &quot;已经在<code>HashMap</code>中，它将不会插入一个新的Vec，而只是将数字推入其中。</p>
+<p>重要的一行是:<code>survey_hash.entry(item.0).or_insert(Vec::new()).push(item.1);</code>，所以如果它看到 &quot;女&quot;，就会检查<code>HashMap</code>中是否已经有 &quot;女&quot;。如果没有，它就会插入一个<code>Vec::new()</code>，然后把数字推入。如果它看到 &quot;女性&quot;已经在<code>HashMap</code>中，它将不会插入一个新的Vec，而只是将数字推入其中。</p>
 <h3><a class="header" href="#hashset和btreeset" id="hashset和btreeset">HashSet和BTreeSet</a></h3>
 <p><code>HashSet</code>实际上是一个只有key的<code>HashMap</code>。在<a href="https://doc.rust-lang.org/std/collections/struct.HashSet.html">HashSet的页面</a>上面有解释。</p>
 <p><code>A hash set implemented as a HashMap where the value is ().</code> 所以这是一个<code>HashMap</code>，有键，没有值。</p>

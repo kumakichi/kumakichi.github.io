@@ -187,7 +187,7 @@ fn main() {
 }
 </code></pre></pre>
 <p><code>return_str()</code>函数创建了一个String，然后它创建了一个对String的引用。然后它试图返回引用。但是<code>country</code>这个String只活在函数里面，然后它就死了。一旦一个变量消失了，计算机就会清理内存，并将其用于其他用途。所以在函数结束后，<code>country_ref</code>引用的是已经消失的内存，这是不对的。Rust防止我们在这里犯内存的错误。</p>
-<p>这就是我们上面讲到的 &quot;拥有 &quot;类型的重要部分。因为你拥有一个<code>String</code>，你可以把它传给别人。但是如果 <code>&amp;String</code> 的 <code>String</code> 死了，那么 <code>&amp;String</code> 就会死掉，所以你不能把它的 &quot;所有权 &quot;传给别人。</p>
+<p>这就是我们上面讲到的 &quot;拥有&quot;类型的重要部分。因为你拥有一个<code>String</code>，你可以把它传给别人。但是如果 <code>&amp;String</code> 的 <code>String</code> 死了，那么 <code>&amp;String</code> 就会死掉，所以你不能把它的 &quot;所有权&quot;传给别人。</p>
 
                     </main>
 

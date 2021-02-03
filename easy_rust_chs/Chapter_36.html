@@ -268,7 +268,7 @@ fn main() {
    = note: required by `std::iter::IntoIterator::into_iter`
 </code></pre>
 <p>但是我们可以用<code>impl Iterator for Library</code>把库做成迭代器。<code>Iterator</code>trait的信息在标准库中。<a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html">https://doc.rust-lang.org/std/iter/trait.Iterator.html</a></p>
-<p>在页面的左上方写着:<code>Associated Types: Item</code>和<code>Required Methods: next</code>。&quot;关联类型 &quot;的意思是 &quot;一起使用的类型&quot;。我们的关联类型将是<code>String</code>，因为我们希望迭代器给我们提供String。</p>
+<p>在页面的左上方写着:<code>Associated Types: Item</code>和<code>Required Methods: next</code>。&quot;关联类型&quot;的意思是 &quot;一起使用的类型&quot;。我们的关联类型将是<code>String</code>，因为我们希望迭代器给我们提供String。</p>
 <p>在页面中，它有一个看起来像这样的例子。</p>
 <pre><pre class="playground"><code class="language-rust">// an iterator which alternates between Some and None
 struct Alternate {

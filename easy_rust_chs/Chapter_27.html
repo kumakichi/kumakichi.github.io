@@ -167,7 +167,7 @@
 <p>在这里你可以开始赋予你的结构体和枚举一些真正的力量。要调用 <code>struct</code> 或 <code>enum</code> 上的函数，请使用 <code>impl</code> 块。这些函数被称为<strong>方法</strong>。<code>impl</code>块中有两种方法。</p>
 <ul>
 <li>常规方法:这些方法取 <strong>self</strong> (或 <strong>&amp;self</strong> 或 <strong>&amp;mut self</strong> )。常规方法使用<code>.</code>(句号)。<code>.clone()</code>是常规方法的一个例子。</li>
-<li>关联方法(或 &quot;静态 &quot;方法):这些方法不用self。关联的意思是 &quot;相关于&quot;。它们的写法不同，使用 <code>::</code>。<code>String::from()</code>是一个关联方法，<code>Vec::new()</code>也是。你通常看到关联方法用于创建新变量。</li>
+<li>关联方法(或 &quot;静态&quot;方法):这些方法不用self。关联的意思是 &quot;相关于&quot;。它们的写法不同，使用 <code>::</code>。<code>String::from()</code>是一个关联方法，<code>Vec::new()</code>也是。你通常看到关联方法用于创建新变量。</li>
 </ul>
 <p>在我们的例子中，我们将创建Animal并打印它们。</p>
 <p>对于新的<code>struct</code>或<code>enum</code>，如果你想使用<code>{:?}</code>来打印，你需要给它<strong>Debug</strong>，所以我们将这样做:如果你在结构体或枚举上面写了<code>#[derive(Debug)]</code>，那么你就可以用<code>{:?}</code>来打印。这些带有<code>#[]</code>的信息被称为<strong>属性</strong>。你有时可以用它们来告诉编译器给你的结构体一个能力，比如<code>Debug</code>。属性有很多，我们以后会学习它们。但是<code>derive</code>可能是最常见的，你经常在结构体和枚举上面看到它。</p>

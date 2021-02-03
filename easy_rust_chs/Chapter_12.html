@@ -183,7 +183,7 @@ Chapter 3: My job               23
 Chapter 4: My family            30
 Chapter 5: Future plans         43
 </code></pre>
-<p>所以这就像五个指针。你可以阅读它们，找到它们所说的信息。&quot;我的生活 &quot;这一章在哪里？在第1页(它<em>指向</em>第1页)。&quot;我的工作 &quot;这一章在哪里？它在第23页。</p>
+<p>所以这就像五个指针。你可以阅读它们，找到它们所说的信息。&quot;我的生活&quot;这一章在哪里？在第1页(它<em>指向</em>第1页)。&quot;我的工作&quot;这一章在哪里？它在第23页。</p>
 <p>在Rust中通常看到的指针叫做<strong>引用</strong>。这是重要的部分，要知道:一个引用指向另一个值的内存。引用意味着你<em>借</em>了这个值，但你并不拥有它。这和我们的书一样:目录并不拥有信息。章节才是信息的主人。在Rust中，引用文献的前面有一个<code>&amp;</code>。所以:</p>
 <ul>
 <li><code>let my_variable = 8</code>是一个普通的变量，但是:</li>
@@ -199,7 +199,7 @@ Chapter 5: Future plans         43
     let five_references = &amp;&amp;&amp;&amp;&amp;my_number; // This is a &amp;&amp;&amp;&amp;&amp;i32
 }
 </code></pre></pre>
-<p>这些都是不同的类型，就像 &quot;朋友的朋友 &quot;和 &quot;朋友 &quot;不同一样。</p>
+<p>这些都是不同的类型，就像 &quot;朋友的朋友&quot;和 &quot;朋友&quot;不同一样。</p>
 
                     </main>
 
