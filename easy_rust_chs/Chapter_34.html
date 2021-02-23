@@ -164,7 +164,7 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="特性"><a class="header" href="#特性">特性</a></h2>
-<p>我们以前见过trait:<code>Debug</code>、<code>Copy</code>、<code>Clone</code>都是trait。要给一个类型一个trait，就必须实现它。因为<code>Debug</code>和其他的trait都很常见，所以我们有自动实现的属性。这就是你写<code>#[derive(Debug)]</code>的情况:你是自动实现了<code>Debug</code>。</p>
+<p>我们以前见过trait:<code>Debug</code>、<code>Copy</code>、<code>Clone</code>都是trait。要给一个类型一个trait，就必须实现它。因为<code>Debug</code>和其他的trait都很常见，所以我们有自动实现的属性。这就是当你写下<code>#[derive(Debug)]</code>所发生的事情:你自动实现了<code>Debug</code>。</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct MyStruct {
     number: usize,

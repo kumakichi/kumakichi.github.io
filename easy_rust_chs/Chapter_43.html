@@ -289,7 +289,7 @@ fn give_direction(direction: &amp;MapDirection) {
     }
 }
 </code></pre></pre>
-<p>我们已经看到<code>::*</code>的意思是 &quot;导入::之后的所有内容&quot;。在我们的例子中，这意味着<code>North</code>，<code>NorthEast</code>......一直到<code>NorthWest</code>。当你导入别人的代码时，你也可以这样做，但如果代码非常大，你可能会有问题。如果它有一些元素和你的代码是一样的呢？所以一般情况下最好不要一直使用<code>::*</code>，除非你有把握。很多时候你在别人的代码里看到一个叫<code>prelude</code>的部分，里面有你可能需要的所有主要元素。那么你通常会这样使用:<code>name::predule::*</code>。 我们将在 <code>modules</code> 和 <code>crates</code> 的章节中更多地讨论这个问题。</p>
+<p>我们已经看到<code>::*</code>的意思是 &quot;导入::之后的所有内容&quot;。在我们的例子中，这意味着<code>North</code>，<code>NorthEast</code>......一直到<code>NorthWest</code>。当你导入别人的代码时，你也可以这样做，但如果代码非常大，你可能会有问题。如果它有一些元素和你的代码是一样的呢？所以一般情况下最好不要一直使用<code>::*</code>，除非你有把握。很多时候你在别人的代码里看到一个叫<code>prelude</code>的部分，里面有你可能需要的所有主要元素。那么你通常会这样使用:<code>name::prelude::*</code>。 我们将在 <code>modules</code> 和 <code>crates</code> 的章节中更多地讨论这个问题。</p>
 <p>您也可以使用 <code>as</code> 来更改名称。例如，也许你正在使用别人的代码，而你不能改变枚举中的名称。</p>
 <pre><pre class="playground"><code class="language-rust">enum FileState {
     CannotAccessFile,
