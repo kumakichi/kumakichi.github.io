@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-03-18 四 00:05 -->
+<!-- 2021-03-18 Thu 00:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>goroutine leak: database/sql.(*DB).connectionOpener</title>
@@ -248,14 +248,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org084753e">problem</a></li>
-<li><a href="#orgd08ddfe">solve</a></li>
+<li><a href="#org4b98418">problem</a></li>
+<li><a href="#orgdfbd267">solve</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org084753e" class="outline-2">
-<h2 id="org084753e">problem</h2>
-<div class="outline-text-2" id="text-org084753e">
+<div id="outline-container-org4b98418" class="outline-2">
+<h2 id="org4b98418">problem</h2>
+<div class="outline-text-2" id="text-org4b98418">
 <p>
 we have a long live service, pprof shows that the number of goroutine continues to increase
 </p>
@@ -263,30 +263,27 @@ we have a long live service, pprof shows that the number of goroutine continues 
 <p>
 like this:
 </p>
-<blockquote>
-<p>
-&#x2026;
-goroutine 93444 [select, 4266 minutes]:
-database/sql.(*DB).connectionOpener(0xc000160270, 0x4cb8780, 0xc0012f4800)
-	/usr/local/go/src/database/sql/sql.go:1126 +0xf5
+<div class="org-src-container">
+<pre class="src src-go">...
+goroutine 93444 [<span style="color: #66D9EF;">select</span>, 4266 minutes]:
+database/sql.(*<span style="color: #66D9EF;">DB</span>).<span style="color: #F92672; font-style: italic;">connectionOpener</span>(0xc000160270, 0x4cb8780, 0xc0012f4800)
+        /usr/local/<span style="color: #66D9EF;">go</span>/src/database/sql/sql.<span style="color: #66D9EF;">go</span>:1126 +0xf5
 created by database/sql.OpenDB
-	/usr/local/go/src/database/sql/sql.go:740 +0x12a
-</p>
+        /usr/local/<span style="color: #66D9EF;">go</span>/src/database/sql/sql.<span style="color: #66D9EF;">go</span>:740 +0x12a
 
-<p>
-goroutine 204340 [select, 4235 minutes]:
-database/sql.(*DB).connectionOpener(0xc001d2af70, 0x4cb8780, 0xc0022b44c0)
-	/usr/local/go/src/database/sql/sql.go:1126 +0xf5
+goroutine 204340 [<span style="color: #66D9EF;">select</span>, 4235 minutes]:
+database/sql.(*<span style="color: #66D9EF;">DB</span>).<span style="color: #F92672; font-style: italic;">connectionOpener</span>(0xc001d2af70, 0x4cb8780, 0xc0022b44c0)
+        /usr/local/<span style="color: #66D9EF;">go</span>/src/database/sql/sql.<span style="color: #66D9EF;">go</span>:1126 +0xf5
 created by database/sql.OpenDB
-	/usr/local/go/src/database/sql/sql.go:740 +0x12a
-&#x2026;
-</p>
-</blockquote>
+        /usr/local/<span style="color: #66D9EF;">go</span>/src/database/sql/sql.<span style="color: #66D9EF;">go</span>:740 +0x12a
+...
+</pre>
 </div>
 </div>
-<div id="outline-container-orgd08ddfe" class="outline-2">
-<h2 id="orgd08ddfe">solve</h2>
-<div class="outline-text-2" id="text-orgd08ddfe">
+</div>
+<div id="outline-container-orgdfbd267" class="outline-2">
+<h2 id="orgdfbd267">solve</h2>
+<div class="outline-text-2" id="text-orgdfbd267">
 <p>
 It's wierd from the first glance, because the call stack doesn't show the caller of <b>sql.OpenDB</b>
 </p>
@@ -413,7 +410,7 @@ fix:
 			    })();
 			</script>
 			<noscript>Please enable JavaScript to view the <a href='https://disqus.com/?ref_noscript' rel='nofollow'>comments powered by Disqus.</a></noscript>
-			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2021-03-18 四 00:05. Created by <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.4) </p>
+			<p class='author'>Author: sanye <a href="mailto:"></a></p><p>Exported At 2021-03-18 Thu 00:43. Created by <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.1 (<a href="https://orgmode.org">Org</a> mode 9.4) </p>
 			<a href='#' class='back-to-top' id='fixed-back-to-top' style='display: inline;'></a>
 </div>
 </body>
