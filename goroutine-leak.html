@@ -6,7 +6,7 @@
 <!-- 2021-03-18 四 00:05 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>goroutine leak: database/sql.(*DB).connectionOpener</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="sanye" />
 <style type="text/css">
@@ -243,23 +243,161 @@
 	</div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="goroutine-leak.html">goroutine leak: database/sql.(*DB).connectionOpener</a></li>
-<li><a href="translations.html">translations</a></li>
-<li><a href="build-gcc-9.3.0.html">build gcc 9.3 on ubuntu 18.04 x86_64</a></li>
-<li><a href="fix-ubuntu20.04-letsencrypt.html">Fix Package 'python-virtualenv' has no installation candidate on Ubuntu 20.04</a></li>
-<li><a href="org-github-pages.html">build blog with orgmode and github pages</a></li>
-<li><a href="build-openwrt-19.07.2-for-tplink-wr841n-v8.html">build openwrt 19.07.2 for tplink wr841n-v8 under macOS using docker</a></li>
-<li><a href="mc-forge.html">build minecraft forge development environment with IDEA</a></li>
-<li><a href="develop-golang-with-intellij-idea.html">develop golang with IntelliJ IDEA</a></li>
-<li><a href="crack-ida.html">Remove IDA Evaluation Version Time Limitation</a></li>
-<li><a href="build-vim8.0.html">build vim 8.0 on ubuntu 14.04 x86_64</a></li>
-<li><a href="build-gcc-5.1.html">build gcc 5.1 on ubuntu 14.04 x86_64</a></li>
-<li><a href="build-emacs25.1.html">Emacs 25.1 build and and troubleshooting</a></li>
-<li><a href="awk-rm-duplicate-lines.html">remove duplicate lines in file using awk</a></li>
-<li><a href="Rule-of-72.html">Rule of 72</a></li>
+<h1 class="title">goroutine leak: database/sql.(*DB).connectionOpener</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org084753e">problem</a></li>
+<li><a href="#orgd08ddfe">solve</a></li>
 </ul>
+</div>
+</div>
+<div id="outline-container-org084753e" class="outline-2">
+<h2 id="org084753e">problem</h2>
+<div class="outline-text-2" id="text-org084753e">
+<p>
+we have a long live service, pprof shows that the number of goroutine continues to increase
+</p>
+
+<p>
+like this:
+</p>
+<blockquote>
+<p>
+&#x2026;
+goroutine 93444 [select, 4266 minutes]:
+database/sql.(*DB).connectionOpener(0xc000160270, 0x4cb8780, 0xc0012f4800)
+	/usr/local/go/src/database/sql/sql.go:1126 +0xf5
+created by database/sql.OpenDB
+	/usr/local/go/src/database/sql/sql.go:740 +0x12a
+</p>
+
+<p>
+goroutine 204340 [select, 4235 minutes]:
+database/sql.(*DB).connectionOpener(0xc001d2af70, 0x4cb8780, 0xc0022b44c0)
+	/usr/local/go/src/database/sql/sql.go:1126 +0xf5
+created by database/sql.OpenDB
+	/usr/local/go/src/database/sql/sql.go:740 +0x12a
+&#x2026;
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-orgd08ddfe" class="outline-2">
+<h2 id="orgd08ddfe">solve</h2>
+<div class="outline-text-2" id="text-orgd08ddfe">
+<p>
+It's wierd from the first glance, because the call stack doesn't show the caller of <b>sql.OpenDB</b>
+</p>
+
+<p>
+So, first step, find <b>OpenDB</b> in sql.go:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go"><span style="color: #66D9EF;">func</span> <span style="color: #F92672; font-style: italic;">OpenDB</span>(c <span style="color: #66D9EF;">driver.Connector</span>) *<span style="color: #66D9EF;">DB</span> {
+        ctx, cancel := context.<span style="color: #F92672; font-style: italic;">WithCancel</span>(context.<span style="color: #F92672; font-style: italic;">Background</span>())
+        db := &amp;<span style="color: #66D9EF;">DB</span>{
+                <span style="color: #AE81FF;">connector</span>:    c,
+                <span style="color: #AE81FF;">openerCh</span>:     <span style="color: #A6E22E;">make</span>(<span style="color: #66D9EF;">chan</span> <span style="color: #66D9EF;">struct</span>{}, connectionRequestQueueSize),
+                <span style="color: #AE81FF;">lastPut</span>:      <span style="color: #A6E22E;">make</span>(<span style="color: #66D9EF;">map</span>[*<span style="color: #66D9EF;">driverConn</span>]<span style="color: #66D9EF;">string</span>),
+                <span style="color: #AE81FF;">connRequests</span>: <span style="color: #A6E22E;">make</span>(<span style="color: #66D9EF;">map</span>[<span style="color: #66D9EF;">uint64</span>]<span style="color: #66D9EF;">chan</span> <span style="color: #66D9EF;">connRequest</span>),
+                <span style="color: #AE81FF;">stop</span>:         cancel,
+        }
+
+        <span style="color: #66D9EF;">go</span> db.<span style="color: #F92672; font-style: italic;">connectionOpener</span>(ctx)
+
+        <span style="color: #66D9EF;">return</span> db
+}
+</pre>
+</div>
+
+<p>
+<b>go db.connectionOpener(ctx)</b>, this line tells us why the call stack looks like that, and we can see <b>DB.stop</b> is cancel func.
+</p>
+
+<p>
+Continue to check the function <b>connectionOpener</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go"><span style="color: #66D9EF;">func</span> (db *<span style="color: #66D9EF;">DB</span>) <span style="color: #F92672; font-style: italic;">connectionOpener</span>(ctx <span style="color: #66D9EF;">context.Context</span>) {
+        <span style="color: #66D9EF;">for</span> {
+                <span style="color: #66D9EF;">select</span> {
+                <span style="color: #66D9EF;">case</span> &lt;-ctx.<span style="color: #F92672; font-style: italic;">Done</span>():
+                        <span style="color: #66D9EF;">return</span>
+                <span style="color: #66D9EF;">case</span> &lt;-db.openerCh:
+                        db.<span style="color: #F92672; font-style: italic;">openNewConnection</span>(ctx)
+                }
+        }
+}
+
+<span style="color: #66D9EF;">func</span> (db *<span style="color: #66D9EF;">DB</span>) <span style="color: #F92672; font-style: italic;">Close</span>() <span style="color: #66D9EF;">error</span> {
+        ...
+        db.<span style="color: #F92672; font-style: italic;">stop</span>()
+        <span style="color: #66D9EF;">return</span> err
+}
+</pre>
+</div>
+
+<p>
+Notice that <b>db.stop*(which is the cancel func) is called in method *Close</b>, so we know by calling <b>Close</b>, the goroutine leaking problem can be solved.
+</p>
+
+<p>
+Now, we know how this problem happens:  we open databases periodly, but forgot to close them (or, some of them)
+</p>
+
+<p>
+Code snippet:
+</p>
+<div class="org-src-container">
+<pre class="src src-go"><span style="color: #66D9EF;">func</span> <span style="color: #F92672; font-style: italic;">newMysql</span>(...) (*<span style="color: #66D9EF;">mysqlWrapper</span>, <span style="color: #66D9EF;">error</span>) {
+        ...
+        DB, err := sql.<span style="color: #F92672; font-style: italic;">Open</span>(<span style="color: #E6DB74;">"mysql"</span>, dsn)
+        <span style="color: #66D9EF;">if</span> err != <span style="color: #AE81FF;">nil</span> {
+                <span style="color: #66D9EF;">return</span> <span style="color: #AE81FF;">nil</span>, err
+        }
+
+        err = DB.<span style="color: #F92672; font-style: italic;">Ping</span>()
+        <span style="color: #66D9EF;">if</span> err != <span style="color: #AE81FF;">nil</span> { <span style="color: #465457; font-style: italic;">// </span><span style="color: #465457; font-style: italic;">BUG HERE!</span>
+                <span style="color: #66D9EF;">return</span> <span style="color: #AE81FF;">nil</span>, err
+        }
+        <span style="color: #66D9EF;">return</span> &amp;<span style="color: #66D9EF;">mysqlWrapper</span>{DB: DB}, <span style="color: #AE81FF;">nil</span>
+}
+
+<span style="color: #66D9EF;">func</span> <span style="color: #F92672; font-style: italic;">connectionChecker</span>(...) <span style="color: #66D9EF;">error</span> {
+        db, err := <span style="color: #F92672; font-style: italic;">newMysql</span>(host, port, user, pass)
+        <span style="color: #66D9EF;">if</span> err != <span style="color: #AE81FF;">nil</span> {
+                <span style="color: #66D9EF;">return</span> err
+        }
+        db.<span style="color: #F92672; font-style: italic;">Close</span>()
+        <span style="color: #66D9EF;">return</span> <span style="color: #AE81FF;">nil</span>
+}
+</pre>
+</div>
+
+<p>
+If <b>DB.Ping</b> fails(eg. wrong password), just returns error, then the <b>openNewConnection</b> goroutine leaks
+</p>
+
+<p>
+fix:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">...
+        err = DB.<span style="color: #F92672; font-style: italic;">Ping</span>()
+        <span style="color: #66D9EF;">if</span> err != <span style="color: #AE81FF;">nil</span> { <span style="color: #465457; font-style: italic;">// </span><span style="color: #465457; font-style: italic;">BUG HERE!</span>
+                DB.<span style="color: #F92672; font-style: italic;">Close</span>()
+                <span style="color: #66D9EF;">return</span> <span style="color: #AE81FF;">nil</span>, err
+        }
+...
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <div id='disqus_thread'></div>
