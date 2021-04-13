@@ -817,6 +817,7 @@ None
 [5, 6, 7]
 [6, 7, 8]
 [7, 8, 9]
+[8, 9, 0]
 </code></pre>
 <p>顺便说一下，如果你什么都不给它，<code>.chunks()</code>会崩溃。你可以为一个只有一项的向量写<code>.chunks(1000)</code>，但你不能为任何长度为0的东西写<code>.chunks()</code>。 如果你点击[src]，你可以在函数中看到这一点，因为它说<code>assert!(chunk_size != 0);</code>。</p>
 <p><code>.match_indices()</code> 让你把 <code>String</code> 或 <code>&amp;str</code> 里面所有符合你的输入的东西都提取出来，并给你索引。它与 <code>.enumerate()</code> 类似，因为它返回一个包含两个元素的元组。</p>

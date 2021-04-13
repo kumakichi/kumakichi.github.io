@@ -213,17 +213,17 @@ fn main() {
 <span class="boring">}
 </span></code></pre></pre>
 <p><code>fn map&lt;B, F&gt;(self, f: F)</code>的意思是，它需要两个通用类型。<code>F</code>是指从实现<code>.map()</code>的容器中取一个元素的函数，<code>B</code>是该函数的返回类型。然后在<code>where</code>之后，我们看到的是trait bound。(&quot;trait bound&quot;的意思是 &quot;它必须有这个trait&quot;。)一个是<code>Sized</code>，接下来是闭包签名。它必须是一个 <code>FnMut</code>，并在 <code>Self::Item</code> 上做闭包，也就是你给它的迭代器。然后它返回<code>B</code>。</p>
-<p>所以我们可以用同样的方法来返回一个闭包。要返回一个闭包，使用 <code>impl</code>，然后使用闭包签名。一旦你返回它，你就可以像函数一样使用它。下面是一个函数的小例子，它根据你输入的数字给你一个闭包。如果你输入的是 2 或 40，那么它就会将其相乘，否则就会给你相同的数字。因为它是一个闭包函数，我们可以做任何我们想做的事情，所以我们也打印一条信息。</p>
-<pre><pre class="playground"><code class="language-rust">fn returns_a_closure(input: u8) -&gt; impl FnMut(i32) -&gt; i32 {
+<p>所以我们可以用同样的方法来返回一个闭包。要返回一个闭包，使用 <code>impl</code>，然后是闭包签名。一旦你返回它，你就可以像使用一个函数一样使用它。下面是一个函数的小例子，它根据你输入的文本给出一个闭包。如果你输入 &quot;double &quot;或 &quot;triple&quot;，那么它就会把它乘以2或3，否则就会返给你相同的数字。因为它是一个闭包，我们可以做任何我们想做的事情，所以我们也打印一条信息。</p>
+<pre><pre class="playground"><code class="language-rust">fn returns_a_closure(input: &amp;str) -&gt; impl FnMut(i32) -&gt; i32 {
     match input {
-        2 =&gt; |mut number| {
+        &quot;double&quot; =&gt; |mut number| {
             number *= 2;
-            println!(&quot;Your number is {}&quot;, number);
+            println!(&quot;Doubling number. Now it is {}&quot;, number);
             number
         },
-        40 =&gt; |mut number| {
+        &quot;triple&quot; =&gt; |mut number| {
             number *= 40;
-            println!(&quot;Your number is {}&quot;, number);
+            println!(&quot;Tripling number. Now it is {}&quot;, number);
             number
         },
         _ =&gt; |number| {
@@ -237,13 +237,13 @@ fn main() {
     let my_number = 10;
 
     // Make three closures
-    let mut give_two = returns_a_closure(2);
-    let mut give_forty = returns_a_closure(40);
-    let mut give_fifty = returns_a_closure(50);
+    let mut doubles = returns_a_closure(&quot;double&quot;);
+    let mut triples = returns_a_closure(&quot;triple&quot;);
+    let mut quadruples = returns_a_closure(&quot;quadruple&quot;);
 
-    give_two(my_number);
-    give_forty(my_number);
-    give_fifty(my_number);
+    doubles(my_number);
+    triples(my_number);
+    quadruples(my_number);
 }
 </code></pre></pre>
 <p>下面是一个比较长的例子。让我们想象一下，在一个游戏中，你的角色面对的是晚上比较强的怪物。我们可以创建一个叫<code>TimeOfDay</code>的枚举来记录一天的情况。你的角色叫西蒙，有一个叫<code>character_fear</code>的数字，也就是<code>f64</code>。它晚上上升，白天下降。我们将创建一个<code>change_fear</code>函数，改变他的恐惧，但也做其他事情，如写消息。它大概是这样的:</p>

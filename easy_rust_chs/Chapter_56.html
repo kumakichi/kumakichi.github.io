@@ -206,10 +206,7 @@ fn main() {
 <p>我们当然可以做到这一点。<code>println!(&quot;{:?}&quot;, my_number.0 + 20);</code>. 但是这样的话，我们就是在20的基础上再单独加一个<code>u8</code>。如果我们能把它们加在一起就更好了。<code>cannot be dereferenced</code>这个消息给了我们一个线索:我们需要实现<code>Deref</code>。实现<code>Deref</code>的简单东西有时被称为 &quot;智能指针&quot;。一个智能指针可以指向它的元素，有它的信息，并且可以使用它的方法。因为现在我们可以添加<code>my_number.0</code>，这是一个<code>u8</code>，但我们不能用<code>HoldsANumber</code>做其他的事情:到目前为止，它只有<code>Debug</code>。</p>
 <p>有趣的是:<code>String</code>其实是<code>&amp;str</code>的智能指针，<code>Vec</code>是数组(或其他类型)的智能指针。所以我们其实从一开始就在使用智能指针。</p>
 <p>实现<code>Deref</code>并不难，标准库中的例子也很简单。<a href="https://doc.rust-lang.org/std/ops/trait.Deref.html">下面是标准库中的示例代码</a>。</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use std::ops::Deref;
+<pre><pre class="playground"><code class="language-rust">use std::ops::Deref;
 
 struct DerefExample&lt;T&gt; {
     value: T
@@ -223,10 +220,11 @@ impl&lt;T&gt; Deref for DerefExample&lt;T&gt; {
     }
 }
 
-let x = DerefExample { value: 'a' };
-assert_eq!('a', *x);
-<span class="boring">}
-</span></code></pre></pre>
+fn main() {
+    let x = DerefExample { value: 'a' };
+    assert_eq!('a', *x);
+}
+</code></pre></pre>
 <p>所以我们按照这个来，现在我们的<code>Deref</code>是这样的。</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]

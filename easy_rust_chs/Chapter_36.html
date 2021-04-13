@@ -170,7 +170,7 @@
 <li><code>.iter_mut()</code> 可变引用的迭代器</li>
 <li><code>.into_iter()</code> 值的迭代器(不是引用)</li>
 </ul>
-<p><code>for</code>循环其实只是一个使用<code>.iter_mut()</code>的迭代器。这就是为什么你在使用它的时候可以改变值的原因。</p>
+<p><code>for</code>循环其实只是一个拥有值的迭代器。这就是为什么可以让它变得可变，然后你可以在使用的时候改变值。</p>
 <p>我们可以这样使用迭代器。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let vector1 = vec![1, 2, 3]; // we will use .iter() and .into_iter() on this one

@@ -232,7 +232,7 @@ fn main() {
     // This will try 40,000 times to make a char from a u32.
     // The range is 0 (std::u32::MIN) to u32's highest number (std::u32::MAX). If it doesn't work, we will give it '-'.
     for _ in 0..40_000 {
-        let bigger_character = char::try_from(random_generator.gen_range(std::u32::MIN, std::u32::MAX)).unwrap_or('-');
+        let bigger_character = char::try_from(random_generator.gen_range(std::u32::MIN..std::u32::MAX)).unwrap_or('-');
         print!(&quot;{}&quot;, bigger_character)
     }
 }
@@ -435,6 +435,43 @@ truncated: -19
 }
 </code></pre></pre>
 <p>这打印的是一样的东西。</p>
+<p>从Rust 1.50(2021年2月发布)开始，有一个叫做 <code>then()</code>的方法，它将一个 <code>bool</code>变成一个 <code>Option</code>。使用<code>then()</code>时需要一个闭包，如果item是<code>true</code>，闭包就会被调用。同时，无论从闭包中返回什么，都会进入<code>Option</code>中。下面是一个小例子:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+
+    let (tru, fals) = (true.then(|| 8), false.then(|| 8));
+    println!(&quot;{:?}, {:?}&quot;, tru, fals);
+}
+</code></pre></pre>
+<p>这个打印 <code>Some(8), None</code>。</p>
+<p>下面是一个较长的例子:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let bool_vec = vec![true, false, true, false, false];
+
+    let option_vec = bool_vec
+        .iter()
+        .map(|item| {
+            item.then(|| { // Put this inside of map so we can pass it on
+                println!(&quot;Got a {}!&quot;, item);
+                &quot;It's true, you know&quot; // This goes inside Some if it's true
+                                      // Otherwise it just passes on None
+            })
+        })
+        .collect::&lt;Vec&lt;_&gt;&gt;();
+
+    println!(&quot;Now we have: {:?}&quot;, option_vec);
+
+    // That printed out the Nones too. Let's filter map them out in a new Vec.
+    let filtered_vec = option_vec.into_iter().filter_map(|c| c).collect::&lt;Vec&lt;_&gt;&gt;();
+
+    println!(&quot;And without the Nones: {:?}&quot;, filtered_vec);
+}
+</code></pre></pre>
+<p>将打印:</p>
+<pre><code class="language-text">Got a true!
+Got a true!
+Now we have: [Some(&quot;It\'s true, you know&quot;), None, Some(&quot;It\'s true, you know&quot;), None, None]
+And without the Nones: [&quot;It\'s true, you know&quot;, &quot;It\'s true, you know&quot;]
+</code></pre>
 <h3 id="vec"><a class="header" href="#vec">Vec</a></h3>
 <p>Vec有很多方法我们还没有看。先说说<code>.sort()</code>。<code>.sort()</code>一点都不奇怪。它使用<code>&amp;mut self</code>来对一个向量进行排序。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -1099,7 +1136,7 @@ The last country is Portugal inside the module rust_book::something::third_mod
 <p><code>cfg!</code></p>
 <p>我们知道，你可以使用 <code>#[cfg(test)]</code> 和 <code>#[cfg(windows)]</code> 这样的属性来告诉编译器在某些情况下该怎么做。当你有<code>test</code>时，当你在测试模式下运行Rust时，它会运行代码(如果是在电脑上，你输入<code>cargo test</code>)。而当你使用<code>windows</code>时，如果用户使用的是Windows，它就会运行代码。但也许你只是想根据不同操作系统对依赖系统的代码做很小的修改。这时候这个宏就很有用了。它返回一个<code>bool</code>。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    let helpful_message = if cfg!(windows) { &quot;backslash&quot; } else { &quot;slash&quot; };
+    let helpful_message = if cfg!(target_os = &quot;windows&quot;) { &quot;backslash&quot; } else { &quot;slash&quot; };
 
     println!(
         &quot;...then in your hard drive, type the directory name followed by a {}. Then you...&quot;,
