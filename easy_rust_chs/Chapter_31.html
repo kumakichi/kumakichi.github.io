@@ -218,7 +218,9 @@ fn main() {
     );
 }
 </code></pre></pre>
-<p>消息是: &quot;thread 'main' panicked at 'called <code>Option::unwrap()</code> on a <code>None</code> value', src\main.rs:14:9&quot;.</p>
+<p>消息是: </p>
+<pre><code class="language-text">thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src\main.rs:14:9
+</code></pre>
 <p>但我们不需要使用<code>.unwrap()</code>。我们可以使用<code>match</code>。那么我们就可以把我们有<code>Some</code>的值打印出来，如果有<code>None</code>的值就不要碰。比如说</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
     if value.len() &lt; 4 {
@@ -321,7 +323,7 @@ enum Result&lt;T, E&gt; {
 
 fn main() {}
 </code></pre></pre>
-<p>所以Result在 <code>Ok</code> 里面有一个值，在 <code>Err</code> 里面有一个值。这是因为错误通常(应该有)有信息在里面。</p>
+<p>所以Result在 &quot;Ok &quot;里面有一个值，在 &quot;Err &quot;里面有一个值。这是因为错误通常包含描述错误的信息。</p>
 <p><code>Result&lt;T, E&gt;</code>的意思是你要想好<code>Ok</code>要返回什么，<code>Err</code>要返回什么。其实，你可以决定任何事情。甚至这个也可以。</p>
 <pre><pre class="playground"><code class="language-rust">fn check_error() -&gt; Result&lt;(), ()&gt; {
     Ok(())
