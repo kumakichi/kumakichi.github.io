@@ -479,20 +479,28 @@
 </ul>
 <p>所以Rust使用了<code>usize</code>，这样你的计算机就可以得到它能读到的最大的数字进行索引。</p>
 <p>我们再来了解一下<code>char</code>。你看到<code>char</code>总是一个字符，并且使用<code>''</code>而不是<code>&quot;&quot;</code>。</p>
-<p>所有的字符都是4个字节。它们是4个字节，因为一个字符串中的一些字符是超过一个字节的。计算机上的基本字母一直是1个字节，后来的字符是2个字节，其他的是3个字节和4个字节。<code>char</code>需要4个字节，这样才能容纳任何一种字符。</p>
+<p>所有的 <code>字符</code> 都使用4个字节的内存，因为4个字节足以容纳任何种类的字符:</p>
+<ul>
+<li>基本字母和符号通常需要4个字节中的1个：<code>a b 1 2 + - = $ @</code></li>
+<li>其他字母，如德语的 Umlauts 或重音，需要4个字节中的2个： <code>ä ö ü ß è é à ñ</code></li>
+<li>韩文、日文或中文字符需要3或4个字节： <code>国 안 녕</code></li>
+</ul>
+<p>当使用字符作为字符串的一部分时，字符串被编码以使用每个字符所需的最小内存量。</p>
 <p>我们可以用<code>.len()</code>来看一下。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    println!(&quot;{}&quot;, &quot;a&quot;.len()); // .len() gives the size in bytes
-    println!(&quot;{}&quot;, &quot;ß&quot;.len());
-    println!(&quot;{}&quot;, &quot;国&quot;.len());
-    println!(&quot;{}&quot;, &quot;𓅱&quot;.len());
+    println!(&quot;Size of a char: {}&quot;, std::mem::size_of::&lt;char&gt;()); // 4 bytes
+    println!(&quot;Size of string containing 'a': {}&quot;, &quot;a&quot;.len()); // .len() gives the size of the string in bytes
+    println!(&quot;Size of string containing 'ß': {}&quot;, &quot;ß&quot;.len());
+    println!(&quot;Size of string containing '国': {}&quot;, &quot;国&quot;.len());
+    println!(&quot;Size of string containing '𓅱': {}&quot;, &quot;𓅱&quot;.len());
 }
 </code></pre></pre>
 <p>这样打印出来。</p>
-<pre><code class="language-text">1
-2
-3
-4
+<pre><code class="language-text">Size of a char: 4
+Size of string containing 'a': 1
+Size of string containing 'ß': 2
+Size of string containing '国': 3
+Size of string containing '𓅱': 4
 </code></pre>
 <p>可以看到，<code>a</code>是一个字节，德文的<code>ß</code>是两个字节，日文的<code>国</code>是三个字节，古埃及的<code>𓅱</code>是4个字节。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
@@ -1195,10 +1203,10 @@ And 'Adrian Fahrenheit Țepeș' is 25 bytes. It is not Sized.
 </code></pre></pre>
 <p>现在你得到了一个字符串。</p>
 <h2 id="const和static"><a class="header" href="#const和static">const和static</a></h2>
-<p>有两种类型不用<code>let</code>来声明: <code>const</code>和<code>static</code>。另外，Rust不会使用类型推导:你需要为它们写类型。这些都是针对不会改变的变量(<code>const</code>的意思是常量), 不同的是:</p>
+<p>有两种声明值的方法，不仅仅是用<code>let</code>。它们是<code>const</code>和<code>static</code>。另外，Rust不会使用类型推理：你需要为它们编写类型。这些都是用于不改变的值（<code>const</code>意味着常量）。区别在于:</p>
 <ul>
-<li><code>const</code>是一个不会改变的值</li>
-<li><code>static</code>是一个不会改变的值，并且有一个固定的内存位置</li>
+<li><code>const</code>是用于不改变的值，当使用它时，名字会被替换成值。</li>
+<li><code>static</code>与<code>const</code>类似，但有一个固定的内存位置，可以作为一个全局变量使用。</li>
 </ul>
 <p>所以它们几乎是一样的。Rust程序员几乎总是使用<code>const</code>。</p>
 <p>一般用全大写字母作为名字，而且通常在<code>main</code>之外，这样它们就可以在整个程序中生存。</p>
@@ -2908,7 +2916,7 @@ fn main() {
 <p>我们可以用 <code>.unwrap()</code> 在一个选项中获取值，但要小心 <code>.unwrap()</code>。这就像拆礼物一样:也许里面有好东西，也许里面有一条愤怒的蛇。只有在你确定的情况下，你才会想要<code>.unwrap()</code>。如果你拆开一个<code>None</code>的值，程序就会崩溃。</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -2929,7 +2937,7 @@ fn main() {
 </code></pre>
 <p>但我们不需要使用<code>.unwrap()</code>。我们可以使用<code>match</code>。那么我们就可以把我们有<code>Some</code>的值打印出来，如果有<code>None</code>的值就不要碰。比如说</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -2983,7 +2991,7 @@ None(value) =&gt; println!(&quot;The value is {}&quot;, value),
 <p>因为<code>None</code>只是<code>None</code>。</p>
 <p>当然，还有更简单的方法来使用Option。在这段代码中，我们将使用一个叫做 <code>.is_some()</code> 的方法来告诉我们是否是 <code>Some</code>。(是的，还有一个叫做<code>.is_none()</code>的方法。)在这个更简单的方法中，我们不需要<code>handle_option()</code>了。我们也不需要选项的vec了。</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -10726,6 +10734,7 @@ fn main() {
 <p>这四个宏有点像<code>dbg!()</code>，因为你只是把它们放进代码去给你调试信息。但是它们不需要任何变量--你只需要用它们和括号一起使用，而没有其他的东西。它们放到一起很容易学:</p>
 <ul>
 <li><code>column!()</code>给你写的那一列</li>
+<li><code>file!()</code>给你写的文件的名称</li>
 <li><code>line!()</code>给你写的那行字，然后是</li>
 <li><code>module_path!()</code>给你模块的位置。</li>
 </ul>
@@ -10745,6 +10754,9 @@ fn main() {
 fn main() {
     use something::third_mod::*;
     let mut country_vec = vec![&quot;Portugal&quot;, &quot;Czechia&quot;, &quot;Finland&quot;];
+
+    // do some stuff
+    println!(&quot;Hello from file {}&quot;, file!());
 
     // do some stuff
     println!(
@@ -10768,8 +10780,9 @@ fn main() {
 }
 </code></pre></pre>
 <p>它打印的是这样的。</p>
-<pre><code class="language-text">On line 20 we got the country Finland
-The next country is Czechia on line 29 and column 9.
+<pre><code class="language-text">Hello from file src/main.rs
+On line 23 we got the country Finland
+The next country is Czechia on line 32 and column 9.
 The last country is Portugal inside the module rust_book::something::third_mod
 </code></pre>
 <p><code>cfg!</code></p>
@@ -11383,7 +11396,7 @@ this
 work
 too?
 </code></pre>
-<p>除了<code>Args</code>中用户给出的<code>std::env</code>，还有<code>Vars</code>是系统变量。这些都是用户没有输入的程序的基本设置。你可以用<code>std::env::vars()</code>把它们都看成一个<code>(String, String)</code>。这个有非常多，比如说:</p>
+<p>除了用户给出的 <code>Args</code>，在 <code>std::env::args()</code> 中可用，还有系统变量<code>Vars</code>。这些都是用户没有输入的程序的基本设置。你可以用<code>std::env::vars()</code>把它们都看成一个<code>(String, String)</code>。这个有非常多，比如说:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     for item in std::env::vars() {
         println!(&quot;{:?}&quot;, item);
@@ -11422,17 +11435,16 @@ too?
 (&quot;_&quot;, &quot;/usr/bin/timeout&quot;)
 </code></pre>
 <p>所以如果你需要这些信息，<code>Vars</code>就是你想要的。</p>
-<p>最简单的方法是使用<code>env!</code>宏来获取单个<code>Var</code>。你只要把变量的名字放在里面就可以了。
-它将给你一个<code>&amp;str</code>。但如果变量是错误的，它将不会工作，所以如果你不确定，然后使用<code>option_env!</code>代替。如果我们在Playground上写这个:</p>
+<p>获得单个<code>Var'的最简单方法是使用</code>env!<code>宏。你只要给它变量的名字，它就会给你一个</code>&amp;str'的值。如果变量拼写错误或不存在，它就不起作用，所以如果你不确定，就用<code>option_env!</code>代替。如果我们在Playground上写这个:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;{}&quot;, env!(&quot;USER&quot;));
-    println!(&quot;{}&quot;, option_env!(&quot;ROOT&quot;).unwrap_or(&quot;Didn't work&quot;));
-    println!(&quot;{}&quot;, option_env!(&quot;CARGO&quot;).unwrap_or(&quot;Didn't work&quot;));
+    println!(&quot;{}&quot;, option_env!(&quot;ROOT&quot;).unwrap_or(&quot;Can't find ROOT&quot;));
+    println!(&quot;{}&quot;, option_env!(&quot;CARGO&quot;).unwrap_or(&quot;Can't find CARGO&quot;));
 }
 </code></pre></pre>
 <p>然后我们得到输出:</p>
 <pre><code class="language-text">playground
-Didn't work
+Can't find ROOT
 /playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
 </code></pre>
 <p>所以<code>option_env!</code>永远是比较安全的宏。如果你真的想让程序在找不到环境变量时崩溃，那么<code>env!</code>会更好。</p>
@@ -11461,7 +11473,7 @@ fn main() {
   = note: expected enum `std::result::Result&lt;_, ()&gt;`
              found enum `std::result::Result&lt;_, std::num::ParseIntError&gt;`
 </code></pre>
-<p>太好了！所以我们只需要把回车改成这样。现在它能工作了:</p>
+<p>很好! 所以我们只要把返回值改成编译器说的就可以了:</p>
 <pre><pre class="playground"><code class="language-rust">use std::num::ParseIntError;
 
 fn give_number(input: &amp;str) -&gt; Result&lt;i32, ParseIntError&gt; {
@@ -11473,7 +11485,7 @@ fn main() {
     println!(&quot;{:?}&quot;, give_number(&quot;5&quot;));
 }
 </code></pre></pre>
-<p>第一个不能用，但是第二个可以用。</p>
+<p>现在程序可以运行了!</p>
 <pre><code class="language-text">Ok(88)
 Ok(5)
 </code></pre>
@@ -11532,7 +11544,7 @@ use std::io::Write;
 fn main() -&gt; std::io::Result&lt;()&gt; {
     let mut file = fs::File::create(&quot;myfilename.txt&quot;)?; // Create a file with this name.
                                                         // CAREFUL! If you have a file with this name already,
-                                                        // it will delete it and make a new one.
+                                                        // it will delete everything in it.
     file.write_all(b&quot;Let's put this in the file&quot;)?;     // Don't forget the b in front of &quot;. That's because files take bytes.
     Ok(())
 }
@@ -11548,7 +11560,7 @@ fn main() -&gt; std::io::Result&lt;()&gt; {
 }
 </code></pre></pre>
 <p>所以这是说 &quot;请尝试创建一个文件，然后检查是否成功。如果成功了，那就使用<code>.write_all()</code>，然后检查是否成功。&quot;</p>
-<p>而事实上，也有一个函数可以同时完成这两件事。它的名字叫<code>std::fs::write</code>。在它里面，你给它你想要的文件名，以及你想要放在里面的内容。再次强调，小心! 如果有相同的名字，它就会删除已经存在的文件。另外，它让你写一个<code>&amp;str</code>，前面不写<code>b</code>，因为这个:</p>
+<p>而事实上，也有一个函数可以同时做这两件事。它叫做<code>std::fs::write</code>。在它里面，你给它你想要的文件名，以及你想放在里面的内容。再次强调，要小心! 如果该文件已经存在，它将删除其中的所有内容。另外，它允许你写一个<code>&amp;str</code>，前面不写<code>b</code>，因为这个:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {

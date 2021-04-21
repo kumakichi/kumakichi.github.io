@@ -1087,6 +1087,7 @@ fn main() {
 <p>这四个宏有点像<code>dbg!()</code>，因为你只是把它们放进代码去给你调试信息。但是它们不需要任何变量--你只需要用它们和括号一起使用，而没有其他的东西。它们放到一起很容易学:</p>
 <ul>
 <li><code>column!()</code>给你写的那一列</li>
+<li><code>file!()</code>给你写的文件的名称</li>
 <li><code>line!()</code>给你写的那行字，然后是</li>
 <li><code>module_path!()</code>给你模块的位置。</li>
 </ul>
@@ -1106,6 +1107,9 @@ fn main() {
 fn main() {
     use something::third_mod::*;
     let mut country_vec = vec![&quot;Portugal&quot;, &quot;Czechia&quot;, &quot;Finland&quot;];
+
+    // do some stuff
+    println!(&quot;Hello from file {}&quot;, file!());
 
     // do some stuff
     println!(
@@ -1129,8 +1133,9 @@ fn main() {
 }
 </code></pre></pre>
 <p>它打印的是这样的。</p>
-<pre><code class="language-text">On line 20 we got the country Finland
-The next country is Czechia on line 29 and column 9.
+<pre><code class="language-text">Hello from file src/main.rs
+On line 23 we got the country Finland
+The next country is Czechia on line 32 and column 9.
 The last country is Portugal inside the module rust_book::something::third_mod
 </code></pre>
 <p><code>cfg!</code></p>

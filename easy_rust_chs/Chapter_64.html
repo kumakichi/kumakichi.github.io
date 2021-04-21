@@ -188,7 +188,7 @@ fn main() {
   = note: expected enum `std::result::Result&lt;_, ()&gt;`
              found enum `std::result::Result&lt;_, std::num::ParseIntError&gt;`
 </code></pre>
-<p>太好了！所以我们只需要把回车改成这样。现在它能工作了:</p>
+<p>很好! 所以我们只要把返回值改成编译器说的就可以了:</p>
 <pre><pre class="playground"><code class="language-rust">use std::num::ParseIntError;
 
 fn give_number(input: &amp;str) -&gt; Result&lt;i32, ParseIntError&gt; {
@@ -200,7 +200,7 @@ fn main() {
     println!(&quot;{:?}&quot;, give_number(&quot;5&quot;));
 }
 </code></pre></pre>
-<p>第一个不能用，但是第二个可以用。</p>
+<p>现在程序可以运行了!</p>
 <pre><code class="language-text">Ok(88)
 Ok(5)
 </code></pre>
@@ -259,7 +259,7 @@ use std::io::Write;
 fn main() -&gt; std::io::Result&lt;()&gt; {
     let mut file = fs::File::create(&quot;myfilename.txt&quot;)?; // Create a file with this name.
                                                         // CAREFUL! If you have a file with this name already,
-                                                        // it will delete it and make a new one.
+                                                        // it will delete everything in it.
     file.write_all(b&quot;Let's put this in the file&quot;)?;     // Don't forget the b in front of &quot;. That's because files take bytes.
     Ok(())
 }
@@ -275,7 +275,7 @@ fn main() -&gt; std::io::Result&lt;()&gt; {
 }
 </code></pre></pre>
 <p>所以这是说 &quot;请尝试创建一个文件，然后检查是否成功。如果成功了，那就使用<code>.write_all()</code>，然后检查是否成功。&quot;</p>
-<p>而事实上，也有一个函数可以同时完成这两件事。它的名字叫<code>std::fs::write</code>。在它里面，你给它你想要的文件名，以及你想要放在里面的内容。再次强调，小心! 如果有相同的名字，它就会删除已经存在的文件。另外，它让你写一个<code>&amp;str</code>，前面不写<code>b</code>，因为这个:</p>
+<p>而事实上，也有一个函数可以同时做这两件事。它叫做<code>std::fs::write</code>。在它里面，你给它你想要的文件名，以及你想放在里面的内容。再次强调，要小心! 如果该文件已经存在，它将删除其中的所有内容。另外，它允许你写一个<code>&amp;str</code>，前面不写<code>b</code>，因为这个:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
