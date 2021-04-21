@@ -347,7 +347,7 @@ this
 work
 too?
 </code></pre>
-<p>除了<code>Args</code>中用户给出的<code>std::env</code>，还有<code>Vars</code>是系统变量。这些都是用户没有输入的程序的基本设置。你可以用<code>std::env::vars()</code>把它们都看成一个<code>(String, String)</code>。这个有非常多，比如说:</p>
+<p>除了用户给出的 <code>Args</code>，在 <code>std::env::args()</code> 中可用，还有系统变量<code>Vars</code>。这些都是用户没有输入的程序的基本设置。你可以用<code>std::env::vars()</code>把它们都看成一个<code>(String, String)</code>。这个有非常多，比如说:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     for item in std::env::vars() {
         println!(&quot;{:?}&quot;, item);
@@ -386,17 +386,16 @@ too?
 (&quot;_&quot;, &quot;/usr/bin/timeout&quot;)
 </code></pre>
 <p>所以如果你需要这些信息，<code>Vars</code>就是你想要的。</p>
-<p>最简单的方法是使用<code>env!</code>宏来获取单个<code>Var</code>。你只要把变量的名字放在里面就可以了。
-它将给你一个<code>&amp;str</code>。但如果变量是错误的，它将不会工作，所以如果你不确定，然后使用<code>option_env!</code>代替。如果我们在Playground上写这个:</p>
+<p>获得单个<code>Var'的最简单方法是使用</code>env!<code>宏。你只要给它变量的名字，它就会给你一个</code>&amp;str'的值。如果变量拼写错误或不存在，它就不起作用，所以如果你不确定，就用<code>option_env!</code>代替。如果我们在Playground上写这个:</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;{}&quot;, env!(&quot;USER&quot;));
-    println!(&quot;{}&quot;, option_env!(&quot;ROOT&quot;).unwrap_or(&quot;Didn't work&quot;));
-    println!(&quot;{}&quot;, option_env!(&quot;CARGO&quot;).unwrap_or(&quot;Didn't work&quot;));
+    println!(&quot;{}&quot;, option_env!(&quot;ROOT&quot;).unwrap_or(&quot;Can't find ROOT&quot;));
+    println!(&quot;{}&quot;, option_env!(&quot;CARGO&quot;).unwrap_or(&quot;Can't find CARGO&quot;));
 }
 </code></pre></pre>
 <p>然后我们得到输出:</p>
 <pre><code class="language-text">playground
-Didn't work
+Can't find ROOT
 /playground/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
 </code></pre>
 <p>所以<code>option_env!</code>永远是比较安全的宏。如果你真的想让程序在找不到环境变量时崩溃，那么<code>env!</code>会更好。</p>

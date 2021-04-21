@@ -202,7 +202,7 @@ fn main() {
 <p>我们可以用 <code>.unwrap()</code> 在一个选项中获取值，但要小心 <code>.unwrap()</code>。这就像拆礼物一样:也许里面有好东西，也许里面有一条愤怒的蛇。只有在你确定的情况下，你才会想要<code>.unwrap()</code>。如果你拆开一个<code>None</code>的值，程序就会崩溃。</p>
 <pre><pre class="playground"><code class="language-rust">// ⚠️
 fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -223,7 +223,7 @@ fn main() {
 </code></pre>
 <p>但我们不需要使用<code>.unwrap()</code>。我们可以使用<code>match</code>。那么我们就可以把我们有<code>Some</code>的值打印出来，如果有<code>None</code>的值就不要碰。比如说</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])
@@ -277,7 +277,7 @@ None(value) =&gt; println!(&quot;The value is {}&quot;, value),
 <p>因为<code>None</code>只是<code>None</code>。</p>
 <p>当然，还有更简单的方法来使用Option。在这段代码中，我们将使用一个叫做 <code>.is_some()</code> 的方法来告诉我们是否是 <code>Some</code>。(是的，还有一个叫做<code>.is_none()</code>的方法。)在这个更简单的方法中，我们不需要<code>handle_option()</code>了。我们也不需要选项的vec了。</p>
 <pre><pre class="playground"><code class="language-rust">fn take_fifth(value: Vec&lt;i32&gt;) -&gt; Option&lt;i32&gt; {
-    if value.len() &lt; 4 {
+    if value.len() &lt; 5 {
         None
     } else {
         Some(value[4])

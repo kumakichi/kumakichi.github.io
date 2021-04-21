@@ -226,20 +226,28 @@
 </ul>
 <p>所以Rust使用了<code>usize</code>，这样你的计算机就可以得到它能读到的最大的数字进行索引。</p>
 <p>我们再来了解一下<code>char</code>。你看到<code>char</code>总是一个字符，并且使用<code>''</code>而不是<code>&quot;&quot;</code>。</p>
-<p>所有的字符都是4个字节。它们是4个字节，因为一个字符串中的一些字符是超过一个字节的。计算机上的基本字母一直是1个字节，后来的字符是2个字节，其他的是3个字节和4个字节。<code>char</code>需要4个字节，这样才能容纳任何一种字符。</p>
+<p>所有的 <code>字符</code> 都使用4个字节的内存，因为4个字节足以容纳任何种类的字符:</p>
+<ul>
+<li>基本字母和符号通常需要4个字节中的1个：<code>a b 1 2 + - = $ @</code></li>
+<li>其他字母，如德语的 Umlauts 或重音，需要4个字节中的2个： <code>ä ö ü ß è é à ñ</code></li>
+<li>韩文、日文或中文字符需要3或4个字节： <code>国 안 녕</code></li>
+</ul>
+<p>当使用字符作为字符串的一部分时，字符串被编码以使用每个字符所需的最小内存量。</p>
 <p>我们可以用<code>.len()</code>来看一下。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    println!(&quot;{}&quot;, &quot;a&quot;.len()); // .len() gives the size in bytes
-    println!(&quot;{}&quot;, &quot;ß&quot;.len());
-    println!(&quot;{}&quot;, &quot;国&quot;.len());
-    println!(&quot;{}&quot;, &quot;𓅱&quot;.len());
+    println!(&quot;Size of a char: {}&quot;, std::mem::size_of::&lt;char&gt;()); // 4 bytes
+    println!(&quot;Size of string containing 'a': {}&quot;, &quot;a&quot;.len()); // .len() gives the size of the string in bytes
+    println!(&quot;Size of string containing 'ß': {}&quot;, &quot;ß&quot;.len());
+    println!(&quot;Size of string containing '国': {}&quot;, &quot;国&quot;.len());
+    println!(&quot;Size of string containing '𓅱': {}&quot;, &quot;𓅱&quot;.len());
 }
 </code></pre></pre>
 <p>这样打印出来。</p>
-<pre><code class="language-text">1
-2
-3
-4
+<pre><code class="language-text">Size of a char: 4
+Size of string containing 'a': 1
+Size of string containing 'ß': 2
+Size of string containing '国': 3
+Size of string containing '𓅱': 4
 </code></pre>
 <p>可以看到，<code>a</code>是一个字节，德文的<code>ß</code>是两个字节，日文的<code>国</code>是三个字节，古埃及的<code>𓅱</code>是4个字节。</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
