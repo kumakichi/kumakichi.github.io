@@ -136,13 +136,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -192,7 +194,7 @@ fn main() {
 </code></pre></pre>
 <p>这个打印:<code>They call him Papa Doc but his real name is Clarence. He is 170 cm tall and is he happy? false</code></p>
 <p>你可以看到，这是倒过来的。首先我们说<code>let papa_doc = Person { fields }</code>来创建结构。然后我们说 <code>let Person { fields } = papa_doc</code> 来解构它。</p>
-<p>你不必写<code>name: a</code>--你可以直接写<code>name</code>。但这里我们写 <code>name = a</code> 是因为我们想使用一个名字为 <code>a</code> 的变量。</p>
+<p>你不必写<code>name: a</code>--你可以直接写<code>name</code>。但这里我们写 <code>name: a</code> 是因为我们想使用一个名字为 <code>a</code> 的变量。</p>
 <p>现在再举一个更大的例子。在这个例子中，我们有一个 <code>City</code> 结构。我们给它一个<code>new</code>函数来创建它。然后我们有一个 <code>process_city_values</code> 函数来处理这些值。在函数中，我们只是创建了一个 <code>Vec</code>，但你可以想象，我们可以在解构它之后做更多的事情。</p>
 <pre><pre class="playground"><code class="language-rust">struct City {
     name: String,
