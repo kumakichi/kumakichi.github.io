@@ -1383,7 +1383,7 @@ fn adds_hungary(mut country: String) { // Here's how: adds_hungary takes the Str
 <p>还记得我们上面的员工Powerpoint和经理的情况吗？在这种情况下，就好比员工只是把自己的整台电脑交给了经理。员工不会再碰它，所以经理可以对它做任何他想做的事情。</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="拷贝类型"><a class="header" href="#拷贝类型">拷贝类型</a></h2>
 <p>Rust中的一些类型非常简单。它们被称为<strong>拷贝类型</strong>。这些简单的类型都在栈中，编译器知道它们的大小。这意味着它们非常容易复制，所以当你把它发送到一个函数时，编译器总是会复制。它总是复制，因为它们是如此的小而简单，没有理由不复制。所以你不需要担心这些类型的所有权问题。</p>
-<p>这些简单的类型包括:整数、浮点数、布尔函数(<code>true</code>和<code>false</code>)和<code>char</code>。</p>
+<p>这些简单的类型包括:整数、浮点数、布尔值(<code>true</code>和<code>false</code>)和<code>char</code>。</p>
 <p>如何知道一个类型是否<strong>实现</strong>复制？(实现 = 能够使用)你可以查看文档。例如，这里是 char 的文档:</p>
 <p><a href="https://doc.rust-lang.org/std/primitive.char.html">https://doc.rust-lang.org/std/primitive.char.html</a></p>
 <p>在左边你可以看到<strong>Trait Implementations</strong>。例如你可以看到<strong>Copy</strong>, <strong>Debug</strong>, 和 <strong>Display</strong>。所以你知道，当你把一个<code>char</code>:</p>
@@ -4924,7 +4924,7 @@ Index number 2 has number 8
 <p><code>.map()</code>现在是一个<code>Map&lt;Enumerate&lt;Iter&lt;i32&gt;&gt;&gt;</code>的类型。所以它是一个类型<code>Map</code>的类型<code>Enumerate</code>的类型<code>Iter</code>的类型<code>i32</code>。</p>
 </li>
 </ul>
-<p>我们所做的只是做了一个越来越复杂的结构。所以这个<code>Map&lt;Enumerate&lt;Iter&lt;i32&gt;&gt;&gt;</code>是一个准备好了的结构，但只有当我们告诉它要做什么的时候，它才会去做。Rust这样做是因为它需要快速。它不想这样做:</p>
+<p>我们所做的只是做了一个越来越复杂的结构。所以这个<code>Map&lt;Enumerate&lt;Iter&lt;i32&gt;&gt;&gt;</code>是一个准备好了的结构，但只有当我们告诉它要做什么的时候，它才会去做。Rust这样做是因为它需要保证足够快。它不想这样做:</p>
 <ul>
 <li>遍历Vec中所有的<code>i32</code></li>
 <li>然后从迭代器中枚举出所有的<code>i32</code></li>
@@ -6718,7 +6718,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这就打印出了<code>2</code>。而<code>new_owner</code>现在是<code>Rc&lt;String&gt;</code>。现在如果我们用<code>println!(&quot;{}&quot;, Rc::strong_count(&amp;calgary.city_history));</code>，我们得到<code>3</code>。</p>
-<p>那么，如果有强指针，是否有弱指针呢？是的，有。弱指针是有用的，因为如果两个<code>Rc</code>互相指向对方，它们就不会死。这就是所谓的 &quot;引用循环&quot;。如果第1项对第2项有一个Rc，而第2项对第1项有一个Rc，它们不能到0，在这种情况下，你要使用弱引用。那么<code>Rc</code>就会对引用进行计数，但如果只有弱引用，那么它就会死掉。你使用<code>Rc::downgrade(&amp;item)</code>而不是<code>Rc::clone(&amp;item)</code>来创建弱引用。另外，你用<code>Rc::weak_count(&amp;item)</code>来查看弱引用数。</p>
+<p>那么，如果有强指针，是否有弱指针呢？是的，有。弱指针是有用的，因为如果两个<code>Rc</code>互相指向对方，它们就不会死。这就是所谓的 &quot;引用循环&quot;。如果第1项对第2项有一个Rc，而第2项对第1项有一个Rc，它们不能到0，在这种情况下，要使用弱引用。那么<code>Rc</code>就会对引用进行计数，但如果只有弱引用，那么它就会死掉。你使用<code>Rc::downgrade(&amp;item)</code>而不是<code>Rc::clone(&amp;item)</code>来创建弱引用。另外，需要用<code>Rc::weak_count(&amp;item)</code>来查看弱引用数。</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="多线程"><a class="header" href="#多线程">多线程</a></h2>
 <p>如果你使用多个线程，你可以同时做很多事情。现代计算机有一个以上的核心，所以它们可以同时做多件事情，Rust让你使用它们。Rust使用的线程被称为 &quot;OS线程&quot;。OS线程意味着操作系统在不同的核上创建线程。(其他一些语言使用 &quot;green threads&quot;，功能较少)</p>
 <p>你用<code>std::thread::spawn</code>创建线程，然后用一个闭包来告诉它该怎么做。线程很有趣，因为它们同时运行，你可以测试它，看看会发生什么。下面是一个简单的例子。</p>
@@ -6949,7 +6949,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>一个更真实的例子，我们将再次创建一个 <code>City</code> 结构体。这次 <code>City</code> 结构体有更多关于年份和人口的数据。它有一个 <code>Vec&lt;u32&gt;</code> 来表示所有的年份，还有一个 <code>Vec&lt;u32&gt;</code> 来表示所有的人口。</p>
-<p><code>City</code>有两个函数:<code>new()</code>用于创建一个新的<code>City</code>, <code>.city_data()</code>有个闭包. 当我们使用 <code>.city_data()</code> 时，它给我们提供了年份和人口以及一个闭包，所以我们可以对数据做我们想做的事情。闭包类型是 <code>FnMut</code>，所以我们可以改变数据。它看起来像这样:</p>
+<p><code>City</code>有两个方法:<code>new()</code>用于创建一个新的<code>City</code>, <code>.city_data()</code>有个闭包参数。当我们使用 <code>.city_data()</code> 时，它给我们提供了年份和人口以及一个闭包，所以我们可以对数据做我们想做的事情。闭包类型是 <code>FnMut</code>，所以我们可以改变数据。它看起来像这样:</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct City {
     name: String,
@@ -11369,7 +11369,7 @@ I
 UNDERSTAND
 NOW
 </code></pre>
-<p>输入:<code>cargo run LOWERCASE Does this work too?</code></p>
+<p>输入:<code>cargo run lowercase Does this work too?</code></p>
 <pre><code class="language-text">does
 this
 work

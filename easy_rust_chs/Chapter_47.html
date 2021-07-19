@@ -188,7 +188,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>一个更真实的例子，我们将再次创建一个 <code>City</code> 结构体。这次 <code>City</code> 结构体有更多关于年份和人口的数据。它有一个 <code>Vec&lt;u32&gt;</code> 来表示所有的年份，还有一个 <code>Vec&lt;u32&gt;</code> 来表示所有的人口。</p>
-<p><code>City</code>有两个函数:<code>new()</code>用于创建一个新的<code>City</code>, <code>.city_data()</code>有个闭包. 当我们使用 <code>.city_data()</code> 时，它给我们提供了年份和人口以及一个闭包，所以我们可以对数据做我们想做的事情。闭包类型是 <code>FnMut</code>，所以我们可以改变数据。它看起来像这样:</p>
+<p><code>City</code>有两个方法:<code>new()</code>用于创建一个新的<code>City</code>, <code>.city_data()</code>有个闭包参数。当我们使用 <code>.city_data()</code> 时，它给我们提供了年份和人口以及一个闭包，所以我们可以对数据做我们想做的事情。闭包类型是 <code>FnMut</code>，所以我们可以改变数据。它看起来像这样:</p>
 <pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
 struct City {
     name: String,

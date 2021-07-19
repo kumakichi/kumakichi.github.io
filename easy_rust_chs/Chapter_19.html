@@ -145,7 +145,7 @@
                     <main>
                         <h2 id="拷贝类型"><a class="header" href="#拷贝类型">拷贝类型</a></h2>
 <p>Rust中的一些类型非常简单。它们被称为<strong>拷贝类型</strong>。这些简单的类型都在栈中，编译器知道它们的大小。这意味着它们非常容易复制，所以当你把它发送到一个函数时，编译器总是会复制。它总是复制，因为它们是如此的小而简单，没有理由不复制。所以你不需要担心这些类型的所有权问题。</p>
-<p>这些简单的类型包括:整数、浮点数、布尔函数(<code>true</code>和<code>false</code>)和<code>char</code>。</p>
+<p>这些简单的类型包括:整数、浮点数、布尔值(<code>true</code>和<code>false</code>)和<code>char</code>。</p>
 <p>如何知道一个类型是否<strong>实现</strong>复制？(实现 = 能够使用)你可以查看文档。例如，这里是 char 的文档:</p>
 <p><a href="https://doc.rust-lang.org/std/primitive.char.html">https://doc.rust-lang.org/std/primitive.char.html</a></p>
 <p>在左边你可以看到<strong>Trait Implementations</strong>。例如你可以看到<strong>Copy</strong>, <strong>Debug</strong>, 和 <strong>Display</strong>。所以你知道，当你把一个<code>char</code>:</p>

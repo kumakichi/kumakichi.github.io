@@ -264,7 +264,7 @@ fn main() {
 }
 </code></pre></pre>
 <p>这就打印出了<code>2</code>。而<code>new_owner</code>现在是<code>Rc&lt;String&gt;</code>。现在如果我们用<code>println!(&quot;{}&quot;, Rc::strong_count(&amp;calgary.city_history));</code>，我们得到<code>3</code>。</p>
-<p>那么，如果有强指针，是否有弱指针呢？是的，有。弱指针是有用的，因为如果两个<code>Rc</code>互相指向对方，它们就不会死。这就是所谓的 &quot;引用循环&quot;。如果第1项对第2项有一个Rc，而第2项对第1项有一个Rc，它们不能到0，在这种情况下，你要使用弱引用。那么<code>Rc</code>就会对引用进行计数，但如果只有弱引用，那么它就会死掉。你使用<code>Rc::downgrade(&amp;item)</code>而不是<code>Rc::clone(&amp;item)</code>来创建弱引用。另外，你用<code>Rc::weak_count(&amp;item)</code>来查看弱引用数。</p>
+<p>那么，如果有强指针，是否有弱指针呢？是的，有。弱指针是有用的，因为如果两个<code>Rc</code>互相指向对方，它们就不会死。这就是所谓的 &quot;引用循环&quot;。如果第1项对第2项有一个Rc，而第2项对第1项有一个Rc，它们不能到0，在这种情况下，要使用弱引用。那么<code>Rc</code>就会对引用进行计数，但如果只有弱引用，那么它就会死掉。你使用<code>Rc::downgrade(&amp;item)</code>而不是<code>Rc::clone(&amp;item)</code>来创建弱引用。另外，需要用<code>Rc::weak_count(&amp;item)</code>来查看弱引用数。</p>
 
                     </main>
 

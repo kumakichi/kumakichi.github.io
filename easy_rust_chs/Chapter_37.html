@@ -286,7 +286,7 @@ Index number 2 has number 8
 <p><code>.map()</code>现在是一个<code>Map&lt;Enumerate&lt;Iter&lt;i32&gt;&gt;&gt;</code>的类型。所以它是一个类型<code>Map</code>的类型<code>Enumerate</code>的类型<code>Iter</code>的类型<code>i32</code>。</p>
 </li>
 </ul>
-<p>我们所做的只是做了一个越来越复杂的结构。所以这个<code>Map&lt;Enumerate&lt;Iter&lt;i32&gt;&gt;&gt;</code>是一个准备好了的结构，但只有当我们告诉它要做什么的时候，它才会去做。Rust这样做是因为它需要快速。它不想这样做:</p>
+<p>我们所做的只是做了一个越来越复杂的结构。所以这个<code>Map&lt;Enumerate&lt;Iter&lt;i32&gt;&gt;&gt;</code>是一个准备好了的结构，但只有当我们告诉它要做什么的时候，它才会去做。Rust这样做是因为它需要保证足够快。它不想这样做:</p>
 <ul>
 <li>遍历Vec中所有的<code>i32</code></li>
 <li>然后从迭代器中枚举出所有的<code>i32</code></li>
