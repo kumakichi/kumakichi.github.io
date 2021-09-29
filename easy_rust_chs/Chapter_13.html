@@ -307,7 +307,7 @@ but {city3} is not in {country}.&quot;,
 <pre><code class="language-text">Seoul is in Korea and Busan is also in Korea,
 but Tokyo is not in Korea.
 </code></pre>
-<p>如果你想使用Rust，在Rust中也可以进行非常复杂的打印。下面是如何做到这一点。</p>
+<p>如果你愿意，也可以在Rust中进行非常复杂的打印。下面展示怎样做：</p>
 <p>{variable:padding alignment minimum.maximum}</p>
 <p>要理解这一点，请看</p>
 <ol>
@@ -324,7 +324,7 @@ but Tokyo is not in Korea.
     println!(&quot;{:ㅎ^11}&quot;, letter);
 }
 </code></pre></pre>
-<p>这样打印出来的结果是<code>ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ</code>。我们看看1)到5)的这个情况，就能明白编译器是怎么读的。</p>
+<p>这样打印出来的结果是<code>ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ</code>。我们看看1)到5)的这个情况，就能明白编译器是怎么解读的：</p>
 <ul>
 <li>你要不要变量名？<code>{:ㅎ^11}</code>没有变量名。<code>:</code>之前没有任何内容。</li>
 <li>你需要一个填充字符吗？<code>{:ㅎ^11}</code> 是的:ㅎ&quot;在<code>:</code>后面，有一个<code>^</code>。<code>&lt;</code>表示变量在填充字符左边，<code>&gt;</code>表示在填充字符右边，<code>^</code>表示在填充字符中间。</li>

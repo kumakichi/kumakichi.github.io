@@ -250,7 +250,7 @@ fn main() {
 }
 </code></pre></pre>
 <p><code>#[cfg()]</code>的意思是配置，告诉编译器是否运行代码。它通常是这样的:<code>#[cfg(test)]</code>。你在写测试函数的时候用这个，这样它就知道除非你在测试，否则不要运行它们。那么你可以在你的代码附近写测试，但编译器不会运行它们，除非你告诉编译器。</p>
-<p>还有一个使用<code>cfg</code>的例子是<code>#[cfg(target_os = &quot;windows&quot;)]</code>。有了它，你可以告诉编译器只在Windows，或Linux，或其他某个平台运行代码。</p>
+<p>还有一个使用<code>cfg</code>的例子是<code>#[cfg(target_os = &quot;windows&quot;)]</code>。有了它，你可以告诉编译器只在Windows，Linux或其他平台则不能运行代码。</p>
 <p><code>#![no_std]</code>是一个有趣的属性，它告诉Rust不要引入标准库。这意味着你没有<code>Vec</code>，<code>String</code>，以及标准库中的其他任何东西。你会在那些没有多少内存或空间的小型设备的代码中看到这个。</p>
 <p>你可以在<a href="https://doc.rust-lang.org/reference/attributes.html">这里</a>看到更多的属性。</p>
 

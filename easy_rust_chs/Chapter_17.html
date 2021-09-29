@@ -170,7 +170,7 @@ Second_number = triple_reference? true
 <p>因为使用<code>&amp;</code>叫做 &quot;引用&quot;，所以使用<code>*</code>叫做 &quot;<strong>de</strong>referencing&quot;。</p>
 <p>Rust有两个规则，分别是可变引用和不可变引用。它们非常重要，但也很容易记住，因为它们很有意义。</p>
 <ul>
-<li><strong>规则1</strong>。如果你只有不可变引用，你可以有任意多的引用。1个也行，3个也行，1000个也行。1个也行，3个也行，1000个也行，没问题。</li>
+<li><strong>规则1</strong>。如果你只有不可变引用，你可以有任意多的引用。1个也行，3个也行，1000个也行，没问题。</li>
 <li><strong>规则2</strong>: 如果你有一个可变引用，你只能有一个。另外，你不能同时使用一个不可变引用<strong>和</strong>一个可变引用。</li>
 </ul>
 <p>这是因为可变引用可以改变数据。如果你在其他引用读取数据时改变数据，你可能会遇到问题。</p>

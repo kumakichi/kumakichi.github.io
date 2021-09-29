@@ -220,9 +220,9 @@ Trying to print a string...
 </code></pre>
 <p><code>pub</code>对结构体、枚举、trait或模块有什么作用？<code>pub</code>对它们来说是这样的:</p>
 <ul>
-<li><code>pub</code>对于一个结构: 它使结构公开，但成员不是公开的。要想让一个成员公开，你也要为每个成员写<code>pub</code>。</li>
-<li><code>pub</code> 对于一个枚举或trait:所有的东西都变成了公共的。这是有意义的，因为traits是关于给某项赋予相同的行为。而枚举是关于元素之间的选择，你需要看到所有的元素才能选择它们。</li>
-<li><code>pub</code>对于一个模块来说:一个顶层的模块会是<code>pub</code>，因为如果它不是pub，那么根本没有人可以碰里面的任何东西。但是模块里面的模块需要使用<code>pub</code>才能成为公共的。</li>
+<li><code>pub</code>对于一个结构：它使结构公开，但成员不是公开的。要想让一个成员公开，你也要为每个成员写<code>pub</code>。</li>
+<li><code>pub</code> 对于一个枚举或trait：所有的东西都变成了公共的。这是有意义的，因为traits是给事物赋予相同的行为。而枚举是值之间的选择，你需要看到所有的枚举值才能做选择。</li>
+<li><code>pub</code>对于一个模块来说：一个顶层的模块会是<code>pub</code>，因为如果它不是pub，那么根本没有人可以使用里面的任何东西。但是模块里面的模块需要使用<code>pub</code>才能成为公共的。</li>
 </ul>
 <p>我们在<code>print_things</code>里面放一个名为<code>Billy</code>的结构体。这个结构体几乎都会是public的，但也不尽然。这个结构是公共的，所以它这样写：<code>pub struct Billy</code>。里面会有一个 <code>name</code> 和 <code>times_to_print</code>。<code>name</code>不会是公共的，因为我们只想让用户创建名为<code>&quot;Billy&quot;.to_string()</code>的结构。但是用户可以选择打印的次数，所以这将是公开的。它的是这样的:</p>
 <pre><pre class="playground"><code class="language-rust">mod print_things {
